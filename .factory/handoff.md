@@ -36,7 +36,7 @@ service worker becomes ready, and no third-party request in the demo/export
 flow. A 390 px Chromium screenshot was inspected; the calendar becomes a
 single-column chronological list and controls remain 44 px targets.
 
-Build output: JavaScript is 21.40 KB / 8.00 KB gzip, CSS is 9.82 KB / 2.85 KB
+Build output: JavaScript is 21.96 KB / 8.12 KB gzip, CSS is 9.82 KB / 2.85 KB
 gzip, and the in-app hero WebP is 71.48 KB. The static Open Graph crop is 47 KB.
 This is within the 200 KB JS, 50 KB CSS, and 300 KB image budgets.
 
