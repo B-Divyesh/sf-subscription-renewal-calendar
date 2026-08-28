@@ -70,6 +70,11 @@ Deploy `dist/` as the existing static artifact. The repository has no
 separate deployment script; the configured static deployment is triggered by
 the pushed `main` branch.
 
+Deployed with `/opt/fleet/lib/deploy-static.sh subscription-renewal-calendar dist`.
+Azure Static Web Apps deployment `6777cb23-f951-4ef7-af87-22f424435f46`
+succeeded. The production custom domain returned HTTPS 200 and matched the
+built `index.html` and JavaScript SHA-256 hashes after deployment.
+
 ## Known gaps
 
 No exchange-rate conversion is performed. Currency totals deliberately remain
