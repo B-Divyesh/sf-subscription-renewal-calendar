@@ -1,0 +1,6 @@
+{
+  "slug": "subscription-renewal-calendar",
+  "title": "Subscription Renewal Calendar",
+  "summary": "See every subscription renewal before it charges.",
+  "artifact_class": "pwa-offline"
+}
