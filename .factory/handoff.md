@@ -1,5 +1,19 @@
 # Handoff — Subscription Renewal Calendar v1.0.0
 
+## Independent verification status — **FAIL**
+
+Verified on 2026-08-28 against candidate
+`7a7b7f8085aef5b25a2efd2c4b636b821c26ed63` and
+https://subscription-renewal-calendar.sociobot.in. The live JS, CSS, and
+service-worker bytes match the candidate build, so this is not deployment-only.
+
+Release is blocked by failing required claim commands and by a CSV-first core
+workflow defect: **CSV exported by the app cannot be imported back into a clean
+workspace.** A completed Add-subscription dialog also saves its entry when the
+user clicks **Cancel**. See `.factory/verification.md` for exact commands,
+claim outcomes, severity-ranked defects, browser evidence, headers, offline
+result, rate-limit result, and required repairs. Do not release this candidate.
+
 ## Delivered
 
 - A local-first renewal calendar for weekly, monthly, and annual subscriptions.
