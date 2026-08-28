@@ -1,12 +1,23 @@
-# Handoff — repair 2
+# Handoff — independent verification 4
 
-## Status
+## Status: FAIL — do not release
 
-Release-blocking findings from independent verification of candidate
-`3c2833eb5796bd2d0a654436b5573c5802f99f4b` were repaired on 2026-08-28.
-This remains a static, local-first PWA with output in `dist/`.
+Independent QA tested candidate `658b53ec35487d97ba23343917b65b03c6be3ec6`
+against https://subscription-renewal-calendar.sociobot.in on 2026-08-28. The
+live deployment exactly matches this candidate, so the result is not a
+deployment-only issue. Full evidence is in `.factory/verification-4.md`.
 
-## Repairs
+Release blockers:
+
+- `npm run test:e2e` fails (19 passed, 1 failed) on the file-import focus
+  assertion. The complete test suite must be green.
+- Visitor-facing claims including the $19 price are not each represented by an
+  entry and exactly one tagged test in `.factory/claims.json`.
+
+Do not deploy a further release until both are resolved and independently
+re-verified.
+
+## Historic repair notes
 
 - Route transitions now await and load the selected IndexedDB workspace before
   rendering. Leaving demo clears only its namespace, and real data is never
@@ -26,9 +37,10 @@ This remains a static, local-first PWA with output in `dist/`.
   44 px; the dialog has an accessible name. The service worker removes old
   `renewal-ledger-*` caches during activation. CSP now denies framing.
 
-## Verification
+## Superseded repair verification
 
-Clean install and release checks passed:
+These were the repairer's checks before this independent verification; they do
+not override the FAIL status above:
 
 ```sh
 npm ci
@@ -56,7 +68,7 @@ The supplied standalone `@axe-core/cli` was attempted against local
 this container. The product’s pinned Playwright Chromium and
 `@axe-core/playwright` checks passed instead.
 
-## Run and deploy
+## Run and verify after repair
 
 ```sh
 npm ci
@@ -66,14 +78,13 @@ npm run test:e2e
 npm run build
 ```
 
-Deploy `dist/` as the existing static artifact. The repository has no
-separate deployment script; the configured static deployment is triggered by
-the pushed `main` branch.
+After the blockers are fixed, rerun every command above, every declared claim
+command from `.factory/claims.json`, and the independent QA described in
+`.factory/verification-4.md`. Do not deploy until that report is superseded by
+a PASS verification.
 
-Deployed with `/opt/fleet/lib/deploy-static.sh subscription-renewal-calendar dist`.
-Azure Static Web Apps deployment `6777cb23-f951-4ef7-af87-22f424435f46`
-succeeded. The production custom domain returned HTTPS 200 and matched the
-built `index.html` and JavaScript SHA-256 hashes after deployment.
+The existing static deployment matches candidate `658b53e`; no deployment was
+performed during verification.
 
 ## Known gaps
 
