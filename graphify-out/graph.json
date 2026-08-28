@@ -595,7 +595,7 @@
       "label": "serviceWorker()",
       "_callable": true,
       "_origin": "ast",
-      "community": 8,
+      "community": 7,
       "file_type": "code",
       "norm_label": "serviceworker()",
       "source_file": "vite.config.ts",
@@ -832,23 +832,23 @@
       "source_location": "L24"
     },
     {
-      "id": "playwright_config",
-      "label": "playwright.config.ts",
-      "_origin": "ast",
-      "community": 10,
-      "file_type": "code",
-      "norm_label": "playwright.config.ts",
-      "source_file": "playwright.config.ts",
-      "source_location": "L1"
-    },
-    {
       "id": "src_vite_env_d",
       "label": "vite-env.d.ts",
       "_origin": "ast",
-      "community": 11,
+      "community": 10,
       "file_type": "code",
       "norm_label": "vite-env.d.ts",
       "source_file": "src/vite-env.d.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "tests_product_e2e",
+      "label": "product.e2e.ts",
+      "_origin": "ast",
+      "community": 11,
+      "file_type": "code",
+      "norm_label": "product.e2e.ts",
+      "source_file": "tests/product.e2e.ts",
       "source_location": "L1"
     },
     {
@@ -1212,30 +1212,10 @@
       "source_location": "L4"
     },
     {
-      "id": "promises",
-      "label": "node:fs/promises",
-      "_origin": "ast",
-      "community": 7,
-      "confidence": "EXTRACTED",
-      "file_type": "code",
-      "norm_label": "node:fs/promises",
-      "source_file": "node:fs/promises"
-    },
-    {
-      "id": "tests_product_e2e",
-      "label": "product.e2e.ts",
-      "_origin": "ast",
-      "community": 7,
-      "file_type": "code",
-      "norm_label": "product.e2e.ts",
-      "source_file": "tests/product.e2e.ts",
-      "source_location": "L1"
-    },
-    {
       "id": "vite_config",
       "label": "vite.config.ts",
       "_origin": "ast",
-      "community": 8,
+      "community": 7,
       "file_type": "code",
       "norm_label": "vite.config.ts",
       "source_file": "vite.config.ts",
@@ -1245,10 +1225,20 @@
       "id": "eslint_config",
       "label": "eslint.config.js",
       "_origin": "ast",
-      "community": 9,
+      "community": 8,
       "file_type": "code",
       "norm_label": "eslint.config.js",
       "source_file": "eslint.config.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "playwright_config",
+      "label": "playwright.config.ts",
+      "_origin": "ast",
+      "community": 9,
+      "file_type": "code",
+      "norm_label": "playwright.config.ts",
+      "source_file": "playwright.config.ts",
       "source_location": "L1"
     }
   ],
@@ -3802,15 +3792,6 @@
       "weight": 1.0
     },
     {
-      "source": "tests_product_e2e",
-      "target": "promises",
-      "relation": "dynamic_import",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "tests/product.e2e.ts"
-    },
-    {
       "source": "src_domain_subscriptionscsv",
       "target": "src_domain_csvcell",
       "relation": "indirect_call",
@@ -3908,5 +3889,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "3c2833eb5796bd2d0a654436b5573c5802f99f4b"
+  "built_at_commit": "36bb449b43d85837ff0d7c5983b86f3c899bc3f2"
 }

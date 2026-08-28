@@ -126,21 +126,20 @@
       "src_main_notfound"
     ],
     "7": [
-      "promises",
-      "tests_product_e2e"
-    ],
-    "8": [
       "vite_config",
       "vite_config_serviceworker"
     ],
-    "9": [
+    "8": [
       "eslint_config"
     ],
-    "10": [
+    "9": [
       "playwright_config"
     ],
-    "11": [
+    "10": [
       "src_vite_env_d"
+    ],
+    "11": [
+      "tests_product_e2e"
     ],
     "12": [
       "tests_release_test"
@@ -183,6 +182,11 @@
       "degree": 11
     },
     {
+      "id": "src_main_persist",
+      "label": "persist()",
+      "degree": 9
+    },
+    {
       "id": "src_domain_adddays",
       "label": "addDays()",
       "degree": 9
@@ -193,13 +197,8 @@
       "degree": 9
     },
     {
-      "id": "src_main_persist",
-      "label": "persist()",
-      "degree": 9
-    },
-    {
-      "id": "package_scripts",
-      "label": "scripts",
+      "id": "src_main_start",
+      "label": "start()",
       "degree": 8
     },
     {
@@ -208,15 +207,26 @@
       "degree": 8
     },
     {
-      "id": "src_main_start",
-      "label": "start()",
+      "id": "package_scripts",
+      "label": "scripts",
       "degree": 8
     }
   ],
   "surprises": [
     {
-      "source": "appView()",
-      "target": "addDays()",
+      "source": "samplePreview()",
+      "target": "sampleSubscriptions()",
+      "source_files": [
+        "src/main.ts",
+        "src/domain.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "exportCsv()",
+      "target": "subscriptionsCsv()",
       "source_files": [
         "src/main.ts",
         "src/domain.ts"
@@ -227,28 +237,6 @@
     },
     {
       "source": "exportIcs()",
-      "target": "addDays()",
-      "source_files": [
-        "src/main.ts",
-        "src/domain.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "bridges separate communities"
-    },
-    {
-      "source": "samplePreview()",
-      "target": "addDays()",
-      "source_files": [
-        "src/main.ts",
-        "src/domain.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "bridges separate communities"
-    },
-    {
-      "source": "subscriptionRows()",
       "target": "addDays()",
       "source_files": [
         "src/main.ts",
@@ -261,6 +249,17 @@
     {
       "source": "exportIcs()",
       "target": "allOccurrences()",
+      "source_files": [
+        "src/main.ts",
+        "src/domain.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "exportIcs()",
+      "target": "icsReminders()",
       "source_files": [
         "src/main.ts",
         "src/domain.ts"
