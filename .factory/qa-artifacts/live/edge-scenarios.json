@@ -1,0 +1,54 @@
+{
+  "demoOverwrite": {
+    "directDemo": {
+      "sample": 10,
+      "real": 0
+    },
+    "immediately": {
+      "sample": 10,
+      "real": 0
+    },
+    "afterSaveReload": {
+      "sample": 10,
+      "real": 0,
+      "newItem": 3
+    },
+    "errors": []
+  },
+  "demoDiscardClaim": {
+    "editStillPresent": 3
+  },
+  "invalidCurrency": {
+    "afterImport": {
+      "body": "Skip to content\nRENEWAL\nLEDGER™\nDemo\nCalendar\nPrivacy\n\nYOUR RENEWAL BOARD\n\nYour next 60 days of renewals\n\nEvery occurrence is shown, including weekly charges in the same month.\n\n$0.00\nscheduled in 60 days\n0\nowners named\nAdd subscription\nImport CSV\nExport ICS reminders\nExport CSV\nEncrypted backup\nRenewal calendar\nFri, Aug 28 to Tue, Oct 27\nNo subscriptions yet\n\nYour upcoming charges will appear here after you add a subscription or import a CSV.\n\nAdd your first subscription\nSubscriptions\n0 tracked",
+      "errors": [
+        "Invalid currency code : NOT-A-CURRENCY"
+      ]
+    },
+    "afterReload": {
+      "appHtmlLength": 0,
+      "body": "Skip to content",
+      "errors": [
+        "Invalid currency code : NOT-A-CURRENCY"
+      ]
+    }
+  },
+  "mixedCurrency": {
+    "summary": "$60.00\nscheduled in 60 days\n1\nowners named",
+    "rows": "Fri, Aug 28\ntoday\nUSD Tool\n\nReview Fri, Aug 21 · Owner: Rae\n\n$10.00\nREVIEW\nFri, Aug 28\ntoday\nEUR Tool\n\nReview Fri, Aug 21 · Owner: Rae\n\n€20.00\nREVIEW\nMon, Sep 28\nin 31 days\nUSD Tool\n\nReview Mon, Sep 21 · Owner: Rae\n\n$10.00\nREVIEW\nMon, Sep 28\nin 31 days\nEUR Tool\n\nReview Mon, Sep 21 · Owner: Rae\n\n€20.00\nREVIEW"
+  },
+  "icsEscaping": {
+    "summaryLine": "SUMMARY:Review Vendor, Inc; Plan before $10.00 renewal",
+    "descriptionLine": "DESCRIPTION:Owner: Rae; Ops. Renewal date: 2026-08-28. Decision: review.",
+    "escapedComma": false,
+    "escapedSemicolon": false
+  },
+  "invalidLicense": {
+    "responses": [
+      200
+    ],
+    "notice": "This license is not active. Check the token or buy Pro.",
+    "forecast": "12-month forecast\n\n$130.00 scheduled across the next year.",
+    "storedToken": "definitely-invalid-qa-token"
+  }
+}

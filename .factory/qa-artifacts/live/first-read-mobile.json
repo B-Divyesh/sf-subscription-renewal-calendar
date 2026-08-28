@@ -1,0 +1,49 @@
+{
+  "status": 200,
+  "title": "Subscription Renewal Calendar — see renewals",
+  "url": "https://subscription-renewal-calendar.sociobot.in/",
+  "visibleText": "Skip to content\nRENEWAL\nLEDGER™\nDemo\nPrivacy\n\nOFFLINE RENEWAL CONTROL\n\nSee renewals before they charge.\n\nFor small teams that need a cost, owner, and decision before every recurring charge.\n\nTry it with sample data\nLoads a working 60-day calendar.\nRuns on this device\nExports calendar reminders\n$19 once for Pro forecasts\nGenerated original art. Your entries stay on your device.\n\nTHE DECISION LIST\n\nA date without an owner is not a plan.\nOffice cleaner\nFri, Aug 28\n$85.00\nOpenAI API\nWed, Sep 2\n$185.00\nLinear\nThu, Sep 3\n$96.00\nOffice cleaner\nFri, Sep 4\n$85.00\nHow the renewal calendar works\nImport your list.\nBring a CSV, or add the first charge by hand.\nName an owner.\nAdd a review date before each charge.\nDecide in time.\nExport reminders or mark it keep, review, or cancel.\nWhat this does not do\n\nIt does not connect to your bank, move money, or send your subscriptions elsewhere. You control the exports and can delete everything.\n\nOPTIONAL ONE-TIME UPGRADE\n\nPlan farther ahead with Pro.\n\nPro costs $19 once. It adds a 12-month forecast and annual cost view. Core tracking, CSV, ICS, encrypted backups, and deletion stay free.\n\nBuy Pro for $19 Restore a license in the calendar\n\nLocal renewal dates, with a human attached.\n\nPrivacy · Terms · Built by Param Factory · v1.0.0",
+  "firstViewport": [
+    "™",
+    "Demo",
+    "Privacy",
+    "OFFLINE RENEWAL CONTROL",
+    "See renewals before they charge.",
+    "For small teams that need a cost, owner, and decision before every recurring charge.",
+    "Try it with sample data",
+    "Loads a working 60-day calendar.",
+    "Runs on this device",
+    "Exports calendar reminders",
+    "$19 once for Pro forecasts"
+  ],
+  "h1": [
+    "See renewals before they charge."
+  ],
+  "buttons": [
+    {
+      "text": "RENEWALLEDGER™",
+      "tag": "A",
+      "href": "https://subscription-renewal-calendar.sociobot.in/",
+      "top": 18
+    },
+    {
+      "text": "Demo",
+      "tag": "A",
+      "href": "https://subscription-renewal-calendar.sociobot.in/demo",
+      "top": 18
+    },
+    {
+      "text": "Privacy",
+      "tag": "A",
+      "href": "https://subscription-renewal-calendar.sociobot.in/privacy",
+      "top": 18
+    },
+    {
+      "text": "Try it with sample data",
+      "tag": "A",
+      "href": "https://subscription-renewal-calendar.sociobot.in/demo",
+      "top": 439
+    }
+  ],
+  "errors": []
+}

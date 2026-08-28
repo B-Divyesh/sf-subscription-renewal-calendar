@@ -1,0 +1,24 @@
+{
+  "firstClick": {
+    "url": "https://subscription-renewal-calendar.sociobot.in/demo",
+    "banner": "Demo\n— sample data, nothing is saved.\nReset demo\nStart for real",
+    "sampleCount": 0,
+    "empty": 1,
+    "errors": []
+  },
+  "crossNamespace": {
+    "demoAfterSpa": {
+      "url": "https://subscription-renewal-calendar.sociobot.in/demo",
+      "banner": "Demo\n— sample data, nothing is saved.\nReset demo\nStart for real",
+      "realVisible": 3,
+      "sampleVisible": 0
+    },
+    "afterStart": {
+      "url": "https://subscription-renewal-calendar.sociobot.in/app",
+      "bannerCount": 0,
+      "realVisible": 3,
+      "sampleVisible": 0
+    },
+    "errors": []
+  }
+}

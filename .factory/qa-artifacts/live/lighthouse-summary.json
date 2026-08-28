@@ -1,0 +1,12 @@
+{
+  "tool": "Lighthouse 12.6.0 mobile defaults",
+  "url": "https://subscription-renewal-calendar.sociobot.in/",
+  "runs": [
+    { "performance": 88, "accessibility": 100, "bestPractices": 100, "lcpMs": 1347.864, "tbtMs": 470, "cls": 0, "speedIndexMs": 1768.108 },
+    { "performance": 94, "accessibility": 100, "bestPractices": 100, "lcpMs": 1261.542, "tbtMs": 292, "cls": 0, "speedIndexMs": 1007.019 },
+    { "performance": 95, "accessibility": 100, "bestPractices": 100, "lcpMs": 1328.412, "tbtMs": 268, "cls": 0, "speedIndexMs": 820.412 }
+  ],
+  "medianPerformance": 94,
+  "medianLcpMs": 1328.412,
+  "initialTransferKiB": 84
+}

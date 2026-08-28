@@ -1,0 +1,13 @@
+HTTP/2 200
+content-type: text/css
+date: Fri, 28 Aug 2026 15:36:13 GMT
+cache-control: public, max-age=31536000, immutable
+etag: "02960187"
+last-modified: Fri, 28 Aug 2026 14:59:47 GMT
+content-length: 10276
+strict-transport-security: max-age=10886400; includeSubDomains; preload
+referrer-policy: strict-origin-when-cross-origin
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-dns-prefetch-control: off
+content-security-policy: default-src 'self'; connect-src 'self' https://api.sociobot.in; img-src 'self' blob:; style-src 'self'; script-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.sociobot.in

@@ -1,44 +1,40 @@
-# Handoff — Subscription Renewal Calendar repair
+# Handoff — independent verification 2
 
 ## Status
 
-All release-blocking findings in verifier report commit
-`72f18e4d7467e64f7e03c3dbde389526a2b0e0a2` for candidate
-`7a7b7f8085aef5b25a2efd2c4b636b821c26ed63` are repaired. The researched
-scope, neo-brutalist visual system, local-first storage, demo isolation,
-recurrence behavior, free tools, and Sociobot license path remain intact.
-Repair commit `ce80f5e` is deployed at
-https://subscription-renewal-calendar.sociobot.in.
+**FAIL — do not release candidate
+`3c2833eb5796bd2d0a654436b5573c5802f99f4b`.**
 
-## Repairs
+Tested on 2026-08-28 at
+https://subscription-renewal-calendar.sociobot.in. The deployed HTML, JS, CSS,
+service worker, and manifest are byte-identical to a fresh candidate build, so
+these are candidate defects rather than a deployment-only failure.
 
-- Replaced line splitting with one RFC 4180 parser/serializer. CSV now
-  round-trips commas, escaped quotes, and embedded line breaks exactly.
-- Gave Cancel and close dedicated non-submit paths. Cancel, close, and Escape
-  dismiss without mutation, restore focus, and remain absent after reload.
-- Corrected every `.factory/claims.json` command and removed the duplicate ICS
-  tag. Eight listed claims now each have exactly one executable tagged test.
-  CSV round-trip and encrypted-backup claims cover the previously unlisted UI
-  and README promises.
-- Added strict pre-storage validation for real `YYYY-MM-DD` dates,
-  non-negative whole-number review days, known decisions, amounts,
-  frequencies, names, and owners. Errors identify the failing row and field.
-- Changed production assets to content-hashed names and generate the service
-  worker from the built bundle. Its cache name uses a content fingerprint,
-  full responses are precached, `Vary: Origin` cannot break offline asset
-  lookup, navigations check the network first, and upgrades show a reload
-  notice. The manifest start version is bumped.
-- Replaced catch-all SPA fallback with explicit real routes. Unknown URLs now
-  use the styled `404.html` and retain HTTP 404. Hashed assets receive
-  immutable caching; `sw.js` receives `no-cache`.
-- Added ESLint and upgraded Vite/Vitest to remove all five reported dependency
-  advisories. Playwright is pinned to `1.58.2`.
-- Increased small link and delete targets to at least 44 by 44 CSS pixels and
-  removed tab stops from non-interactive occurrence rows.
+Full evidence and reproductions are in `.factory/verification-2.md` and
+`.factory/qa-artifacts/`.
 
-## Verification evidence — 2026-08-28
+## Release blockers
 
-Clean repository gates:
+- The first-screen **Try it with sample data** action opens an empty demo.
+- SPA navigation can show real records in demo mode. **Start for real** keeps
+  demo records in memory; the next save can overwrite the real database and
+  delete existing real records.
+- An invalid CSV currency is persisted, throws during rendering, and leaves
+  the app blank after reload with no in-product recovery.
+- Any non-empty license token unlocks Pro even after the server says it is
+  invalid.
+- Mixed currencies are added together and labeled as the first currency.
+- Existing records cannot be edited, so owners, review timing, cost, and
+  keep/review/cancel decisions cannot be updated. Rising-cost and chosen-
+  threshold workflows from the brief are absent.
+- Material landing/privacy/README promises are missing from the claims
+  registry; at least one, demo data discarded on leaving, is false.
+
+Additional defects: ICS text is not escaped; Import CSV has no visible keyboard
+focus; the modal has no accessible name; dialog controls miss 44 px target
+sizes; old service-worker caches are not removed.
+
+## What passed
 
 ```sh
 npm ci
@@ -50,73 +46,28 @@ npm run build
 npm run test:e2e
 ```
 
-- `npm ci`: passed from `package-lock.json`; audit reports 0 vulnerabilities.
-- TypeScript and ESLint: passed with no findings.
-- Vitest: 2 files, 13 tests passed.
-- Playwright Chromium: 11 tests passed. This includes the CSV export/delete/
-  import/re-export path, all dialog dismiss paths, invalid import recovery,
-  IndexedDB persistence, update notice, offline reload, privacy interception,
-  desktop semantics, keyboard focus, reduced motion, and 390 px layout.
-- Every command in `.factory/claims.json` was also run individually from the
-  final tree: all 8 commands passed and each selected exactly one tagged test.
-- Axe 4.10.2 ran in Chromium on `/`, `/demo`, `/app`, `/privacy`, `/terms`,
-  and `/404.html`: 0 serious or critical violations. Route checks found one
-  `h1`, one `main`, `lang=en`, named controls, and no console/page errors.
-- The factory `verify-url.sh` passed locally: HTTP 200, title present,
-  `lang=en`, one `h1`, a main landmark, 0 missing image alts, 0 unnamed
-  buttons, and 0 console errors. Desktop and 390 px captures were inspected.
-- Static Web Apps CLI 2.0.10 served `/`, `/demo`, `/app`, `/privacy`, and
-  `/terms` as 200 and `/missing` as a styled 404. It returned
-  `Cache-Control: public, max-age=31536000, immutable` for hashed assets and
-  `Cache-Control: no-cache` for `sw.js`, plus the configured CSP,
-  `nosniff`, and referrer policy.
-- Local Lighthouse 12.6 mobile: performance 100, accessibility 100, best practices
-  100; LCP 1.7 s, CLS 0, total blocking time 0 ms, speed index 0.9 s.
-- Production bundle: JS 23.88 KB / 8.75 KB gzip; CSS 10.27 KB / 2.95 KB gzip;
-  hero WebP 71.48 KB. All are below the product budgets.
+- All eight declared claim commands passed individually; each selected one
+  tagged test.
+- Audit reported 0 vulnerabilities; typecheck and lint passed; 13 unit tests
+  and 11 browser tests passed; production build produced `dist/`.
+- Live direct `/demo` offline reload passed. The manifest had no Chromium
+  errors, route semantics were sound, and supported routes had no console
+  errors.
+- Axe reported 0 violations on all routes and the open modal. Manual keyboard,
+  accessible-name, and touch-target defects remain as listed above.
+- Three live Lighthouse mobile runs scored 88/94/95 performance (median 94),
+  100 accessibility, and 100 best practices; median LCP was 1.33 s and CLS 0.
+- JS 23.88 KB, CSS 10.27 KB, and hero WebP 71.48 KB are within budget.
+- Billing rate limiting began on request 31 after 30 rapid 200 responses; the
+  429 included `Retry-After: 4`.
 
-## Run and verify
+## Re-run
 
 ```sh
 npm ci
 npm run typecheck && npm run lint && npm test
 npm run build && npm run test:e2e
-npm run preview -- --host 127.0.0.1
 ```
 
-Demo URL: `/demo`. Demo storage is
-`renewal-ledger:demo:subscriptions`; real storage is
-`renewal-ledger:real:subscriptions`.
-
-## Deployment and live evidence
-
-- Azure Static Web Apps deployment
-  `b48f5e58-4669-4f41-8efa-92e2b0b9d8dc` completed successfully in `centralus`.
-  The custom domain returned HTTPS 200 immediately after deployment.
-- Live and local bytes match exactly: `index.html`
-  `9e40c2bd88450b99c08b655187c8e4a36a61fbe6b95c336ca435b451764d0f38`,
-  JS `5a137d149410c4a16ce5c5fc343d793ad66e164e271550a3b81549a77e77ae51`,
-  CSS `b3d39088561b63c5d1bcda0cd79f7b040ad68a1c6ce22b888b9d4d384ee248fa`,
-  and service worker
-  `f98f0df720f26b2deaefa1a9c003924fc96e96100538cce97b8d7265c23c7ff1`.
-- Live `/`, `/demo`, `/app`, `/privacy`, and `/terms` return 200. Live
-  `/missing` returns the styled page with HTTP 404. Hashed JS is immutable,
-  `sw.js` is `no-cache`, and CSP, HSTS, `nosniff`, and strict-origin referrer
-  headers are present.
-- A fresh live Chromium run found one `main`, one `h1`, `lang=en`, the correct
-  title, and zero serious/critical axe findings on every route including the
-  404. It found no app console errors or foreign-origin requests. Live demo
-  reload passed offline; the 390 px view had no overflow and every visible
-  interactive target was at least 44 by 44 CSS pixels.
-- The live factory `verify-url.sh` check passed with zero console errors,
-  missing alts, or unnamed buttons. Live Lighthouse scored performance 100,
-  accessibility 100, and best practices 100; LCP 1.3 s, CLS 0, total blocking
-  time 10 ms, and speed index 0.9 s.
-- A live invalid-license request returned HTTP 200 with
-  `{"expires_at":null,"reason":"invalid","valid":false}` and the expected
-  CORS origin for the product, confirming the configured Sociobot response
-  path without spending or changing license state.
-
-There are no known release-blocking product gaps. Encrypted backup remains
-export-only in this v1; CSV is the supported import and round-trip recovery
-format.
+Then reproduce the browser failures from `.factory/verification-2.md` against
+the deployed candidate. No product code was changed during verification.

@@ -1,0 +1,67 @@
+{
+  "beforeOffline": {
+    "controller": true,
+    "caches": [
+      "renewal-ledger-826cf3df6685"
+    ],
+    "entries": {
+      "renewal-ledger-826cf3df6685": [
+        "/",
+        "/demo",
+        "/app",
+        "/privacy",
+        "/terms",
+        "/index.html",
+        "/manifest.webmanifest",
+        "/favicon.svg",
+        "/icons/icon-192.svg",
+        "/icons/icon-512.svg",
+        "/assets/index-DQ9EVf-R.js",
+        "/assets/index-CNq0T8v_.css",
+        "/assets/renewal-board-DYLupGEF.webp"
+      ]
+    }
+  },
+  "offline": {
+    "heading": 1,
+    "sample": 10,
+    "url": "https://subscription-renewal-calendar.sociobot.in/demo"
+  },
+  "manifest": {
+    "url": "https://subscription-renewal-calendar.sociobot.in/manifest.webmanifest",
+    "errors": [],
+    "data": {
+      "name": "Subscription Renewal Calendar",
+      "short_name": "Renewal Ledger",
+      "start_url": "/?v=2",
+      "display": "standalone",
+      "background_color": "#f6f1e7",
+      "theme_color": "#f5d547",
+      "icons": [
+        {
+          "src": "/icons/icon-192.svg",
+          "sizes": "192x192",
+          "type": "image/svg+xml",
+          "purpose": "any maskable"
+        },
+        {
+          "src": "/icons/icon-512.svg",
+          "sizes": "512x512",
+          "type": "image/svg+xml",
+          "purpose": "any maskable"
+        }
+      ]
+    }
+  },
+  "rolloverSetup": {
+    "current": "renewal-ledger-826cf3df6685",
+    "cacheOrder": [
+      "renewal-ledger-000000000000",
+      "renewal-ledger-826cf3df6685"
+    ]
+  },
+  "rolloverOffline": {
+    "body": "Skip to content\nRENEWAL\nLEDGER™\nDemo\nCalendar\nPrivacy\nDemo\n— sample data, nothing is saved.\nReset demo\nStart for real\n\nSAMPLE WORKSPACE\n\nYour next 60 days of renewals\n\nEvery occurrence is shown, including weekly charges in the same month.\n\n$3,535.00\nscheduled in 60 days\n3\nowners named\nAdd subscription\nImport CSV\nExport ICS reminders\nExport CSV\nEncrypted backup\nReview today\n\nOpenAI API ($185.00), AWS ($410.00). Their review date has arrived.\n\nRenewal calendar\nFri, Aug 28 to Tue, Oct 27\nFri, Aug 28\ntoday\nOffice cleaner\n\nReview Tue, Aug 25 · Owner: Maya\n\n$85.00\nKEEP\nWed, Sep 2\nin 5 days\nOpenAI API\n\nReview Wed, Aug 26 · Owner: Jules\n\n$185.00\nREVIEW\nThu, Sep 3\nin 6 days\nLinear\n\nReview Mon, Aug 24 · Owner: Maya\n\n$96.00\nKEEP\nFri, Sep 4\nin 7 days\nOffice cleaner\n\nReview Tue, Sep 1 · Owner: Maya\n\n$85.00\nKEEP\nTue, Sep 8\nin 11 days\nAWS\n\nReview Tue, Aug 25 · Owner: Nia\n\n$410.00\nREVIEW\nFri, Sep 11\nin 14 days\nOffice cleaner\n\nReview Tue, Sep 8 · Owner: Maya\n\n$85.00\nKEEP\nMon, Sep 14\nin 17 days\nPostHog\n\nReview Mon, Sep 7 · Owner: Nia\n\n$74.00\nCANCEL\nFri, Sep 18\nin 21 days\nOffice cleaner\n\nReview Tue, Sep 15 · Owner: Maya\n\n$85.00\nKEEP\nFri, Sep 25\nin 28 days\nOffice cleaner\n\nReview Tue, Sep 22 · Owner: Maya\n\n$85.00\nKEEP\nFri, Oct 2\nin 35 days\nOffice cleaner\n\nReview Tue, Sep 29 · Owner: Maya\n\n$85.00\nKEEP\nFri, Oct 2\nin 35 days\nOpenAI API\n\nReview Fri, Sep 25 · Owner: Jules\n\n$185.00\nREVIEW\nSat, Oct 3\nin 36 days\nLinear\n\nReview Wed, Sep 23 · Owner: Maya\n\n$96.00\nKEEP\nThu, Oct 8\nin 41 days\nAWS\n\nReview Thu, Sep 24 · Owner: Nia\n\n$410.00\nREVIEW\nFri, Oct 9\nin 42 days\nOffice cleaner\n\nReview Tue, Oct 6 · Owner: Maya\n\n$85.00\nKEEP\nSun, Oct 11\nin 44 days\nBusiness insurance\n\nReview Sun, Sep 20 · Owner: Jules\n\n$1,240.00\nREVIEW\nWed, Oct 14\nin 47 days\nPostHog\n\nReview Wed, Oct 7 · Owner: Nia\n\n$74.00\nCANCEL\nFri, Oct 16\nin 49 days\nOffice cleaner\n\nReview Tue, Oct 13 · Owner: Maya\n\n$85.00\nKEEP\nFri, Oct 23\nin 56 days\nOffice cleaner\n\nReview Tue, Oct 20 · Owner: Maya\n\n$85.00\nKEEP\nSubscriptions\n6 tracked\nAWS\n\n$410.00 · monthly · next cycle from Tue, Sep 8\n\nOwner: Nia · review 14 days early · review\n\n×\nOffice cleaner\n\n$85.00 · weekly · next cycle from Fri, Aug 28\n\nOwner: Maya · review 3 days early · keep\n\n×\nBusiness insurance\n\n$1,240.00 · annual · next cycle from Sun, Oct 11\n\nOwner: Jules · review 21 days early · review\n\n×\nLinear\n\n$96.00 · monthly · next cycle from Mon, Aug 3\n\nOwner: Maya · review 10 days early · keep\n\n×\nOpenAI API\n\n$185.00 · monthly · next cycle from Wed, Sep 2\n\nOwner: Jules · review 7 days early · review\n\n×\nPostHog\n\n$74.00 · monthly · next cycle from Mon, Sep 14\n\nOwner: Nia · review 7 days early · cancel\n\n×\n12-month forecast\n\nPro adds a year-ahead total for planning.\n\nBuy Pro for $19\nPro license\n\nUse a paid license to show the 12-month forecast. The free calendar remains available.\n\nLicense token\nVerify license\nBuy Pro for $19\n\nLocal renewal dates, with a human attached.\n\nPrivacy · Terms · Built by Param Factory · v1.0.0",
+    "staleHeading": 0
+  }
+}

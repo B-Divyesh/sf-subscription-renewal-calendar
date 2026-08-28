@@ -1,0 +1,28 @@
+
+> subscription-renewal-calendar@1.0.0 test:e2e
+> playwright test
+
+[2m[WebServer] [22m(node:1993) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:2023) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 11 tests using 1 worker
+
+(node:2040) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:2040) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 tests/product.e2e.ts:4:1 › @claim:demo-isolated opens a separate sample workspace (546ms)
+  ✓   2 tests/product.e2e.ts:11:1 › @claim:ics-export downloads usable reminders for the sample (584ms)
+  ✓   3 tests/product.e2e.ts:20:1 › @claim:csv-roundtrip exports and imports commas and quotes without data loss (1.0s)
+  ✓   4 tests/product.e2e.ts:49:1 › Cancel, close, and Escape dismiss without saving and restore focus (853ms)
+  ✓   5 tests/product.e2e.ts:68:1 › invalid dates and decisions show row-specific errors without persistence (509ms)
+  ✓   6 tests/product.e2e.ts:79:1 › @claim:encrypted-backup downloads ciphertext without plaintext subscription data (506ms)
+  ✓   7 tests/product.e2e.ts:92:1 › @claim:offline-reload keeps the demo calendar available after first visit (497ms)
+  ✓   8 tests/product.e2e.ts:107:1 › @claim:private-data sends no demo data to another origin (482ms)
+  ✓   9 tests/product.e2e.ts:115:1 › announces an installed app update and offers a reload action (488ms)
+  ✓  10 tests/product.e2e.ts:125:1 › desktop routes have clean semantics, console output, and automated accessibility (5.4s)
+  ✓  11 tests/product.e2e.ts:141:1 › 390px mobile layout has no horizontal overflow and keeps primary controls usable (458ms)
+
+  11 passed (18.8s)

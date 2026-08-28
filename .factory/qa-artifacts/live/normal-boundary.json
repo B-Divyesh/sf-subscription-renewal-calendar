@@ -1,0 +1,44 @@
+{
+  "normalBoundaryRecovery": {
+    "persisted": 3,
+    "zeroShown": true,
+    "negative": {
+      "dialogOpen": 1,
+      "validation": {
+        "name": "Please fill out this field.",
+        "amount": "Value must be greater than or equal to 0.",
+        "owner": "Please fill out this field."
+      }
+    },
+    "badNotice": "Use headings: name, amount, frequency, starts_on, owner.",
+    "recoveryNotice": "Use headings: name, amount, frequency, starts_on, owner.",
+    "deleted": 0,
+    "restored": 1
+  },
+  "encryption": {
+    "fields": [
+      "version",
+      "salt",
+      "iv",
+      "data"
+    ],
+    "subscriptionCount": 6,
+    "first": "Linear",
+    "plaintextAbsentFromFile": true
+  },
+  "openDialogAxe": [],
+  "dialogAccessibleName": {
+    "ariaLabel": null,
+    "ariaLabelledby": null
+  },
+  "historyFocus": {
+    "afterNav": {
+      "url": "/privacy",
+      "active": "Privacy that stays on your device."
+    },
+    "afterBack": {
+      "url": "/",
+      "active": "See renewals before they charge."
+    }
+  }
+}

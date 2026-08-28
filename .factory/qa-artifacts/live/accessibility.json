@@ -1,0 +1,651 @@
+{
+  "routes": [
+    {
+      "path": "/",
+      "status": 200,
+      "title": "Subscription Renewal Calendar — see renewals",
+      "lang": "en",
+      "h1": [
+        "See renewals before they charge."
+      ],
+      "main": 1,
+      "missingAlt": 0,
+      "unnamedButtons": 0,
+      "overflow": 0,
+      "headings": [
+        {
+          "level": 1,
+          "text": "See renewals before they charge."
+        },
+        {
+          "level": 2,
+          "text": "A date without an owner is not a plan."
+        },
+        {
+          "level": 2,
+          "text": "How the renewal calendar works"
+        },
+        {
+          "level": 2,
+          "text": "What this does not do"
+        },
+        {
+          "level": 2,
+          "text": "Plan farther ahead with Pro."
+        }
+      ],
+      "axeSeriousCritical": [],
+      "allAxe": [],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "origins": [
+        "https://subscription-renewal-calendar.sociobot.in"
+      ]
+    },
+    {
+      "path": "/demo",
+      "status": 200,
+      "title": "Demo — Subscription Renewal Calendar",
+      "lang": "en",
+      "h1": [
+        "Your next 60 days of renewals"
+      ],
+      "main": 1,
+      "missingAlt": 0,
+      "unnamedButtons": 0,
+      "overflow": 0,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Your next 60 days of renewals"
+        },
+        {
+          "level": 2,
+          "text": "Review today"
+        },
+        {
+          "level": 2,
+          "text": "Renewal calendar"
+        },
+        {
+          "level": 3,
+          "text": "Office cleaner"
+        },
+        {
+          "level": 3,
+          "text": "OpenAI API"
+        },
+        {
+          "level": 3,
+          "text": "Linear"
+        },
+        {
+          "level": 3,
+          "text": "Office cleaner"
+        },
+        {
+          "level": 3,
+          "text": "AWS"
+        },
+        {
+          "level": 3,
+          "text": "Office cleaner"
+        },
+        {
+          "level": 3,
+          "text": "PostHog"
+        },
+        {
+          "level": 3,
+          "text": "Office cleaner"
+        },
+        {
+          "level": 3,
+          "text": "Office cleaner"
+        },
+        {
+          "level": 3,
+          "text": "OpenAI API"
+        },
+        {
+          "level": 3,
+          "text": "Office cleaner"
+        },
+        {
+          "level": 3,
+          "text": "Linear"
+        },
+        {
+          "level": 3,
+          "text": "AWS"
+        },
+        {
+          "level": 3,
+          "text": "Office cleaner"
+        },
+        {
+          "level": 3,
+          "text": "Business insurance"
+        },
+        {
+          "level": 3,
+          "text": "PostHog"
+        },
+        {
+          "level": 3,
+          "text": "Office cleaner"
+        },
+        {
+          "level": 3,
+          "text": "Office cleaner"
+        },
+        {
+          "level": 2,
+          "text": "Subscriptions"
+        },
+        {
+          "level": 3,
+          "text": "Linear"
+        },
+        {
+          "level": 3,
+          "text": "OpenAI API"
+        },
+        {
+          "level": 3,
+          "text": "AWS"
+        },
+        {
+          "level": 3,
+          "text": "PostHog"
+        },
+        {
+          "level": 3,
+          "text": "Office cleaner"
+        },
+        {
+          "level": 3,
+          "text": "Business insurance"
+        },
+        {
+          "level": 3,
+          "text": "12-month forecast"
+        },
+        {
+          "level": 2,
+          "text": "Pro license"
+        }
+      ],
+      "axeSeriousCritical": [],
+      "allAxe": [],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "origins": [
+        "https://subscription-renewal-calendar.sociobot.in"
+      ]
+    },
+    {
+      "path": "/app",
+      "status": 200,
+      "title": "Calendar — Subscription Renewal Calendar",
+      "lang": "en",
+      "h1": [
+        "Your next 60 days of renewals"
+      ],
+      "main": 1,
+      "missingAlt": 0,
+      "unnamedButtons": 0,
+      "overflow": 0,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Your next 60 days of renewals"
+        },
+        {
+          "level": 2,
+          "text": "Renewal calendar"
+        },
+        {
+          "level": 3,
+          "text": "No subscriptions yet"
+        },
+        {
+          "level": 2,
+          "text": "Subscriptions"
+        },
+        {
+          "level": 2,
+          "text": "Pro license"
+        }
+      ],
+      "axeSeriousCritical": [],
+      "allAxe": [],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "origins": [
+        "https://subscription-renewal-calendar.sociobot.in"
+      ]
+    },
+    {
+      "path": "/privacy",
+      "status": 200,
+      "title": "Privacy — Subscription Renewal Calendar",
+      "lang": "en",
+      "h1": [
+        "Privacy that stays on your device."
+      ],
+      "main": 1,
+      "missingAlt": 0,
+      "unnamedButtons": 0,
+      "overflow": 0,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Privacy that stays on your device."
+        },
+        {
+          "level": 2,
+          "text": "Exports and backups"
+        },
+        {
+          "level": 2,
+          "text": "Deletion"
+        }
+      ],
+      "axeSeriousCritical": [],
+      "allAxe": [],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "origins": [
+        "https://subscription-renewal-calendar.sociobot.in"
+      ]
+    },
+    {
+      "path": "/terms",
+      "status": 200,
+      "title": "Terms — Subscription Renewal Calendar",
+      "lang": "en",
+      "h1": [
+        "Terms for Subscription Renewal Calendar."
+      ],
+      "main": 1,
+      "missingAlt": 0,
+      "unnamedButtons": 0,
+      "overflow": 0,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Terms for Subscription Renewal Calendar."
+        },
+        {
+          "level": 2,
+          "text": "Your responsibility"
+        },
+        {
+          "level": 2,
+          "text": "Pro purchase"
+        }
+      ],
+      "axeSeriousCritical": [],
+      "allAxe": [],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "origins": [
+        "https://subscription-renewal-calendar.sociobot.in"
+      ]
+    },
+    {
+      "path": "/missing",
+      "status": 404,
+      "title": "Page not found — Subscription Renewal Calendar",
+      "lang": "en",
+      "h1": [
+        "This page is not on the board."
+      ],
+      "main": 1,
+      "missingAlt": 0,
+      "unnamedButtons": 0,
+      "overflow": 0,
+      "headings": [
+        {
+          "level": 1,
+          "text": "This page is not on the board."
+        }
+      ],
+      "axeSeriousCritical": [],
+      "allAxe": [],
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 ()"
+      ],
+      "pageErrors": [],
+      "origins": [
+        "https://subscription-renewal-calendar.sociobot.in"
+      ]
+    }
+  ],
+  "keyboard": {
+    "tabSequence": [
+      {
+        "tag": "A",
+        "id": "",
+        "text": "Skip to content",
+        "aria": null,
+        "opacity": "1",
+        "outline": "4px solid rgb(232, 91, 69)",
+        "rect": {
+          "w": 131.5625,
+          "h": 44,
+          "x": 8,
+          "y": 8
+        }
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "text": "RENEWALLEDGER™",
+        "aria": null,
+        "opacity": "1",
+        "outline": "4px solid rgb(232, 91, 69)",
+        "rect": {
+          "w": 111.484375,
+          "h": 44,
+          "x": 28,
+          "y": 18
+        }
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "text": "Demo",
+        "aria": null,
+        "opacity": "1",
+        "outline": "4px solid rgb(232, 91, 69)",
+        "rect": {
+          "w": 44.453125,
+          "h": 44,
+          "x": 1042.140625,
+          "y": 18
+        }
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "text": "Calendar",
+        "aria": null,
+        "opacity": "1",
+        "outline": "4px solid rgb(232, 91, 69)",
+        "rect": {
+          "w": 68.46875,
+          "h": 44,
+          "x": 1106.59375,
+          "y": 18
+        }
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "text": "Privacy",
+        "aria": null,
+        "opacity": "1",
+        "outline": "4px solid rgb(232, 91, 69)",
+        "rect": {
+          "w": 56.9375,
+          "h": 44,
+          "x": 1195.0625,
+          "y": 18
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "id": "add-subscription",
+        "text": "Add subscription",
+        "aria": null,
+        "opacity": "1",
+        "outline": "4px solid rgb(232, 91, 69)",
+        "rect": {
+          "w": 163.5625,
+          "h": 48,
+          "x": 28,
+          "y": 439.25
+        }
+      },
+      {
+        "tag": "INPUT",
+        "id": "csv-input",
+        "text": "",
+        "aria": null,
+        "opacity": "0",
+        "outline": "4px solid rgb(232, 91, 69)",
+        "rect": {
+          "w": 1,
+          "h": 1,
+          "x": 262.625,
+          "y": 462.75
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "id": "export-ics",
+        "text": "Export ICS reminders",
+        "aria": null,
+        "opacity": "1",
+        "outline": "4px solid rgb(232, 91, 69)",
+        "rect": {
+          "w": 195.609375,
+          "h": 48,
+          "x": 334.6875,
+          "y": 439.25
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "id": "export-csv",
+        "text": "Export CSV",
+        "aria": null,
+        "opacity": "1",
+        "outline": "4px solid rgb(232, 91, 69)",
+        "rect": {
+          "w": 120.015625,
+          "h": 48,
+          "x": 542.296875,
+          "y": 439.25
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "id": "backup",
+        "text": "Encrypted backup",
+        "aria": null,
+        "opacity": "1",
+        "outline": "4px solid rgb(232, 91, 69)",
+        "rect": {
+          "w": 170.703125,
+          "h": 48,
+          "x": 674.3125,
+          "y": 439.25
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "id": "empty-add",
+        "text": "Add your first subscription",
+        "aria": null,
+        "opacity": "1",
+        "outline": "4px solid rgb(232, 91, 69)",
+        "rect": {
+          "w": 237.34375,
+          "h": 48,
+          "x": 521.328125,
+          "y": 758.75
+        }
+      },
+      {
+        "tag": "INPUT",
+        "id": "license-token",
+        "text": "",
+        "aria": null,
+        "opacity": "1",
+        "outline": "4px solid rgb(232, 91, 69)",
+        "rect": {
+          "w": 420,
+          "h": 48,
+          "x": 28,
+          "y": 628.25
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "text": "Verify license",
+        "aria": null,
+        "opacity": "1",
+        "outline": "4px solid rgb(232, 91, 69)",
+        "rect": {
+          "w": 134.296875,
+          "h": 48,
+          "x": 458,
+          "y": 628.25
+        }
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "text": "Buy Pro for $19",
+        "aria": null,
+        "opacity": "1",
+        "outline": "4px solid rgb(232, 91, 69)",
+        "rect": {
+          "w": 111.171875,
+          "h": 44,
+          "x": 28,
+          "y": 688.25
+        }
+      }
+    ],
+    "dialogInitialFocus": {
+      "tag": "BUTTON",
+      "name": null,
+      "aria": "Close"
+    },
+    "dialogSmallTargets": [
+      {
+        "name": "Close",
+        "w": 36,
+        "h": 36
+      },
+      {
+        "name": "name",
+        "w": 349.5,
+        "h": 42
+      },
+      {
+        "name": "amount",
+        "w": 349.5,
+        "h": 42
+      },
+      {
+        "name": "currency",
+        "w": 349.5,
+        "h": 42
+      },
+      {
+        "name": "frequency",
+        "w": 349.5,
+        "h": 42
+      },
+      {
+        "name": "startsOn",
+        "w": 349.5,
+        "h": 42
+      },
+      {
+        "name": "owner",
+        "w": 349.5,
+        "h": 42
+      },
+      {
+        "name": "reviewDays",
+        "w": 349.5,
+        "h": 42
+      },
+      {
+        "name": "decision",
+        "w": 349.5,
+        "h": 42
+      },
+      {
+        "name": "note",
+        "w": 712,
+        "h": 42
+      }
+    ],
+    "focusRestored": true
+  },
+  "mobile": {
+    "overflow": 0,
+    "smallTargets": [
+      {
+        "tag": "INPUT",
+        "text": "",
+        "id": "csv-input",
+        "w": 1,
+        "h": 1,
+        "opacity": "0"
+      }
+    ],
+    "transition": "0s",
+    "dialogOverflow": 0,
+    "dialogSmallTargets": [
+      {
+        "name": "Close",
+        "w": 34.09375,
+        "h": 36
+      },
+      {
+        "name": "name",
+        "w": 310,
+        "h": 42
+      },
+      {
+        "name": "amount",
+        "w": 310,
+        "h": 42
+      },
+      {
+        "name": "currency",
+        "w": 310,
+        "h": 42
+      },
+      {
+        "name": "frequency",
+        "w": 310,
+        "h": 42
+      },
+      {
+        "name": "startsOn",
+        "w": 310,
+        "h": 42
+      },
+      {
+        "name": "owner",
+        "w": 310,
+        "h": 42
+      },
+      {
+        "name": "reviewDays",
+        "w": 310,
+        "h": 42
+      },
+      {
+        "name": "decision",
+        "w": 310,
+        "h": 42
+      },
+      {
+        "name": "note",
+        "w": 310,
+        "h": 42
+      }
+    ]
+  }
+}
