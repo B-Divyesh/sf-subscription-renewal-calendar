@@ -1,0 +1,44 @@
+[
+  {
+    "id": "weekly-occurrences",
+    "claim": "Shows every weekly renewal in the same month",
+    "where": "calendar heading",
+    "test": "npm test -- --grep @claim:weekly-occurrences",
+    "sandbox": "deterministic sample weekly subscription; assert all September 2026 dates"
+  },
+  {
+    "id": "demo-isolated",
+    "claim": "Demo sample data is not saved with your real data",
+    "where": "demo banner",
+    "test": "npm run test:e2e -- --grep @claim:demo-isolated",
+    "sandbox": "fresh browser; enter ?demo=1 and assert the separate demo workspace"
+  },
+  {
+    "id": "offline-reload",
+    "claim": "The demo stays available offline after the first visit",
+    "where": "demo documentation",
+    "test": "npm run test:e2e -- --grep @claim:offline-reload",
+    "sandbox": "fresh browser; visit demo, wait for service worker, set offline, reload"
+  },
+  {
+    "id": "private-data",
+    "claim": "Demo data does not leave this device",
+    "where": "landing art caption, privacy page",
+    "test": "npm run test:e2e -- --grep @claim:private-data",
+    "sandbox": "fresh browser; inspect every request while opening demo and exporting CSV"
+  },
+  {
+    "id": "ics-export",
+    "claim": "Exports calendar reminders",
+    "where": "calendar toolbar",
+    "test": "npm test -- --grep @claim:ics-export",
+    "sandbox": "sample weekly subscription; assert an ICS event for each visible occurrence"
+  },
+  {
+    "id": "sixty-day-window",
+    "claim": "Loads a working 60-day calendar",
+    "where": "landing action helper",
+    "test": "npm test -- --grep @claim:sixty-day-window",
+    "sandbox": "deterministic weekly subscription; assert the inclusive 60-day occurrence set"
+  }
+]

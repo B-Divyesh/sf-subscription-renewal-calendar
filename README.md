@@ -1,14 +1,50 @@
 # Subscription Renewal Calendar
 
-Live: https://subscription-renewal-calendar.sociobot.in — built by the Param Factory (`pwa-offline`).
+See subscription renewals before they charge.
 
-See `.factory/brief.json` for the researched problem this solves and `.factory/design.md` for the visual system.
+Renewal Ledger is for small teams that pay for SaaS and operating subscriptions.
+It keeps the amount, owner, review date, and keep-or-cancel decision together.
+Data stays in the browser on the device that creates it.
 
-## Develop
+## Use it
 
+Open `/demo` or add `?demo=1` to load a separate sample workspace. It includes
+monthly software, a weekly cleaner, and an annual insurance renewal. The banner
+can reset the sample or start a blank real workspace.
+
+Add subscriptions one at a time, or import a CSV with these headings:
+
+```csv
+name,amount,currency,frequency,starts_on,owner,review_days,decision,note
+AWS,410,USD,monthly,2026-09-08,Nia,14,review,Check last month’s cost
 ```
+
+`frequency` must be `weekly`, `monthly`, or `annual`. Dates use `YYYY-MM-DD`.
+The calendar shows each weekly occurrence, even when several land in one month.
+Use **Export ICS reminders** for review-date calendar events, **Export CSV** for
+a spreadsheet copy, and **Encrypted backup** for a password-protected JSON file.
+
+## Privacy and Pro
+
+Subscriptions are stored in IndexedDB. There are no bank connections, trackers,
+or runtime third-party scripts. See `/privacy` and `/terms` for details.
+
+The free calendar includes local tracking, CSV import/export, ICS reminders,
+encrypted backup, and deletion. Pro is a $19 one-time license for the 12-month
+forecast. Checkout and license verification use the Sociobot billing endpoint.
+
+## Develop, test, and deploy
+
+```sh
 npm install
 npm run dev
 npm test
-npm run build   # -> dist/
+npm run build
 ```
+
+`npm run build` writes the static deploy artifact to `dist/`, with `index.html`
+at its root. Serve `dist/` to test the service worker and installable PWA.
+
+## License
+
+MIT. See [LICENSE](LICENSE).

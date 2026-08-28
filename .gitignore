@@ -1,6 +1,5 @@
 node_modules/
 dist/
-.env
-*.log
-graphify-out/
-.DS_Store
+tsconfig.tsbuildinfo
+playwright-report/
+test-results/
