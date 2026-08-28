@@ -1,31 +1,6 @@
 {
   "communities": {
     "0": [
-      "src_domain_decision",
-      "src_domain_frequency",
-      "src_domain_samplesubscriptions",
-      "src_main",
-      "src_main_bind",
-      "src_main_deletesubscription",
-      "src_main_demobanner",
-      "src_main_download",
-      "src_main_encryptedbackup",
-      "src_main_exportcsv",
-      "src_main_importcsv",
-      "src_main_items",
-      "src_main_navigate",
-      "src_main_parsecsv",
-      "src_main_persist",
-      "src_main_reconcilestoredlicense",
-      "src_main_render",
-      "src_main_showadddialog",
-      "src_main_space",
-      "src_main_start",
-      "src_main_today",
-      "src_main_undodelete",
-      "src_main_verifylicense"
-    ],
-    "1": [
       "package",
       "package_devdependencies",
       "package_devdependencies_playwright",
@@ -49,6 +24,29 @@
       "vite",
       "vitest"
     ],
+    "1": [
+      "src_domain_decision",
+      "src_domain_frequency",
+      "src_domain_money",
+      "src_main",
+      "src_main_appview",
+      "src_main_demobanner",
+      "src_main_emptystate",
+      "src_main_esc",
+      "src_main_fmtdate",
+      "src_main_footer",
+      "src_main_header",
+      "src_main_items",
+      "src_main_landing",
+      "src_main_legal",
+      "src_main_notfound",
+      "src_main_occurrencerows",
+      "src_main_parsecsv",
+      "src_main_relative",
+      "src_main_samplepreview",
+      "src_main_subscriptionrows",
+      "src_main_today"
+    ],
     "2": [
       "ref_dom",
       "ref_dom_iterable",
@@ -70,6 +68,24 @@
       "tsconfig_include"
     ],
     "3": [
+      "src_domain_samplesubscriptions",
+      "src_main_bind",
+      "src_main_deletesubscription",
+      "src_main_download",
+      "src_main_encryptedbackup",
+      "src_main_exportcsv",
+      "src_main_importcsv",
+      "src_main_navigate",
+      "src_main_persist",
+      "src_main_reconcilestoredlicense",
+      "src_main_render",
+      "src_main_showadddialog",
+      "src_main_space",
+      "src_main_start",
+      "src_main_undodelete",
+      "src_main_verifylicense"
+    ],
+    "4": [
       "src_domain",
       "src_domain_adddays",
       "src_domain_alloccurrences",
@@ -84,61 +100,42 @@
       "tests_domain_test",
       "tests_domain_test_weekly"
     ],
-    "4": [
-      "src_domain_money",
-      "src_main_appview",
-      "src_main_emptystate",
-      "src_main_esc",
-      "src_main_fmtdate",
-      "src_main_occurrencerows",
-      "src_main_relative",
-      "src_main_samplepreview",
-      "src_main_subscriptionrows"
-    ],
     "5": [
-      "src_main_footer",
-      "src_main_header",
-      "src_main_landing",
-      "src_main_legal",
-      "src_main_notfound"
-    ],
-    "6": [
       "src_storage",
       "src_storage_clearsubscriptions",
       "src_storage_open",
       "src_storage_readsubscriptions",
       "src_storage_savesubscriptions"
     ],
-    "7": [
+    "6": [
       "public_sw",
       "public_sw_shell"
     ],
-    "8": [
+    "7": [
       "playwright_config"
     ],
-    "9": [
+    "8": [
       "src_vite_env_d"
     ],
-    "10": [
+    "9": [
       "tests_product_e2e"
     ],
-    "11": [
+    "10": [
       "vite_config"
     ]
   },
   "cohesion": {
-    "0": 0.21739130434782608,
-    "1": 0.09090909090909091,
+    "0": 0.09090909090909091,
+    "1": 0.21904761904761905,
     "2": 0.1111111111111111,
-    "3": 0.34615384615384615,
-    "4": 0.4444444444444444,
-    "5": 0.6,
-    "6": 0.5,
+    "3": 0.26666666666666666,
+    "4": 0.34615384615384615,
+    "5": 0.5,
+    "6": 1.0,
     "7": 1.0,
     "8": 1.0,
     "9": 1.0,
-    "10": 1.0,
-    "11": 1.0
+    "10": 1.0
   },
   "gods": [
     {
@@ -162,6 +159,11 @@
       "degree": 11
     },
     {
+      "id": "src_main_persist",
+      "label": "persist()",
+      "degree": 9
+    },
+    {
       "id": "src_domain_adddays",
       "label": "addDays()",
       "degree": 9
@@ -172,18 +174,13 @@
       "degree": 9
     },
     {
-      "id": "src_main_persist",
-      "label": "persist()",
-      "degree": 9
-    },
-    {
       "id": "src_main_samplepreview",
       "label": "samplePreview()",
       "degree": 8
     },
     {
-      "id": "src_domain_money",
-      "label": "money()",
+      "id": "src_main_start",
+      "label": "start()",
       "degree": 7
     },
     {
@@ -194,52 +191,52 @@
   ],
   "surprises": [
     {
+      "source": "samplePreview()",
+      "target": "sampleSubscriptions()",
+      "source_files": [
+        "src/main.ts",
+        "src/domain.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "bind()",
+      "target": "clearSubscriptions()",
+      "source_files": [
+        "src/main.ts",
+        "src/storage.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "persist()",
+      "target": "saveSubscriptions()",
+      "source_files": [
+        "src/main.ts",
+        "src/storage.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "start()",
+      "target": "readSubscriptions()",
+      "source_files": [
+        "src/main.ts",
+        "src/storage.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
       "source": "appView()",
       "target": "addDays()",
-      "source_files": [
-        "src/main.ts",
-        "src/domain.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "bridges separate communities"
-    },
-    {
-      "source": "samplePreview()",
-      "target": "addDays()",
-      "source_files": [
-        "src/main.ts",
-        "src/domain.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "bridges separate communities"
-    },
-    {
-      "source": "subscriptionRows()",
-      "target": "addDays()",
-      "source_files": [
-        "src/main.ts",
-        "src/domain.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "bridges separate communities"
-    },
-    {
-      "source": "appView()",
-      "target": "allOccurrences()",
-      "source_files": [
-        "src/main.ts",
-        "src/domain.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "bridges separate communities"
-    },
-    {
-      "source": "samplePreview()",
-      "target": "allOccurrences()",
       "source_files": [
         "src/main.ts",
         "src/domain.ts"
