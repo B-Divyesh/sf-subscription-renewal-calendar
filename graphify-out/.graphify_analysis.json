@@ -1,53 +1,75 @@
 {
   "communities": {
     "0": [
-      "package",
+      "src_domain_samplesubscriptions",
+      "src_main",
+      "src_main_bind",
+      "src_main_deletesubscription",
+      "src_main_download",
+      "src_main_encryptedbackup",
+      "src_main_exportcsv",
+      "src_main_exportics",
+      "src_main_importcsv",
+      "src_main_items",
+      "src_main_navigate",
+      "src_main_persist",
+      "src_main_reconcilestoredlicense",
+      "src_main_render",
+      "src_main_showadddialog",
+      "src_main_showupdatenotice",
+      "src_main_space",
+      "src_main_start",
+      "src_main_today",
+      "src_main_undodelete",
+      "src_main_verifylicense",
+      "src_storage",
+      "src_storage_clearsubscriptions",
+      "src_storage_open",
+      "src_storage_readsubscriptions",
+      "src_storage_savesubscriptions"
+    ],
+    "1": [
+      "axe_core_playwright",
+      "eslint",
+      "eslint_js",
       "package_devdependencies",
+      "package_devdependencies_axe_core_playwright",
+      "package_devdependencies_eslint",
+      "package_devdependencies_eslint_js",
       "package_devdependencies_playwright",
       "package_devdependencies_types_node",
       "package_devdependencies_typescript",
+      "package_devdependencies_typescript_eslint",
       "package_devdependencies_vite",
       "package_devdependencies_vitest",
-      "package_name",
-      "package_private",
-      "package_scripts",
-      "package_scripts_build",
-      "package_scripts_dev",
-      "package_scripts_preview",
-      "package_scripts_test",
-      "package_scripts_test_e2e",
-      "package_type",
-      "package_version",
       "playwright",
       "types_node",
       "typescript",
+      "typescript_eslint",
       "vite",
       "vitest"
     ],
-    "1": [
+    "2": [
+      "docref_rfc_4180",
+      "src_domain",
+      "src_domain_adddays",
+      "src_domain_csvcell",
+      "src_domain_daystring",
       "src_domain_decision",
       "src_domain_frequency",
-      "src_domain_money",
-      "src_main",
-      "src_main_appview",
-      "src_main_demobanner",
-      "src_main_emptystate",
-      "src_main_esc",
-      "src_main_fmtdate",
-      "src_main_footer",
-      "src_main_header",
-      "src_main_items",
-      "src_main_landing",
-      "src_main_legal",
-      "src_main_notfound",
-      "src_main_occurrencerows",
-      "src_main_parsecsv",
-      "src_main_relative",
-      "src_main_samplepreview",
-      "src_main_subscriptionrows",
-      "src_main_today"
+      "src_domain_isvalidday",
+      "src_domain_monthdate",
+      "src_domain_occurrence",
+      "src_domain_occurrencesfor",
+      "src_domain_parsecsvrecords",
+      "src_domain_parseday",
+      "src_domain_parsesubscriptionscsv",
+      "src_domain_subscription",
+      "src_domain_subscriptionscsv",
+      "tests_domain_test",
+      "tests_domain_test_weekly"
     ],
-    "2": [
+    "3": [
       "ref_dom",
       "ref_dom_iterable",
       "ref_es2022",
@@ -67,75 +89,77 @@
       "tsconfig_compileroptions_verbatimmodulesyntax",
       "tsconfig_include"
     ],
-    "3": [
-      "src_domain_samplesubscriptions",
-      "src_main_bind",
-      "src_main_deletesubscription",
-      "src_main_download",
-      "src_main_encryptedbackup",
-      "src_main_exportcsv",
-      "src_main_importcsv",
-      "src_main_navigate",
-      "src_main_persist",
-      "src_main_reconcilestoredlicense",
-      "src_main_render",
-      "src_main_showadddialog",
-      "src_main_space",
-      "src_main_start",
-      "src_main_undodelete",
-      "src_main_verifylicense"
-    ],
     "4": [
-      "src_domain",
-      "src_domain_adddays",
-      "src_domain_alloccurrences",
-      "src_domain_daystring",
-      "src_domain_icsreminders",
-      "src_domain_monthdate",
-      "src_domain_occurrence",
-      "src_domain_occurrencesfor",
-      "src_domain_parseday",
-      "src_domain_subscription",
-      "src_main_exportics",
-      "tests_domain_test",
-      "tests_domain_test_weekly"
+      "package",
+      "package_name",
+      "package_private",
+      "package_scripts",
+      "package_scripts_build",
+      "package_scripts_dev",
+      "package_scripts_lint",
+      "package_scripts_preview",
+      "package_scripts_test",
+      "package_scripts_test_e2e",
+      "package_scripts_typecheck",
+      "package_type",
+      "package_version"
     ],
     "5": [
-      "src_storage",
-      "src_storage_clearsubscriptions",
-      "src_storage_open",
-      "src_storage_readsubscriptions",
-      "src_storage_savesubscriptions"
+      "src_domain_alloccurrences",
+      "src_domain_icsreminders",
+      "src_domain_money",
+      "src_main_appview",
+      "src_main_demobanner",
+      "src_main_emptystate",
+      "src_main_esc",
+      "src_main_fmtdate",
+      "src_main_occurrencerows",
+      "src_main_relative",
+      "src_main_samplepreview",
+      "src_main_subscriptionrows"
     ],
     "6": [
-      "public_sw",
-      "public_sw_shell"
+      "src_main_footer",
+      "src_main_header",
+      "src_main_landing",
+      "src_main_legal",
+      "src_main_notfound"
     ],
     "7": [
-      "playwright_config"
-    ],
-    "8": [
-      "src_vite_env_d"
-    ],
-    "9": [
+      "promises",
       "tests_product_e2e"
     ],
+    "8": [
+      "vite_config",
+      "vite_config_serviceworker"
+    ],
+    "9": [
+      "eslint_config"
+    ],
     "10": [
-      "vite_config"
+      "playwright_config"
+    ],
+    "11": [
+      "src_vite_env_d"
+    ],
+    "12": [
+      "tests_release_test"
     ]
   },
   "cohesion": {
-    "0": 0.09090909090909091,
-    "1": 0.21904761904761905,
-    "2": 0.1111111111111111,
-    "3": 0.26666666666666666,
-    "4": 0.34615384615384615,
-    "5": 0.5,
-    "6": 1.0,
+    "0": 0.20923076923076922,
+    "1": 0.10526315789473684,
+    "2": 0.21568627450980393,
+    "3": 0.1111111111111111,
+    "4": 0.15384615384615385,
+    "5": 0.3333333333333333,
+    "6": 0.6,
     "7": 1.0,
     "8": 1.0,
     "9": 1.0,
-    "10": 1.0
+    "10": 1.0,
+    "11": 1.0,
+    "12": 1.0
   },
   "gods": [
     {
@@ -159,11 +183,6 @@
       "degree": 11
     },
     {
-      "id": "src_main_persist",
-      "label": "persist()",
-      "degree": 9
-    },
-    {
       "id": "src_domain_adddays",
       "label": "addDays()",
       "degree": 9
@@ -174,6 +193,16 @@
       "degree": 9
     },
     {
+      "id": "src_main_persist",
+      "label": "persist()",
+      "degree": 9
+    },
+    {
+      "id": "package_scripts",
+      "label": "scripts",
+      "degree": 8
+    },
+    {
       "id": "src_main_samplepreview",
       "label": "samplePreview()",
       "degree": 8
@@ -181,18 +210,13 @@
     {
       "id": "src_main_start",
       "label": "start()",
-      "degree": 7
-    },
-    {
-      "id": "src_domain_occurrencesfor",
-      "label": "occurrencesFor()",
-      "degree": 7
+      "degree": 8
     }
   ],
   "surprises": [
     {
-      "source": "samplePreview()",
-      "target": "sampleSubscriptions()",
+      "source": "appView()",
+      "target": "addDays()",
       "source_files": [
         "src/main.ts",
         "src/domain.ts"
@@ -202,41 +226,41 @@
       "why": "bridges separate communities"
     },
     {
-      "source": "bind()",
-      "target": "clearSubscriptions()",
-      "source_files": [
-        "src/main.ts",
-        "src/storage.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "bridges separate communities"
-    },
-    {
-      "source": "persist()",
-      "target": "saveSubscriptions()",
-      "source_files": [
-        "src/main.ts",
-        "src/storage.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "bridges separate communities"
-    },
-    {
-      "source": "start()",
-      "target": "readSubscriptions()",
-      "source_files": [
-        "src/main.ts",
-        "src/storage.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "bridges separate communities"
-    },
-    {
-      "source": "appView()",
+      "source": "exportIcs()",
       "target": "addDays()",
+      "source_files": [
+        "src/main.ts",
+        "src/domain.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "samplePreview()",
+      "target": "addDays()",
+      "source_files": [
+        "src/main.ts",
+        "src/domain.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "subscriptionRows()",
+      "target": "addDays()",
+      "source_files": [
+        "src/main.ts",
+        "src/domain.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "exportIcs()",
+      "target": "allOccurrences()",
       "source_files": [
         "src/main.ts",
         "src/domain.ts"
