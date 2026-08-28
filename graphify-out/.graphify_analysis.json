@@ -1,27 +1,28 @@
 {
   "communities": {
     "0": [
+      "src_domain_decision",
+      "src_domain_frequency",
       "src_domain_samplesubscriptions",
+      "src_domain_supportedcurrencies",
       "src_main",
-      "src_main_bind",
-      "src_main_deletesubscription",
-      "src_main_download",
-      "src_main_encryptedbackup",
-      "src_main_exportcsv",
-      "src_main_exportics",
-      "src_main_importcsv",
+      "src_main_demobanner",
       "src_main_items",
-      "src_main_navigate",
-      "src_main_persist",
+      "src_main_loadworkspace",
+      "src_main_readthreshold",
       "src_main_reconcilestoredlicense",
-      "src_main_render",
-      "src_main_showadddialog",
+      "src_main_requestverification",
+      "src_main_setverdict",
       "src_main_showupdatenotice",
       "src_main_space",
       "src_main_start",
+      "src_main_threshold",
+      "src_main_thresholdkey",
       "src_main_today",
-      "src_main_undodelete",
+      "src_main_transition",
+      "src_main_usable",
       "src_main_verifylicense",
+      "src_main_writethreshold",
       "src_storage",
       "src_storage_clearsubscriptions",
       "src_storage_open",
@@ -29,6 +30,29 @@
       "src_storage_savesubscriptions"
     ],
     "1": [
+      "docref_rfc_4180",
+      "src_domain",
+      "src_domain_adddays",
+      "src_domain_alloccurrences",
+      "src_domain_csvcell",
+      "src_domain_currency",
+      "src_domain_daystring",
+      "src_domain_icsreminders",
+      "src_domain_issupportedcurrency",
+      "src_domain_isvalidday",
+      "src_domain_monthdate",
+      "src_domain_occurrence",
+      "src_domain_occurrencesfor",
+      "src_domain_parsecsvrecords",
+      "src_domain_parseday",
+      "src_domain_parsesubscriptionscsv",
+      "src_domain_subscription",
+      "src_domain_subscriptionscsv",
+      "src_domain_totalsbycurrency",
+      "tests_domain_test",
+      "tests_domain_test_weekly"
+    ],
+    "2": [
       "axe_core_playwright",
       "eslint",
       "eslint_js",
@@ -48,26 +72,6 @@
       "typescript_eslint",
       "vite",
       "vitest"
-    ],
-    "2": [
-      "docref_rfc_4180",
-      "src_domain",
-      "src_domain_adddays",
-      "src_domain_csvcell",
-      "src_domain_daystring",
-      "src_domain_decision",
-      "src_domain_frequency",
-      "src_domain_isvalidday",
-      "src_domain_monthdate",
-      "src_domain_occurrence",
-      "src_domain_occurrencesfor",
-      "src_domain_parsecsvrecords",
-      "src_domain_parseday",
-      "src_domain_parsesubscriptionscsv",
-      "src_domain_subscription",
-      "src_domain_subscriptionscsv",
-      "tests_domain_test",
-      "tests_domain_test_weekly"
     ],
     "3": [
       "ref_dom",
@@ -105,76 +109,93 @@
       "package_version"
     ],
     "5": [
-      "src_domain_alloccurrences",
-      "src_domain_icsreminders",
+      "src_main_bind",
+      "src_main_deleteall",
+      "src_main_deletesubscription",
+      "src_main_download",
+      "src_main_encryptedbackup",
+      "src_main_exportcsv",
+      "src_main_exportics",
+      "src_main_importcsv",
+      "src_main_persist",
+      "src_main_render",
+      "src_main_savethreshold",
+      "src_main_showsubscriptiondialog",
+      "src_main_undodelete"
+    ],
+    "6": [
       "src_domain_money",
       "src_main_appview",
-      "src_main_demobanner",
+      "src_main_costchange",
       "src_main_emptystate",
       "src_main_esc",
       "src_main_fmtdate",
       "src_main_occurrencerows",
       "src_main_relative",
       "src_main_samplepreview",
-      "src_main_subscriptionrows"
+      "src_main_subscriptionrows",
+      "src_main_totallines",
+      "src_main_validverdict"
     ],
-    "6": [
+    "7": [
       "src_main_footer",
       "src_main_header",
       "src_main_landing",
       "src_main_legal",
       "src_main_notfound"
     ],
-    "7": [
+    "8": [
+      "promises",
+      "tests_product_e2e"
+    ],
+    "9": [
       "vite_config",
       "vite_config_serviceworker"
     ],
-    "8": [
+    "10": [
       "eslint_config"
     ],
-    "9": [
+    "11": [
       "playwright_config"
     ],
-    "10": [
+    "12": [
       "src_vite_env_d"
     ],
-    "11": [
-      "tests_product_e2e"
-    ],
-    "12": [
+    "13": [
       "tests_release_test"
     ]
   },
   "cohesion": {
-    "0": 0.20923076923076922,
-    "1": 0.10526315789473684,
-    "2": 0.21568627450980393,
+    "0": 0.1339031339031339,
+    "1": 0.2,
+    "2": 0.10526315789473684,
     "3": 0.1111111111111111,
     "4": 0.15384615384615385,
-    "5": 0.3333333333333333,
-    "6": 0.6,
-    "7": 1.0,
+    "5": 0.358974358974359,
+    "6": 0.3484848484848485,
+    "7": 0.6,
     "8": 1.0,
     "9": 1.0,
     "10": 1.0,
     "11": 1.0,
-    "12": 1.0
+    "12": 1.0,
+    "13": 1.0
   },
   "gods": [
     {
       "id": "src_main_render",
       "label": "render()",
-      "degree": 17
-    },
-    {
-      "id": "src_main_bind",
-      "label": "bind()",
-      "degree": 14
+      "degree": 18
     },
     {
       "id": "src_main_appview",
       "label": "appView()",
-      "degree": 13
+      "degree": 15
+    },
+    {
+      "id": "src_main_bind",
+      "label": "bind()",
+      "degree": 15
     },
     {
       "id": "tsconfig_compileroptions",
@@ -182,9 +203,19 @@
       "degree": 11
     },
     {
+      "id": "src_domain_money",
+      "label": "money()",
+      "degree": 11
+    },
+    {
+      "id": "src_main_subscriptionrows",
+      "label": "subscriptionRows()",
+      "degree": 10
+    },
+    {
       "id": "src_main_persist",
       "label": "persist()",
-      "degree": 9
+      "degree": 10
     },
     {
       "id": "src_domain_adddays",
@@ -197,25 +228,26 @@
       "degree": 9
     },
     {
-      "id": "src_main_start",
-      "label": "start()",
-      "degree": 8
-    },
-    {
-      "id": "src_main_samplepreview",
-      "label": "samplePreview()",
-      "degree": 8
-    },
-    {
-      "id": "package_scripts",
-      "label": "scripts",
-      "degree": 8
+      "id": "src_main_loadworkspace",
+      "label": "loadWorkspace()",
+      "degree": 9
     }
   ],
   "surprises": [
     {
-      "source": "samplePreview()",
-      "target": "sampleSubscriptions()",
+      "source": "persist()",
+      "target": "saveSubscriptions()",
+      "source_files": [
+        "src/main.ts",
+        "src/storage.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "readThreshold()",
+      "target": "isSupportedCurrency()",
       "source_files": [
         "src/main.ts",
         "src/domain.ts"
@@ -225,8 +257,8 @@
       "why": "bridges separate communities"
     },
     {
-      "source": "exportCsv()",
-      "target": "subscriptionsCsv()",
+      "source": "saveThreshold()",
+      "target": "isSupportedCurrency()",
       "source_files": [
         "src/main.ts",
         "src/domain.ts"
@@ -236,30 +268,19 @@
       "why": "bridges separate communities"
     },
     {
-      "source": "exportIcs()",
+      "source": "usable()",
+      "target": "isSupportedCurrency()",
+      "source_files": [
+        "src/main.ts",
+        "src/domain.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "appView()",
       "target": "addDays()",
-      "source_files": [
-        "src/main.ts",
-        "src/domain.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "bridges separate communities"
-    },
-    {
-      "source": "exportIcs()",
-      "target": "allOccurrences()",
-      "source_files": [
-        "src/main.ts",
-        "src/domain.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "bridges separate communities"
-    },
-    {
-      "source": "exportIcs()",
-      "target": "icsReminders()",
       "source_files": [
         "src/main.ts",
         "src/domain.ts"
