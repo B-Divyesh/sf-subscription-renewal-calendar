@@ -1,69 +1,94 @@
-# Handoff — Subscription Renewal Calendar v1.0.0
+# Handoff — Subscription Renewal Calendar repair
 
-## Independent verification status — **FAIL**
+## Status
 
-Verified on 2026-08-28 against candidate
-`7a7b7f8085aef5b25a2efd2c4b636b821c26ed63` and
-https://subscription-renewal-calendar.sociobot.in. The live JS, CSS, and
-service-worker bytes match the candidate build, so this is not deployment-only.
+All release-blocking findings in verifier report commit
+`72f18e4d7467e64f7e03c3dbde389526a2b0e0a2` for candidate
+`7a7b7f8085aef5b25a2efd2c4b636b821c26ed63` are repaired. The researched
+scope, neo-brutalist visual system, local-first storage, demo isolation,
+recurrence behavior, free tools, and Sociobot license path remain intact.
 
-Release is blocked by failing required claim commands and by a CSV-first core
-workflow defect: **CSV exported by the app cannot be imported back into a clean
-workspace.** A completed Add-subscription dialog also saves its entry when the
-user clicks **Cancel**. See `.factory/verification.md` for exact commands,
-claim outcomes, severity-ranked defects, browser evidence, headers, offline
-result, rate-limit result, and required repairs. Do not release this candidate.
+## Repairs
 
-## Delivered
+- Replaced line splitting with one RFC 4180 parser/serializer. CSV now
+  round-trips commas, escaped quotes, and embedded line breaks exactly.
+- Gave Cancel and close dedicated non-submit paths. Cancel, close, and Escape
+  dismiss without mutation, restore focus, and remain absent after reload.
+- Corrected every `.factory/claims.json` command and removed the duplicate ICS
+  tag. Eight listed claims now each have exactly one executable tagged test.
+  CSV round-trip and encrypted-backup claims cover the previously unlisted UI
+  and README promises.
+- Added strict pre-storage validation for real `YYYY-MM-DD` dates,
+  non-negative whole-number review days, known decisions, amounts,
+  frequencies, names, and owners. Errors identify the failing row and field.
+- Changed production assets to content-hashed names and generate the service
+  worker from the built bundle. Its cache name uses a content fingerprint,
+  full responses are precached, `Vary: Origin` cannot break offline asset
+  lookup, navigations check the network first, and upgrades show a reload
+  notice. The manifest start version is bumped.
+- Replaced catch-all SPA fallback with explicit real routes. Unknown URLs now
+  use the styled `404.html` and retain HTTP 404. Hashed assets receive
+  immutable caching; `sw.js` receives `no-cache`.
+- Added ESLint and upgraded Vite/Vitest to remove all five reported dependency
+  advisories. Playwright is pinned to `1.58.2`.
+- Increased small link and delete targets to at least 44 by 44 CSS pixels and
+  removed tab stops from non-interactive occurrence rows.
 
-- A local-first renewal calendar for weekly, monthly, and annual subscriptions.
-  Date-only UTC recurrence logic shows every weekly occurrence in a month and
-  safely clamps monthly 29th–31st dates in shorter months.
-- Owner, amount, review-days-early, and keep/review/cancel decisions on every
-  subscription; an attention strip brings due reviews forward.
-- Add form, CSV import with useful validation, CSV export, one-year ICS review
-  reminders, AES-GCM encrypted JSON backup, individual delete with undo, and
-  an empty state.
-- `/demo` and `?demo=1` create a separate IndexedDB sample workspace with a
-  persistent reset/start-real banner. `/privacy`, `/terms`, `/app`, and a
-  styled 404 route are present.
-- A one-time $19 Sociobot Pro path, return-token storage, cached optimistic
-  unlock, restore-token form, and verification call. Pro reveals the practical
-  12-month renewal forecast; all core data tools stay free.
-- Install metadata, service worker, offline shell, security headers, robots,
-  sitemap, favicon/icons, responsive styling, and generated original hero art.
+## Verification evidence — 2026-08-28
 
-## Verification
-
-Ran on 2026-08-28:
+Clean repository gates:
 
 ```sh
+npm ci
+npm audit --audit-level=moderate
+npm run typecheck
+npm run lint
 npm test
 npm run build
 npm run test:e2e
 ```
 
-Results: 5 recurrence/export unit tests passed; build wrote `dist/index.html`;
-4 Playwright demo claim tests passed. The browser checks confirm the demo
-redirect, separated sample UI, ICS download content, offline reload after the
-service worker becomes ready, and no third-party request in the demo/export
-flow. A 390 px Chromium screenshot was inspected; the calendar becomes a
-single-column chronological list and controls remain 44 px targets.
+- `npm ci`: passed from `package-lock.json`; audit reports 0 vulnerabilities.
+- TypeScript and ESLint: passed with no findings.
+- Vitest: 2 files, 13 tests passed.
+- Playwright Chromium: 11 tests passed. This includes the CSV export/delete/
+  import/re-export path, all dialog dismiss paths, invalid import recovery,
+  IndexedDB persistence, update notice, offline reload, privacy interception,
+  desktop semantics, keyboard focus, reduced motion, and 390 px layout.
+- Every command in `.factory/claims.json` was also run individually from the
+  final tree: all 8 commands passed and each selected exactly one tagged test.
+- Axe 4.10.2 ran in Chromium on `/`, `/demo`, `/app`, `/privacy`, `/terms`,
+  and `/404.html`: 0 serious or critical violations. Route checks found one
+  `h1`, one `main`, `lang=en`, named controls, and no console/page errors.
+- The factory `verify-url.sh` passed locally: HTTP 200, title present,
+  `lang=en`, one `h1`, a main landmark, 0 missing image alts, 0 unnamed
+  buttons, and 0 console errors. Desktop and 390 px captures were inspected.
+- Static Web Apps CLI 2.0.10 served `/`, `/demo`, `/app`, `/privacy`, and
+  `/terms` as 200 and `/missing` as a styled 404. It returned
+  `Cache-Control: public, max-age=31536000, immutable` for hashed assets and
+  `Cache-Control: no-cache` for `sw.js`, plus the configured CSP,
+  `nosniff`, and referrer policy.
+- Lighthouse 12.6 mobile: performance 100, accessibility 100, best practices
+  100; LCP 1.7 s, CLS 0, total blocking time 0 ms, speed index 0.9 s.
+- Production bundle: JS 23.88 KB / 8.75 KB gzip; CSS 10.27 KB / 2.95 KB gzip;
+  hero WebP 71.48 KB. All are below the product budgets.
 
-Build output: JavaScript is 21.96 KB / 8.12 KB gzip, CSS is 9.82 KB / 2.85 KB
-gzip, and the in-app hero WebP is 71.48 KB. The static Open Graph crop is 47 KB.
-This is within the 200 KB JS, 50 KB CSS, and 300 KB image budgets.
+## Run and verify
 
-`npx lighthouse` was attempted, but this container's packaged Chromium does
-not expose the debugging connection Lighthouse requires. The browser smoke
-checks above completed with no console errors.
+```sh
+npm ci
+npm run typecheck && npm run lint && npm test
+npm run build && npm run test:e2e
+npm run preview -- --host 127.0.0.1
+```
 
-## Known gaps and next steps
+Demo URL: `/demo`. Demo storage is
+`renewal-ledger:demo:subscriptions`; real storage is
+`renewal-ledger:real:subscriptions`.
 
-- CSV parsing intentionally supports simple comma-separated rows rather than
-  quoted commas/newlines. Exported CSV is quoted, but a fuller RFC 4180 parser
-  would be a worthwhile next iteration.
-- Encrypted backups export now; password-protected backup import is not yet in
-  v1. Regular CSV import remains available for recovery.
-- License verification is optimistic while offline, then reconciles on the
-  first visit and at most once per 24 hours when online.
+## Deployment and known gaps
+
+Deployment and live identity evidence are recorded below after the work-order
+deployment step. There are no known release-blocking product gaps. Encrypted
+backup remains export-only in this v1; CSV is the supported import and
+round-trip recovery format.

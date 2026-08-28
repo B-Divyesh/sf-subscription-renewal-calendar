@@ -3,7 +3,7 @@
     "id": "weekly-occurrences",
     "claim": "Shows every weekly renewal in the same month",
     "where": "calendar heading",
-    "test": "npm test -- --grep @claim:weekly-occurrences",
+    "test": "npm test -- -t @claim:weekly-occurrences",
     "sandbox": "deterministic sample weekly subscription; assert all September 2026 dates"
   },
   {
@@ -31,14 +31,28 @@
     "id": "ics-export",
     "claim": "Exports calendar reminders",
     "where": "calendar toolbar",
-    "test": "npm test -- --grep @claim:ics-export",
+    "test": "npm run test:e2e -- --grep @claim:ics-export",
     "sandbox": "sample weekly subscription; assert an ICS event for each visible occurrence"
   },
   {
     "id": "sixty-day-window",
     "claim": "Loads a working 60-day calendar",
     "where": "landing action helper",
-    "test": "npm test -- --grep @claim:sixty-day-window",
+    "test": "npm test -- -t @claim:sixty-day-window",
     "sandbox": "deterministic weekly subscription; assert the inclusive 60-day occurrence set"
+  },
+  {
+    "id": "csv-roundtrip",
+    "claim": "Exports and imports CSV without changing quoted subscription data",
+    "where": "calendar toolbar, README",
+    "test": "npm run test:e2e -- --grep @claim:csv-roundtrip",
+    "sandbox": "fresh real workspace; add commas, quotes, and a line break; export; delete; import; assert exact visible values"
+  },
+  {
+    "id": "encrypted-backup",
+    "claim": "Exports a password-protected encrypted backup",
+    "where": "calendar toolbar, landing Pro section, README, privacy page",
+    "test": "npm run test:e2e -- --grep @claim:encrypted-backup",
+    "sandbox": "fresh demo workspace; provide a passphrase; assert the download contains AES-GCM fields and no plaintext sample data"
   }
 ]

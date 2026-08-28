@@ -12,7 +12,7 @@ Open `/demo` or add `?demo=1` to load a separate sample workspace. It includes
 monthly software, a weekly cleaner, and an annual insurance renewal. The banner
 can reset the sample or start a blank real workspace.
 
-Add subscriptions one at a time, or import a CSV with these headings:
+Add subscriptions one at a time, or import an RFC 4180 CSV with these headings:
 
 ```csv
 name,amount,currency,frequency,starts_on,owner,review_days,decision,note
@@ -39,6 +39,9 @@ forecast. Checkout and license verification use the Sociobot billing endpoint.
 npm install
 npm run dev
 npm test
+npm run typecheck
+npm run lint
+npm run test:e2e
 npm run build
 ```
 

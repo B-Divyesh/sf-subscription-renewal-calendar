@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { allOccurrences, icsReminders, occurrencesFor, type Subscription } from '../src/domain';
+import { allOccurrences, icsReminders, occurrencesFor, parseSubscriptionsCsv, subscriptionsCsv, type Subscription } from '../src/domain';
 
 const weekly: Subscription = { id: 'cleaning', name: 'Office cleaner', amount: 85, currency: 'USD', frequency: 'weekly', startsOn: '2026-08-28', owner: 'Maya', reviewDays: 3, decision: 'keep' };
 
@@ -16,7 +16,7 @@ describe('recurring charge dates', () => {
     expect(rows.map((x) => x.dueOn)).toEqual(['2026-10-02', '2026-10-09', '2026-10-16', '2026-10-23', '2026-10-30', '2026-11-06']);
     expect(rows[0].reviewOn).toBe('2026-09-29');
   });
-  it('@claim:ics-export writes a calendar reminder for each renewal occurrence', () => {
+  it('writes a calendar reminder for each renewal occurrence', () => {
     const calendar = icsReminders([weekly], '2026-09-01', '2026-09-30');
     expect(calendar.match(/BEGIN:VEVENT/g)).toHaveLength(4);
     expect(calendar).toContain('DTSTART;VALUE=DATE:20260901');
@@ -24,5 +24,27 @@ describe('recurring charge dates', () => {
   it('@claim:sixty-day-window includes a full 60-day renewal window', () => {
     const rows = allOccurrences([weekly], '2026-09-01', '2026-10-31');
     expect(rows).toHaveLength(9);
+  });
+});
+
+describe('CSV validation', () => {
+  it('round-trips quoted commas, quotes, and line breaks', () => {
+    const source = { ...weekly, name: 'Hosting, "Priority"', note: 'First line\nSecond line' };
+    expect(parseSubscriptionsCsv(subscriptionsCsv([source]), () => source.id)).toEqual([source]);
+  });
+
+  it('rejects impossible calendar dates before persistence', () => {
+    const csv = 'name,amount,frequency,starts_on,owner\nTool,10,monthly,2026-02-30,Rae';
+    expect(() => parseSubscriptionsCsv(csv)).toThrow('Row 2 has an invalid starts_on date');
+  });
+
+  it.each(['-1', '1.5', 'soon'])('rejects invalid review_days value %s', (reviewDays) => {
+    const csv = `name,amount,frequency,starts_on,owner,review_days\nTool,10,monthly,2026-02-28,Rae,${reviewDays}`;
+    expect(() => parseSubscriptionsCsv(csv)).toThrow('Row 2 has invalid review_days');
+  });
+
+  it('rejects an unknown decision instead of silently changing it', () => {
+    const csv = 'name,amount,frequency,starts_on,owner,decision\nTool,10,monthly,2026-02-28,Rae,maybe';
+    expect(() => parseSubscriptionsCsv(csv)).toThrow('Row 2 has an invalid decision');
   });
 });
