@@ -1,5 +1,8 @@
 export type Frequency = 'weekly' | 'monthly' | 'annual';
 export type Decision = 'review' | 'keep' | 'cancel';
+export const supportedCurrencies = ['USD', 'EUR', 'GBP', 'INR'] as const;
+export type Currency = typeof supportedCurrencies[number];
+export const isSupportedCurrency = (currency: string): currency is Currency => supportedCurrencies.includes(currency as Currency);
 
 export interface Subscription {
   id: string;
@@ -12,6 +15,7 @@ export interface Subscription {
   reviewDays: number;
   decision: Decision;
   note?: string;
+  costHistory?: Array<{ amount: number; changedOn: string }>;
 }
 
 export interface Occurrence extends Subscription { dueOn: string; reviewOn: string; }
@@ -21,7 +25,17 @@ export const parseDay = (day: string) => new Date(`${day}T12:00:00Z`);
 export const dayString = (date: Date) => date.toISOString().slice(0, 10);
 export const isValidDay = (day: string) => /^\d{4}-\d{2}-\d{2}$/.test(day) && !Number.isNaN(parseDay(day).getTime()) && dayString(parseDay(day)) === day;
 export const addDays = (day: string, days: number) => dayString(new Date(parseDay(day).getTime() + days * dayMs));
-export const money = (value: number, currency = 'USD') => new Intl.NumberFormat(undefined, { style: 'currency', currency, maximumFractionDigits: 2 }).format(value);
+export const money = (value: number, currency = 'USD') => isSupportedCurrency(currency)
+  ? new Intl.NumberFormat(undefined, { style: 'currency', currency, maximumFractionDigits: 2 }).format(value)
+  : `${new Intl.NumberFormat(undefined, { maximumFractionDigits: 2 }).format(value)} ${currency || 'invalid currency'}`;
+
+export function totalsByCurrency(rows: Array<Pick<Subscription, 'amount' | 'currency'>>): Array<{ currency: Currency; amount: number }> {
+  const totals = new Map<Currency, number>();
+  rows.forEach(({ amount, currency }) => {
+    if (isSupportedCurrency(currency) && Number.isFinite(amount)) totals.set(currency, (totals.get(currency) || 0) + amount);
+  });
+  return [...totals].map(([currency, amount]) => ({ currency, amount }));
+}
 
 function monthDate(start: Date, offset: number): Date {
   const targetYear = start.getUTCFullYear() + Math.floor((start.getUTCMonth() + offset) / 12);
@@ -58,7 +72,8 @@ export function allOccurrences(items: Subscription[], from: string, to: string):
 
 export function icsReminders(items: Subscription[], from: string, to: string): string {
   const stamp = from.replaceAll('-', '');
-  const body = allOccurrences(items, from, to).map((x, index) => `BEGIN:VEVENT\r\nUID:renewal-${x.id}-${index}@renewal-ledger.local\r\nDTSTAMP:${stamp}T120000Z\r\nDTSTART;VALUE=DATE:${x.reviewOn.replaceAll('-', '')}\r\nSUMMARY:Review ${x.name} before ${money(x.amount, x.currency)} renewal\r\nDESCRIPTION:Owner: ${x.owner || 'Unassigned'}. Renewal date: ${x.dueOn}. Decision: ${x.decision}.\r\nEND:VEVENT`).join('\r\n');
+  const icsText = (value: string) => value.replaceAll('\\', '\\\\').replaceAll('\r\n', '\\n').replaceAll('\n', '\\n').replaceAll('\r', '\\n').replaceAll(';', '\\;').replaceAll(',', '\\,');
+  const body = allOccurrences(items, from, to).map((x, index) => `BEGIN:VEVENT\r\nUID:renewal-${x.id}-${index}@renewal-ledger.local\r\nDTSTAMP:${stamp}T120000Z\r\nDTSTART;VALUE=DATE:${x.reviewOn.replaceAll('-', '')}\r\nSUMMARY:${icsText(`Review ${x.name} before ${money(x.amount, x.currency)} renewal`)}\r\nDESCRIPTION:${icsText(`Owner: ${x.owner || 'Unassigned'}. Renewal date: ${x.dueOn}. Decision: ${x.decision}.`)}\r\nEND:VEVENT`).join('\r\n');
   return `BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Renewal Ledger//EN\r\n${body}\r\nEND:VCALENDAR`;
 }
 
@@ -131,8 +146,10 @@ export function parseSubscriptionsCsv(text: string, makeId: () => string = () =>
     if (!isValidDay(startsOn)) throw new Error(`Row ${row} has an invalid starts_on date. Use a real YYYY-MM-DD date.`);
     if (!Number.isInteger(reviewDays) || reviewDays < 0) throw new Error(`Row ${row} has invalid review_days. Use zero or a positive whole number.`);
     if (!['review', 'keep', 'cancel'].includes(decision)) throw new Error(`Row ${row} has an invalid decision. Use review, keep, or cancel.`);
+    const currency = (get('currency') || 'USD').toUpperCase();
+    if (!isSupportedCurrency(currency)) throw new Error(`Row ${row} has an invalid currency. Use USD, EUR, GBP, or INR.`);
     return {
-      id: makeId(), name, amount, currency: get('currency') || 'USD',
+      id: makeId(), name, amount, currency,
       frequency: frequency as Frequency, startsOn, owner, reviewDays,
       decision: decision as Decision, note: get('note')
     };

@@ -4,7 +4,7 @@ import { allOccurrences, icsReminders, occurrencesFor, parseSubscriptionsCsv, su
 const weekly: Subscription = { id: 'cleaning', name: 'Office cleaner', amount: 85, currency: 'USD', frequency: 'weekly', startsOn: '2026-08-28', owner: 'Maya', reviewDays: 3, decision: 'keep' };
 
 describe('recurring charge dates', () => {
-  it('@claim:weekly-occurrences shows every weekly occurrence in a month', () => {
+  it('shows every weekly occurrence in a month', () => {
     expect(occurrencesFor(weekly, '2026-09-01', '2026-09-30').map((x) => x.dueOn)).toEqual(['2026-09-04', '2026-09-11', '2026-09-18', '2026-09-25']);
   });
   it('clamps a monthly renewal from the 31st to the last day of shorter months', () => {
@@ -21,7 +21,14 @@ describe('recurring charge dates', () => {
     expect(calendar.match(/BEGIN:VEVENT/g)).toHaveLength(4);
     expect(calendar).toContain('DTSTART;VALUE=DATE:20260901');
   });
-  it('@claim:sixty-day-window includes a full 60-day renewal window', () => {
+
+  it('escapes RFC 5545 text in calendar summaries and descriptions', () => {
+    const item = { ...weekly, name: 'Vendor, Inc; Plan\\Tier', owner: 'Rae\nOps' };
+    const calendar = icsReminders([item], '2026-09-01', '2026-09-30');
+    expect(calendar).toContain('SUMMARY:Review Vendor\\, Inc\\; Plan\\\\Tier');
+    expect(calendar).toContain('DESCRIPTION:Owner: Rae\\nOps.');
+  });
+  it('includes a full 60-day renewal window', () => {
     const rows = allOccurrences([weekly], '2026-09-01', '2026-10-31');
     expect(rows).toHaveLength(9);
   });
@@ -46,5 +53,10 @@ describe('CSV validation', () => {
   it('rejects an unknown decision instead of silently changing it', () => {
     const csv = 'name,amount,frequency,starts_on,owner,decision\nTool,10,monthly,2026-02-28,Rae,maybe';
     expect(() => parseSubscriptionsCsv(csv)).toThrow('Row 2 has an invalid decision');
+  });
+
+  it('rejects a currency that the calendar cannot safely format', () => {
+    const csv = 'name,amount,currency,frequency,starts_on,owner\nBad currency,10,NOT-A-CURRENCY,monthly,2026-08-28,Rae';
+    expect(() => parseSubscriptionsCsv(csv)).toThrow('Row 2 has an invalid currency');
   });
 });

@@ -1,11 +1,39 @@
 import { expect, test } from 'playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
-test('@claim:demo-isolated opens a separate sample workspace', async ({ page }) => {
-  await page.goto('/?demo=1');
+test('@claim:demo-isolated keeps real and demo workspaces separate across navigation', async ({ page }) => {
+  await page.goto('/');
+  await page.getByRole('link', { name: 'Try it with sample data' }).click();
   await expect(page).toHaveURL(/\/demo$/);
   await expect(page.getByLabel('Demo mode')).toContainText('sample data, nothing is saved');
   await expect(page.getByText('Office cleaner', { exact: true }).first()).toBeVisible();
+
+  await page.getByRole('button', { name: 'Start for real' }).click();
+  await expect(page).toHaveURL(/\/app$/);
+  await page.getByRole('button', { name: 'Add subscription' }).click();
+  const dialog = page.getByRole('dialog');
+  await dialog.getByLabel('Name').fill('REAL SENTINEL');
+  await dialog.getByLabel('Amount').fill('12');
+  await dialog.getByLabel('Owner').fill('Rae');
+  await dialog.getByRole('button', { name: 'Save subscription' }).click();
+  await page.getByRole('link', { name: 'Demo' }).click();
+  await expect(page.getByText('Office cleaner', { exact: true }).first()).toBeVisible();
+  await expect(page.getByText('REAL SENTINEL', { exact: true })).toHaveCount(0);
+  await page.getByRole('button', { name: 'Start for real' }).click();
+  await expect(page.locator('.subscription-list').getByRole('heading', { name: 'REAL SENTINEL' })).toBeVisible();
+  await page.getByRole('link', { name: 'Demo' }).click();
+  await expect(page.getByText('Office cleaner', { exact: true }).first()).toBeVisible();
+});
+
+test('@claim:weekly-occurrences shows every weekly sample renewal in the demo window', async ({ page }) => {
+  await page.goto('/demo');
+  await expect(page.locator('.calendar').getByRole('heading', { name: 'Office cleaner' })).toHaveCount(9);
+});
+
+test('@claim:sixty-day-window opens the complete 60-day sample calendar', async ({ page }) => {
+  await page.goto('/demo');
+  await expect(page.getByRole('heading', { name: 'Your next 60 days of renewals' })).toBeVisible();
+  await expect(page.locator('.calendar .occurrence')).toHaveCount(18);
 });
 
 test('@claim:ics-export downloads usable reminders for the sample', async ({ page }) => {
@@ -104,10 +132,16 @@ test('@claim:offline-reload keeps the demo calendar available after first visit'
   await context.setOffline(false);
 });
 
-test('@claim:private-data sends no demo data to another origin', async ({ page }) => {
+test('@claim:private-data sends real subscription data to no other origin', async ({ page }) => {
   const seen: string[] = [];
   page.on('request', (request) => seen.push(request.url()));
-  await page.goto('/demo');
+  await page.goto('/app');
+  await page.getByRole('button', { name: 'Add subscription' }).click();
+  const dialog = page.getByRole('dialog');
+  await dialog.getByLabel('Name').fill('Private entry');
+  await dialog.getByLabel('Amount').fill('10');
+  await dialog.getByLabel('Owner').fill('Rae');
+  await dialog.getByRole('button', { name: 'Save subscription' }).click();
   await page.getByRole('button', { name: 'Export CSV' }).click();
   expect(seen.every((url) => new URL(url).origin === 'http://127.0.0.1:4173')).toBeTruthy();
 });
@@ -151,4 +185,85 @@ test('390px mobile layout has no horizontal overflow and keeps primary controls 
   }))).toBeTruthy();
   await page.emulateMedia({ reducedMotion: 'reduce' });
   expect(await page.evaluate(() => getComputedStyle(document.querySelector('.occurrence')!).transitionDuration)).toBe('0s');
+});
+
+test('rejects an unsupported CSV currency without persisting a row or blanking the app', async ({ page }) => {
+  await page.goto('/app');
+  await page.getByLabel('Import CSV').setInputFiles({ name: 'bad-currency.csv', mimeType: 'text/csv', buffer: Buffer.from('name,amount,currency,frequency,starts_on,owner\nBad currency,10,NOT-A-CURRENCY,monthly,2026-08-28,Rae') });
+  await expect(page.locator('.notice')).toContainText('Row 2 has an invalid currency');
+  await page.reload();
+  await expect(page.getByRole('heading', { name: 'Your next 60 days of renewals' })).toBeVisible();
+  await expect(page.getByText('Bad currency', { exact: true })).toHaveCount(0);
+});
+
+test('groups mixed-currency calendar totals instead of adding unlike money', async ({ page }) => {
+  await page.goto('/app');
+  for (const [name, amount, currency] of [['Dollar plan', '10', 'USD'], ['Euro plan', '20', 'EUR']] as const) {
+    await page.getByRole('button', { name: 'Add subscription' }).click();
+    const dialog = page.getByRole('dialog');
+    await dialog.getByLabel('Name').fill(name);
+    await dialog.getByLabel('Amount').fill(amount);
+    await dialog.getByLabel('Currency').selectOption(currency);
+    await dialog.getByLabel('Owner').fill('Rae');
+    await dialog.getByRole('button', { name: 'Save subscription' }).click();
+  }
+  const summary = page.getByLabel('Calendar summary');
+  await expect(summary).toContainText(/\$20\.00.*USD/);
+  await expect(summary).toContainText(/€40\.00.*EUR/);
+  await expect(summary).not.toContainText('$60.00');
+});
+
+test('requires a valid license verdict before revealing the Pro forecast', async ({ page }) => {
+  await page.route('https://api.sociobot.in/api/v1/products/subscription-renewal-calendar/verify?license=*', (route) => route.fulfill({ json: { valid: false, reason: 'invalid' } }));
+  await page.goto('/demo');
+  await page.getByLabel('License token').fill('definitely-invalid-qa-token');
+  await page.getByRole('button', { name: 'Verify license' }).click();
+  await expect(page.locator('.notice')).toContainText('This license is not active');
+  await expect(page.locator('.forecast')).toContainText('Pro adds a year-ahead total');
+  expect(await page.evaluate(() => localStorage.getItem('sb_license:subscription-renewal-calendar'))).toBeNull();
+});
+
+test('@claim:pro-forecast shows a grouped 12-month forecast only after a valid verification', async ({ page }) => {
+  await page.route('https://api.sociobot.in/api/v1/products/subscription-renewal-calendar/verify?license=*', (route) => route.fulfill({ json: { valid: true, reason: 'ok' } }));
+  await page.goto('/demo');
+  await page.getByLabel('License token').fill('valid-test-token');
+  await page.getByRole('button', { name: 'Verify license' }).click();
+  await expect(page.locator('.forecast')).toContainText('scheduled across the next year');
+  await expect(page.locator('.forecast')).toContainText('(USD)');
+});
+
+test('@claim:delete-all removes every subscription from the current workspace', async ({ page }) => {
+  await page.goto('/demo');
+  page.once('dialog', (prompt) => prompt.accept());
+  await page.getByRole('button', { name: 'Delete all subscriptions' }).click();
+  await expect(page.getByRole('heading', { name: 'No subscriptions yet' })).toBeVisible();
+  await page.reload();
+  await expect(page.getByRole('heading', { name: 'No subscriptions yet' })).toBeVisible();
+});
+
+test('edits owners, review timing, decisions, and records a cost increase', async ({ page }) => {
+  await page.goto('/demo');
+  await page.getByRole('button', { name: 'Edit Linear' }).click();
+  const dialog = page.getByRole('dialog', { name: 'Edit subscription' });
+  await dialog.getByLabel('Amount').fill('120');
+  await dialog.getByLabel('Owner').fill('Rae');
+  await dialog.getByLabel('Review days early').fill('3');
+  await dialog.getByLabel('Decision').selectOption('cancel');
+  await dialog.getByRole('button', { name: 'Save changes' }).click();
+  const row = page.locator('.subscription-list article').filter({ hasText: 'Linear' });
+  await expect(row).toContainText('Owner: Rae · review 3 days early · cancel');
+  await expect(row).toContainText('Cost rose from $96.00');
+});
+
+test('names the dialog, keeps 44px dialog controls, and shows file-input focus on its label', async ({ page }) => {
+  await page.goto('/demo');
+  const input = page.getByLabel('Import CSV');
+  await input.focus();
+  expect(await page.locator('.file-button').evaluate((element) => getComputedStyle(element).outlineStyle)).not.toBe('none');
+  await page.getByRole('button', { name: 'Add subscription' }).click();
+  const dialog = page.getByRole('dialog', { name: 'Add a subscription' });
+  await expect(dialog).toBeVisible();
+  expect(await dialog.evaluate((element) => [...element.querySelectorAll<HTMLElement>('button,input,select')].every((control) => control.getBoundingClientRect().height >= 44))).toBeTruthy();
+  const results = await new AxeBuilder({ page }).include('dialog').analyze();
+  expect(results.violations.filter((violation) => ['serious', 'critical'].includes(violation.impact || ''))).toEqual([]);
 });

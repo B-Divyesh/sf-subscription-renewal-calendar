@@ -12,7 +12,9 @@ function serviceWorker(): Plugin {
 const SHELL = ${JSON.stringify(shell)};
 self.addEventListener('install', event => event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(SHELL.map(url => new Request(url, { cache: 'reload' })))).then(() => self.skipWaiting())));
 self.addEventListener('activate', event => event.waitUntil((async () => {
-  const isUpdate = (await caches.keys()).some(name => name.startsWith('renewal-ledger-') && name !== CACHE);
+  const oldCaches = (await caches.keys()).filter(name => name.startsWith('renewal-ledger-') && name !== CACHE);
+  const isUpdate = oldCaches.length > 0;
+  await Promise.all(oldCaches.map(name => caches.delete(name)));
   await self.clients.claim();
   if (isUpdate) for (const client of await self.clients.matchAll({ type: 'window' })) client.postMessage({ type: 'APP_UPDATE_READY', version: CACHE });
 })()));

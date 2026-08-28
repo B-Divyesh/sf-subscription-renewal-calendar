@@ -11,10 +11,11 @@
 | A date without an owner is not a plan. | 10 | — |
 | Bring a CSV, or add the first charge by hand. | 11 | — |
 | Add a review date before each charge. | 8 | — |
-| Export reminders or mark it keep, review, or cancel. | 9 | — |
+| Edit a subscription to mark it keep, review, or cancel. | 10 | — |
 | It does not connect to your bank, move money, or send your subscriptions elsewhere. | 15 | — |
-| You control the exports and can delete everything. | 9 | — |
+| You control the exports and deletion. | 6 | — |
 | Pro costs $19 once. | 4 | — |
+| It adds a 12-month forecast grouped by currency. | 8 | — |
 
 No banned terms appear in the landing page.
 

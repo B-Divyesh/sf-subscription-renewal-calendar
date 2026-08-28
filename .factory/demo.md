@@ -10,6 +10,7 @@
   real database.
 - **Reset:** choose **Reset demo** in the persistent yellow banner.
 - **Leave:** choose **Start for real**. This clears only the demo database and
-  opens a blank real workspace.
+  opens the separate real workspace without reading, replacing, or saving demo
+  records there.
 - **Offline check:** visit `/demo` once, then use browser offline mode and
   reload. The service worker caches the shell and the sample is local.

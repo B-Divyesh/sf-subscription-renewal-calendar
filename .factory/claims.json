@@ -2,16 +2,16 @@
   {
     "id": "weekly-occurrences",
     "claim": "Shows every weekly renewal in the same month",
-    "where": "calendar heading",
-    "test": "npm test -- -t @claim:weekly-occurrences",
-    "sandbox": "deterministic sample weekly subscription; assert all September 2026 dates"
+    "where": "calendar heading, README",
+    "test": "npm run test:e2e -- --grep @claim:weekly-occurrences",
+    "sandbox": "fresh /demo; assert all nine Office cleaner occurrences in the 60-day sample window"
   },
   {
     "id": "demo-isolated",
-    "claim": "Demo sample data is not saved with your real data",
-    "where": "demo banner",
+    "claim": "Demo sample data is not saved with your real data and is discarded when you leave",
+    "where": "demo banner, privacy page, demo documentation",
     "test": "npm run test:e2e -- --grep @claim:demo-isolated",
-    "sandbox": "fresh browser; enter ?demo=1 and assert the separate demo workspace"
+    "sandbox": "fresh browser; landing → demo → real → demo → real → demo, with a real sentinel subscription"
   },
   {
     "id": "offline-reload",
@@ -22,28 +22,28 @@
   },
   {
     "id": "private-data",
-    "claim": "Demo data does not leave this device",
-    "where": "landing art caption, privacy page",
+    "claim": "Your entries stay on your device; there are no analytics or trackers",
+    "where": "landing art caption, privacy page, README",
     "test": "npm run test:e2e -- --grep @claim:private-data",
-    "sandbox": "fresh browser; inspect every request while opening demo and exporting CSV"
+    "sandbox": "fresh real workspace; add a subscription and export CSV while asserting every request remains same-origin"
   },
   {
     "id": "ics-export",
     "claim": "Exports calendar reminders",
-    "where": "calendar toolbar",
+    "where": "calendar toolbar, README",
     "test": "npm run test:e2e -- --grep @claim:ics-export",
-    "sandbox": "sample weekly subscription; assert an ICS event for each visible occurrence"
+    "sandbox": "fresh /demo; download ICS and assert the calendar envelope and multiple events"
   },
   {
     "id": "sixty-day-window",
     "claim": "Loads a working 60-day calendar",
     "where": "landing action helper",
-    "test": "npm test -- -t @claim:sixty-day-window",
-    "sandbox": "deterministic weekly subscription; assert the inclusive 60-day occurrence set"
+    "test": "npm run test:e2e -- --grep @claim:sixty-day-window",
+    "sandbox": "fresh /demo; assert the 60-day heading and 18 sample occurrences"
   },
   {
     "id": "csv-roundtrip",
-    "claim": "Exports and imports CSV without changing quoted subscription data",
+    "claim": "Exports and imports RFC 4180 CSV without changing quoted subscription data",
     "where": "calendar toolbar, README",
     "test": "npm run test:e2e -- --grep @claim:csv-roundtrip",
     "sandbox": "fresh real workspace; add commas, quotes, and a line break; export; delete; import; assert exact visible values"
@@ -54,5 +54,19 @@
     "where": "calendar toolbar, landing Pro section, README, privacy page",
     "test": "npm run test:e2e -- --grep @claim:encrypted-backup",
     "sandbox": "fresh demo workspace; provide a passphrase; assert the download contains AES-GCM fields and no plaintext sample data"
+  },
+  {
+    "id": "pro-forecast",
+    "claim": "Pro adds a 12-month forecast grouped by currency",
+    "where": "landing Pro section, calendar forecast",
+    "test": "npm run test:e2e -- --grep @claim:pro-forecast",
+    "sandbox": "fresh /demo; mock a valid Sociobot verification and assert the visible one-year grouped forecast"
+  },
+  {
+    "id": "delete-all",
+    "claim": "You control deletion",
+    "where": "landing privacy section, privacy page",
+    "test": "npm run test:e2e -- --grep @claim:delete-all",
+    "sandbox": "fresh /demo; confirm Delete all subscriptions, reload, and assert the empty calendar"
   }
 ]
