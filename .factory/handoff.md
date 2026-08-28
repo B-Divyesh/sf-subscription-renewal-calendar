@@ -51,6 +51,5 @@ checks above completed with no console errors.
   would be a worthwhile next iteration.
 - Encrypted backups export now; password-protected backup import is not yet in
   v1. Regular CSV import remains available for recovery.
-- License verification is optimistic while offline and reconciles on explicit
-  verification. A daily cached-verdict timestamp can be added when the factory
-  product registration endpoint is live.
+- License verification is optimistic while offline, then reconciles on the
+  first visit and at most once per 24 hours when online.
