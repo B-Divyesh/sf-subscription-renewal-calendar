@@ -1,3 +1,30 @@
+# Review 2 handoff — PASS
+
+## Done
+
+Completed the adversarial first-read review of the live Subscription Renewal
+Calendar. No product code was changed. Wrote `review-2.md` with a PASS verdict
+and zero findings.
+
+## Verified in this review
+
+- Cold live first-screen checks at 390 × 844 and 1440 × 900.
+- Live demo entry, sample data, Reset demo, Start for real, separate IndexedDB
+  namespaces, and same-origin request behavior.
+- Live routes, metadata, designed 404, back-button focus/live announcement,
+  links/assets, mobile Axe scans, and the external checkout redirect.
+- Every exact claim command from `claims.json` in fresh clone
+  `/tmp/sub-renewal-review2-w1TuU7`; all passed.
+- `npm test`: 21 passed; `npm run build`: passed and produced `dist/`; serial
+  `npm run test:e2e`: 36 passed.
+
+## Known gaps / next steps
+
+None from this review. The pre-existing dirty `graphify-out/` files were not
+modified or included in the review commit.
+
+---
+
 # Verification 9 handoff — PASS
 
 **Candidate:** `9d05cd5c2374b1ebf145ea408f8bcc85a17b47ac`
