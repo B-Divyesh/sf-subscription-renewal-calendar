@@ -1,3 +1,27 @@
+# Review handoff 1 — FAIL
+
+**Candidate:** `c94d95222c8825f0442c1e9f5ff89ea9b62ca27e`
+
+**Live URL:** https://subscription-renewal-calendar.sociobot.in
+
+**Reviewed:** 2026-08-29 UTC
+
+**Result:** **FAIL — 25 findings (0 blocking, 6 major, 19 minor)**
+
+The adversarial first-read review is in `.factory/review-1.md`. No product code
+was changed. The cold 390 px and desktop first screens were clear, the one-click
+demo and storage isolation passed, all 15 registered claim tests passed
+individually from a fresh clone, and the full local gates passed (`npm test` 21,
+typecheck, lint, build, and Playwright 30). Live route, request, offline,
+keyboard/focus, responsive, axe, metadata, link, and 404 checks were also run.
+
+The release remains a FAIL because encrypted backups cannot be restored, six
+public statements are unlisted claims, and plain-copy and route
+structure findings remain. The report includes exact quotes, rewrites, test
+requirements, and a complete landing/README word-count audit.
+
+---
+
 # Verification handoff 8 — PASS
 
 **Candidate:** `5fb81522f0856d8f9db204cb494819f42dbf170e`
