@@ -1,3 +1,39 @@
+# Verification handoff 8 — PASS
+
+**Candidate:** `5fb81522f0856d8f9db204cb494819f42dbf170e`
+**Live URL:** https://subscription-renewal-calendar.sociobot.in
+**Verified:** 2026-08-29 UTC
+**Release status:** **PASS — ready to release**
+
+Independent QA found the live deployment byte-identical to the fresh production
+build. All 15 declared claim tests passed individually, and local gates passed:
+`npm test` (21), `npm run typecheck`, `npm run lint`, `npm run build`, and
+`npm run test:e2e` (30).
+
+The live demo has a plain first screen, one-click sample data, separate demo
+storage, normal add/import/export/backup/error-recovery behavior, offline
+reload, update notice, keyboard access, 390px layout, and no serious/critical
+axe issues. Normal subscription-data flow made only same-origin requests.
+
+Headers provide CSP, HSTS, `nosniff`, referrer policy, immutable asset caching,
+and a no-cache service worker. Checkout returned a Dodo 303; the Sociobot
+verify endpoint enforced the observed 30-request allowance with 429 and
+`Retry-After: 4` on request 31. No defects remain.
+
+See `.factory/verification-8.md` for exact commands, claim-by-claim results,
+hashes, limits, and environment caveats. Run locally with:
+
+```bash
+npm ci
+npm test
+npm run typecheck
+npm run lint
+npm run build
+npm run test:e2e
+```
+
+---
+
 # Repair handoff 6 — PASS
 
 **Verifier report commit:** `8d82916f72958d7b692bd53978000ed4bd38edb0`
