@@ -1,8 +1,9 @@
 # Polish round 1 — review finding closure
 
-**Base reviewed:** `c94d95222c8825f0442c1e9f5ff89ea9b62ca27e`  
-**Review:** `.factory/review-1.md`  
-**Repair commit:** pending final documentation commit  
+**Base reviewed:** `c94d95222c8825f0442c1e9f5ff89ea9b62ca27e`
+**Review:** `.factory/review-1.md`
+**Implementation commit:** `c664f38f06e1fce37997d01e92b1100ff9a4dcf9`
+**Metadata and review-map commit:** `23592b4`
 **Local evidence:** fresh clone `/tmp/subscription-renewal-calendar-clean-4OIyjW` at `c664f38f06e1fce37997d01e92b1100ff9a4dcf9`; all 20 exact claim commands and the 36-test browser suite passed.
 
 | Finding | Change made | Evidence |
@@ -40,4 +41,23 @@
 - Fresh-clone `npm run test:e2e`: 36 passed, including axe, keyboard, mobile, privacy request, offline, demo, routing, metadata, and 404 coverage.
 - All 20 commands listed in `.factory/claims.json` passed individually from the same fresh clone.
 
-Live deployment and screenshot evidence are appended to this file after deployment.
+## Live re-check
+
+Deployment `80507a79-aa8b-4b77-aa0b-028d2b30a982` completed successfully. A cold live
+browser check passed on `https://subscription-renewal-calendar.sociobot.in/?demo=1`,
+`/`, `/demo`, `/app`, `/privacy`, `/terms`, and `/live-missing-polish-1`.
+
+- [Landing screenshot](qa-artifacts/polish-1/live-root/screenshot-mobile.png) and
+  [demo screenshot](qa-artifacts/polish-1/live-demo/screenshot-mobile.png) show the
+  first-screen copy, demo banner, reset/start controls, restore control, and mobile
+  Calendar navigation.
+- [Live backup restore](qa-artifacts/polish-1/live-demo/live-backup-restore.png)
+  proves an actual exported live demo backup can be previewed, restored, then left
+  without leaking into the live real workspace.
+- `verify-url.sh` passed live `/` and `/demo`: no console errors; title, lang, h1,
+  main, image alt, and named-button checks passed.
+- Live axe scans at 390 px found zero serious or critical issues on every normal
+  route and the designed 404.
+
+The live re-check above applies to every table row; each row’s named test is the
+repeatable local proof, while these URLs and screenshots are the deployed proof.
