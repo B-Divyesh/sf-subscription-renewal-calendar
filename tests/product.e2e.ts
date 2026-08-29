@@ -382,6 +382,43 @@ test('requires a valid license verdict before revealing the Pro forecast', async
   expect(await page.evaluate(() => localStorage.getItem('sb_license:subscription-renewal-calendar'))).toBeNull();
 });
 
+test('checkout return verifies once immediately and unlocks the Pro forecast after navigation and reload', async ({ page }) => {
+  let verificationRequests = 0;
+  await page.route('https://api.sociobot.in/api/v1/products/subscription-renewal-calendar/verify?license=*', (route) => {
+    verificationRequests += 1;
+    return route.fulfill({ json: { valid: true, reason: 'ok' } });
+  });
+
+  await page.goto('/?license=valid-paid-return-qa');
+  await expect.poll(() => verificationRequests).toBe(1);
+  await expect(page).toHaveURL('http://127.0.0.1:4173/');
+  expect(await page.evaluate(() => localStorage.getItem('sb_license:subscription-renewal-calendar'))).toBe('valid-paid-return-qa');
+  await page.getByRole('link', { name: 'Try it with sample data' }).click();
+  await expect(page.locator('.forecast')).toContainText('scheduled across the next year');
+  await page.reload();
+  await expect(page.locator('.forecast')).toContainText('scheduled across the next year');
+  expect(verificationRequests).toBe(1);
+});
+
+test('checkout return keeps the token and an actionable retry after verification cannot finish', async ({ page }) => {
+  let verificationRequests = 0;
+  await page.route('https://api.sociobot.in/api/v1/products/subscription-renewal-calendar/verify?license=*', (route) => {
+    verificationRequests += 1;
+    return verificationRequests === 1
+      ? route.fulfill({ status: 503, json: { message: 'temporarily unavailable' } })
+      : route.fulfill({ json: { valid: true, reason: 'ok' } });
+  });
+
+  await page.goto('/demo?license=recoverable-paid-return-qa');
+  await expect(page.locator('.notice')).toContainText('Your license is saved but has not been verified');
+  await expect(page.getByLabel('License token')).toHaveValue('recoverable-paid-return-qa');
+  expect(await page.evaluate(() => localStorage.getItem('sb_license:subscription-renewal-calendar'))).toBe('recoverable-paid-return-qa');
+  expect(await page.evaluate(() => localStorage.getItem('sb_license_verdict:subscription-renewal-calendar'))).toBeNull();
+  await page.getByRole('button', { name: 'Verify license' }).click();
+  await expect(page.locator('.forecast')).toContainText('scheduled across the next year');
+  expect(verificationRequests).toBe(2);
+});
+
 test('@claim:pro-forecast shows a grouped 12-month forecast only after a valid verification', async ({ page }) => {
   await page.route('https://api.sociobot.in/api/v1/products/subscription-renewal-calendar/verify?license=*', (route) => route.fulfill({ json: { valid: true, reason: 'ok' } }));
   await page.goto('/demo');
