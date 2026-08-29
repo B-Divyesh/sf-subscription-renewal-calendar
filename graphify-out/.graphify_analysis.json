@@ -1,59 +1,37 @@
 {
   "communities": {
     "0": [
-      "src_main",
-      "src_main_bind",
-      "src_main_deleteall",
-      "src_main_deletesubscription",
-      "src_main_download",
-      "src_main_encryptedbackup",
-      "src_main_exportcsv",
-      "src_main_exportics",
-      "src_main_footer",
-      "src_main_header",
-      "src_main_importcsv",
-      "src_main_items",
-      "src_main_landing",
-      "src_main_legal",
-      "src_main_notfound",
-      "src_main_persist",
-      "src_main_reconcilestoredlicense",
-      "src_main_render",
-      "src_main_requestverification",
-      "src_main_savethreshold",
-      "src_main_setverdict",
-      "src_main_showsubscriptiondialog",
-      "src_main_showupdatenotice",
-      "src_main_start",
-      "src_main_threshold",
-      "src_main_today",
-      "src_main_undodelete",
-      "src_main_verifylicense",
-      "src_main_writethreshold"
-    ],
-    "1": [
-      "docref_rfc_4180",
-      "src_domain",
-      "src_domain_adddays",
-      "src_domain_csvcell",
-      "src_domain_currency",
-      "src_domain_daystring",
       "src_domain_decision",
       "src_domain_frequency",
-      "src_domain_isvalidday",
-      "src_domain_monthdate",
-      "src_domain_occurrence",
-      "src_domain_occurrencesfor",
-      "src_domain_parsecsvrecords",
-      "src_domain_parseday",
-      "src_domain_parsesubscriptionscsv",
-      "src_domain_subscription",
-      "src_domain_subscriptionscsv",
+      "src_domain_issupportedcurrency",
+      "src_domain_samplesubscriptions",
       "src_domain_supportedcurrencies",
-      "tests_domain_test",
-      "tests_domain_test_weekly"
+      "src_domain_totalsbycurrency",
+      "src_main",
+      "src_main_demobanner",
+      "src_main_items",
+      "src_main_loadworkspace",
+      "src_main_readthreshold",
+      "src_main_reconcilestoredlicense",
+      "src_main_requestverification",
+      "src_main_setverdict",
+      "src_main_showupdatenotice",
+      "src_main_space",
+      "src_main_start",
+      "src_main_threshold",
+      "src_main_thresholdkey",
+      "src_main_today",
+      "src_main_transition",
+      "src_main_usable",
+      "src_main_verifylicense",
+      "src_main_writethreshold",
+      "src_storage",
+      "src_storage_clearsubscriptions",
+      "src_storage_open",
+      "src_storage_readsubscriptions",
+      "src_storage_savesubscriptions"
     ],
-    "2": [
+    "1": [
       "axe_core_playwright",
       "eslint",
       "eslint_js",
@@ -73,6 +51,27 @@
       "typescript_eslint",
       "vite",
       "vitest"
+    ],
+    "2": [
+      "docref_rfc_4180",
+      "src_domain",
+      "src_domain_adddays",
+      "src_domain_alloccurrences",
+      "src_domain_csvcell",
+      "src_domain_currency",
+      "src_domain_daystring",
+      "src_domain_icsreminders",
+      "src_domain_isvalidday",
+      "src_domain_monthdate",
+      "src_domain_occurrence",
+      "src_domain_occurrencesfor",
+      "src_domain_parsecsvrecords",
+      "src_domain_parseday",
+      "src_domain_parsesubscriptionscsv",
+      "src_domain_subscription",
+      "src_domain_subscriptionscsv",
+      "tests_domain_test",
+      "tests_domain_test_weekly"
     ],
     "3": [
       "ref_dom",
@@ -95,39 +94,6 @@
       "tsconfig_include"
     ],
     "4": [
-      "src_domain_alloccurrences",
-      "src_domain_icsreminders",
-      "src_domain_money",
-      "src_main_appview",
-      "src_main_costchange",
-      "src_main_demobanner",
-      "src_main_emptystate",
-      "src_main_esc",
-      "src_main_fmtdate",
-      "src_main_occurrencerows",
-      "src_main_relative",
-      "src_main_samplepreview",
-      "src_main_subscriptionrows",
-      "src_main_totallines",
-      "src_main_validverdict"
-    ],
-    "5": [
-      "src_domain_issupportedcurrency",
-      "src_domain_samplesubscriptions",
-      "src_domain_totalsbycurrency",
-      "src_main_loadworkspace",
-      "src_main_readthreshold",
-      "src_main_space",
-      "src_main_thresholdkey",
-      "src_main_transition",
-      "src_main_usable",
-      "src_storage",
-      "src_storage_clearsubscriptions",
-      "src_storage_open",
-      "src_storage_readsubscriptions",
-      "src_storage_savesubscriptions"
-    ],
-    "6": [
       "package",
       "package_name",
       "package_private",
@@ -142,40 +108,79 @@
       "package_type",
       "package_version"
     ],
+    "5": [
+      "src_main_bind",
+      "src_main_deleteall",
+      "src_main_deletesubscription",
+      "src_main_download",
+      "src_main_encryptedbackup",
+      "src_main_exportcsv",
+      "src_main_exportics",
+      "src_main_importcsv",
+      "src_main_persist",
+      "src_main_render",
+      "src_main_savethreshold",
+      "src_main_showsubscriptiondialog",
+      "src_main_undodelete"
+    ],
+    "6": [
+      "src_domain_money",
+      "src_main_appview",
+      "src_main_costchange",
+      "src_main_emptystate",
+      "src_main_esc",
+      "src_main_fmtdate",
+      "src_main_occurrencerows",
+      "src_main_relative",
+      "src_main_samplepreview",
+      "src_main_subscriptionrows",
+      "src_main_totallines",
+      "src_main_validverdict"
+    ],
     "7": [
+      "src_main_footer",
+      "src_main_header",
+      "src_main_landing",
+      "src_main_legal",
+      "src_main_notfound"
+    ],
+    "8": [
+      "promises",
+      "tests_product_e2e",
+      "tests_product_e2e_addutcdays"
+    ],
+    "9": [
       "vite_config",
       "vite_config_serviceworker"
     ],
-    "8": [
+    "10": [
       "eslint_config"
     ],
-    "9": [
+    "11": [
       "playwright_config"
     ],
-    "10": [
+    "12": [
       "src_vite_env_d"
     ],
-    "11": [
-      "tests_product_e2e"
-    ],
-    "12": [
+    "13": [
       "tests_release_test"
     ]
   },
   "cohesion": {
-    "0": 0.18719211822660098,
-    "1": 0.18421052631578946,
-    "2": 0.10526315789473684,
+    "0": 0.12807881773399016,
+    "1": 0.10526315789473684,
+    "2": 0.2222222222222222,
     "3": 0.1111111111111111,
-    "4": 0.2761904761904762,
-    "5": 0.17582417582417584,
-    "6": 0.15384615384615385,
-    "7": 1.0,
-    "8": 1.0,
+    "4": 0.15384615384615385,
+    "5": 0.358974358974359,
+    "6": 0.3484848484848485,
+    "7": 0.6,
+    "8": 0.6666666666666666,
     "9": 1.0,
     "10": 1.0,
     "11": 1.0,
-    "12": 1.0
+    "12": 1.0,
+    "13": 1.0
   },
   "gods": [
     {
