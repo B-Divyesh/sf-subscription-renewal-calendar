@@ -30,6 +30,16 @@ describe('404 copy policy', () => {
   });
 });
 
+describe('public route discovery', () => {
+  const sitemap = readFileSync('public/sitemap.xml', 'utf8');
+
+  it('lists every public application and policy route', () => {
+    for (const path of ['/', '/demo', '/app', '/privacy', '/terms']) {
+      expect(sitemap).toContain(`<loc>https://subscription-renewal-calendar.sociobot.in${path}</loc>`);
+    }
+  });
+});
+
 describe('public claim registry', () => {
   const claims = JSON.parse(readFileSync('.factory/claims.json', 'utf8')) as Array<{ id: string; test: string }>;
   const endToEndTests = readFileSync('tests/product.e2e.ts', 'utf8');

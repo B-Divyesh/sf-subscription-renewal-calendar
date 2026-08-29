@@ -23,7 +23,8 @@ AWS,410,USD,monthly,2026-09-08,Nia,14,review,Check last month’s cost
 
 `frequency` must be `weekly`, `monthly`, or `annual`. Dates use `YYYY-MM-DD`.
 `currency` must be `USD`, `EUR`, `GBP`, or `INR`; totals stay grouped by
-currency rather than being converted or added together.
+currency rather than being converted or added together. `review_days` must be
+a whole number from 0 to 365.
 The calendar shows each weekly occurrence, even when several land in one month.
 Use **Export ICS reminders** for review-date calendar events, **Export CSV** for
 a spreadsheet copy, and **Encrypted backup** for a password-protected JSON file.

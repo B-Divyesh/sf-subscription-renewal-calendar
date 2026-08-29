@@ -81,7 +81,7 @@
     "claim": "Pro costs $19 once; core tracking, exports, backups, and deletion remain free",
     "where": "landing facts and Pro section, app purchase links, terms, README",
     "test": "npm run test:e2e -- --grep @claim:pro-price",
-    "sandbox": "fresh browser without a license; assert the one-time price, hosted Sociobot checkout target, and usable free calendar controls"
+    "sandbox": "fresh browser without a license; assert the one-time price and usable free controls, then require the live Sociobot checkout to return a 303 hosted Dodo session"
   },
   {
     "id": "cost-history",

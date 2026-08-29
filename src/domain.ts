@@ -1,5 +1,6 @@
 export type Frequency = 'weekly' | 'monthly' | 'annual';
 export type Decision = 'review' | 'keep' | 'cancel';
+export const MAX_REVIEW_DAYS = 365;
 export const supportedCurrencies = ['USD', 'EUR', 'GBP', 'INR'] as const;
 export type Currency = typeof supportedCurrencies[number];
 export const isSupportedCurrency = (currency: string): currency is Currency => supportedCurrencies.includes(currency as Currency);
@@ -37,6 +38,25 @@ export function totalsByCurrency(rows: Array<Pick<Subscription, 'amount' | 'curr
   return [...totals].map(([currency, amount]) => ({ currency, amount }));
 }
 
+export function isUsableSubscription(value: unknown): value is Subscription {
+  if (!value || typeof value !== 'object') return false;
+  const item = value as Partial<Subscription>;
+  return typeof item.id === 'string' && item.id.length > 0
+    && typeof item.name === 'string' && item.name.trim().length > 0
+    && typeof item.amount === 'number' && Number.isFinite(item.amount) && item.amount >= 0
+    && typeof item.currency === 'string' && isSupportedCurrency(item.currency)
+    && typeof item.frequency === 'string' && ['weekly', 'monthly', 'annual'].includes(item.frequency)
+    && typeof item.startsOn === 'string' && isValidDay(item.startsOn)
+    && typeof item.owner === 'string' && item.owner.trim().length > 0
+    && typeof item.reviewDays === 'number' && Number.isInteger(item.reviewDays) && item.reviewDays >= 0 && item.reviewDays <= MAX_REVIEW_DAYS
+    && typeof item.decision === 'string' && ['review', 'keep', 'cancel'].includes(item.decision)
+    && (item.note === undefined || typeof item.note === 'string')
+    && (item.costHistory === undefined || (Array.isArray(item.costHistory) && item.costHistory.every((entry) => (
+      entry && typeof entry.amount === 'number' && Number.isFinite(entry.amount) && entry.amount >= 0
+      && typeof entry.changedOn === 'string' && isValidDay(entry.changedOn)
+    ))));
+}
+
 function monthDate(start: Date, offset: number): Date {
   const targetYear = start.getUTCFullYear() + Math.floor((start.getUTCMonth() + offset) / 12);
   const targetMonth = (start.getUTCMonth() + offset) % 12;
@@ -45,6 +65,7 @@ function monthDate(start: Date, offset: number): Date {
 }
 
 export function occurrencesFor(subscription: Subscription, from: string, to: string): Occurrence[] {
+  if (!isUsableSubscription(subscription) || !isValidDay(from) || !isValidDay(to) || from > to) return [];
   const start = parseDay(subscription.startsOn);
   const fromDate = parseDay(from); const toDate = parseDay(to);
   const dates: Date[] = [];
@@ -144,7 +165,7 @@ export function parseSubscriptionsCsv(text: string, makeId: () => string = () =>
     if (!amountText || !Number.isFinite(amount) || amount < 0) throw new Error(`Row ${row} has an invalid amount. Use zero or a positive number.`);
     if (!['weekly', 'monthly', 'annual'].includes(frequency)) throw new Error(`Row ${row} has an invalid frequency. Use weekly, monthly, or annual.`);
     if (!isValidDay(startsOn)) throw new Error(`Row ${row} has an invalid starts_on date. Use a real YYYY-MM-DD date.`);
-    if (!Number.isInteger(reviewDays) || reviewDays < 0) throw new Error(`Row ${row} has invalid review_days. Use zero or a positive whole number.`);
+    if (!Number.isInteger(reviewDays) || reviewDays < 0 || reviewDays > MAX_REVIEW_DAYS) throw new Error(`Row ${row} has invalid review_days. Use a whole number from 0 to ${MAX_REVIEW_DAYS}.`);
     if (!['review', 'keep', 'cancel'].includes(decision)) throw new Error(`Row ${row} has an invalid decision. Use review, keep, or cancel.`);
     const currency = (get('currency') || 'USD').toUpperCase();
     if (!isSupportedCurrency(currency)) throw new Error(`Row ${row} has an invalid currency. Use USD, EUR, GBP, or INR.`);

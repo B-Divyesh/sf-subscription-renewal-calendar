@@ -124,6 +124,77 @@ test('invalid dates and decisions show row-specific errors without persistence',
   await expect(page.getByText('Bad decision', { exact: true })).toHaveCount(0);
 });
 
+test('bounds review days in the form and CSV before persistence', async ({ page }) => {
+  await page.goto('/app');
+  await page.getByRole('button', { name: 'Add subscription' }).click();
+  const dialog = page.getByRole('dialog');
+  await dialog.getByLabel('Name').fill('Huge review poison');
+  await dialog.getByLabel('Amount').fill('10');
+  await dialog.getByLabel('Owner').fill('Rae');
+  const reviewDays = dialog.getByLabel('Review days early');
+  await expect(reviewDays).toHaveAttribute('max', '365');
+  await reviewDays.fill('200000000');
+  expect(await reviewDays.evaluate((input: HTMLInputElement) => ({ valid: input.checkValidity(), overflow: input.validity.rangeOverflow }))).toEqual({ valid: false, overflow: true });
+  await dialog.getByRole('button', { name: 'Save subscription' }).click();
+  await expect(dialog).toBeVisible();
+  await page.reload();
+  await expect(page.getByText('Huge review poison', { exact: true })).toHaveCount(0);
+
+  await page.getByLabel('Import CSV').setInputFiles({
+    name: 'huge-review.csv',
+    mimeType: 'text/csv',
+    buffer: Buffer.from('name,amount,frequency,starts_on,owner,review_days\nHuge CSV review,10,monthly,2026-08-28,Rae,200000000')
+  });
+  await expect(page.locator('.notice')).toContainText('Row 2 has invalid review_days. Use a whole number from 0 to 365.');
+  await page.reload();
+  await expect(page.getByText('Huge CSV review', { exact: true })).toHaveCount(0);
+});
+
+test('removes poisoned IndexedDB rows while preserving valid subscriptions and controls', async ({ page }) => {
+  const errors: string[] = [];
+  page.on('pageerror', (error) => errors.push(error.message));
+  await page.goto('/app');
+  await page.evaluate(async () => {
+    const db = await new Promise<IDBDatabase>((resolve, reject) => {
+      const request = indexedDB.open('renewal-ledger:real:subscriptions', 1);
+      request.onupgradeneeded = () => request.result.createObjectStore('subscriptions', { keyPath: 'id' });
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => reject(request.error);
+    });
+    await new Promise<void>((resolve, reject) => {
+      const transaction = db.transaction('subscriptions', 'readwrite');
+      const store = transaction.objectStore('subscriptions');
+      store.clear();
+      store.put({ id: 'valid-row', name: 'Valid renewal', amount: 10, currency: 'USD', frequency: 'monthly', startsOn: '2026-08-28', owner: 'Rae', reviewDays: 7, decision: 'review' });
+      store.put({ id: 'poison-row', name: 'Poisoned renewal', amount: 10, currency: 'USD', frequency: 'monthly', startsOn: '2026-08-28', owner: 'Rae', reviewDays: 200_000_000, decision: 'review' });
+      transaction.oncomplete = () => resolve();
+      transaction.onerror = () => reject(transaction.error);
+    });
+    db.close();
+  });
+  await page.reload();
+  await expect(page.getByRole('heading', { name: 'Your next 60 days of renewals' })).toBeVisible();
+  await expect(page.locator('.notice')).toContainText('An invalid saved entry was removed');
+  await expect(page.locator('.subscription-list').getByRole('heading', { name: 'Valid renewal' })).toBeVisible();
+  await expect(page.getByText('Poisoned renewal', { exact: true })).toHaveCount(0);
+  await expect(page.getByRole('button', { name: 'Add subscription' })).toBeVisible();
+  expect(await page.evaluate(async () => {
+    const db = await new Promise<IDBDatabase>((resolve, reject) => {
+      const request = indexedDB.open('renewal-ledger:real:subscriptions', 1);
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => reject(request.error);
+    });
+    return new Promise<string[]>((resolve, reject) => {
+      const request = db.transaction('subscriptions').objectStore('subscriptions').getAll();
+      request.onsuccess = () => resolve(request.result.map((item: { id: string }) => item.id));
+      request.onerror = () => reject(request.error);
+    });
+  })).toEqual(['valid-row']);
+  await page.reload();
+  await expect(page.locator('.subscription-list').getByRole('heading', { name: 'Valid renewal' })).toBeVisible();
+  expect(errors).toEqual([]);
+});
+
 test('@claim:encrypted-backup downloads ciphertext without plaintext subscription data', async ({ page }) => {
   await page.goto('/demo');
   page.once('dialog', (prompt) => prompt.accept('correct horse battery staple'));
@@ -181,12 +252,15 @@ test('@claim:device-storage keeps a real subscription in this browser between vi
   await expect(page.locator('.subscription-list').getByRole('heading', { name: 'Browser-persisted renewal' })).toBeVisible();
 });
 
-test('@claim:pro-price keeps the $19 one-time upgrade optional and the core calendar free', async ({ page }) => {
+test('@claim:pro-price keeps the $19 one-time upgrade optional and opens hosted checkout', async ({ page, request }) => {
   await page.goto('/');
   await expect(page.locator('.pro')).toContainText('Pro costs $19 once');
   await expect(page.locator('.pro')).toContainText('Core tracking, CSV, ICS, encrypted backups, and deletion stay free');
   const checkout = 'https://api.sociobot.in/api/v1/products/subscription-renewal-calendar/checkout';
   await expect(page.locator('.pro').getByRole('link', { name: 'Buy Pro for $19' })).toHaveAttribute('href', checkout);
+  const checkoutResponse = await request.get(checkout, { maxRedirects: 0 });
+  expect(checkoutResponse.status()).toBe(303);
+  expect(checkoutResponse.headers().location).toMatch(/^https:\/\/checkout\.dodopayments\.com\/session\//);
   await page.goto('/app');
   expect(await page.evaluate(() => localStorage.getItem('sb_license:subscription-renewal-calendar'))).toBeNull();
   for (const name of ['Add subscription', 'Import CSV', 'Export ICS reminders', 'Export CSV', 'Encrypted backup']) {
@@ -202,6 +276,20 @@ test('@claim:pro-price keeps the $19 one-time upgrade optional and the core cale
   await expect(page.locator('.license').getByRole('link', { name: 'Buy Pro for $19' })).toHaveAttribute('href', checkout);
   await page.goto('/terms');
   await expect(page.locator('main')).toContainText('Pro is a $19 one-time license');
+});
+
+test('cold loads keep the skip link first and client-side routes focus their heading', async ({ page }) => {
+  for (const path of ['/', '/demo', '/app', '/privacy', '/terms']) {
+    await page.goto(path);
+    await expect(page.locator('h1')).toBeVisible();
+    await expect(page.locator('body')).toBeFocused();
+    await page.keyboard.press('Tab');
+    await expect(page.locator('.skip-link')).toBeFocused();
+  }
+
+  await page.goto('/');
+  await page.getByRole('link', { name: 'Try it with sample data' }).click();
+  await expect(page.getByRole('heading', { name: 'Your next 60 days of renewals' })).toBeFocused();
 });
 
 test('announces an installed app update and offers a reload action', async ({ page }) => {

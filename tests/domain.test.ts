@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { allOccurrences, icsReminders, occurrencesFor, parseSubscriptionsCsv, subscriptionsCsv, type Subscription } from '../src/domain';
+import { MAX_REVIEW_DAYS, allOccurrences, icsReminders, isUsableSubscription, occurrencesFor, parseSubscriptionsCsv, subscriptionsCsv, type Subscription } from '../src/domain';
 
 const weekly: Subscription = { id: 'cleaning', name: 'Office cleaner', amount: 85, currency: 'USD', frequency: 'weekly', startsOn: '2026-08-28', owner: 'Maya', reviewDays: 3, decision: 'keep' };
 
@@ -32,6 +32,13 @@ describe('recurring charge dates', () => {
     const rows = allOccurrences([weekly], '2026-09-01', '2026-10-31');
     expect(rows).toHaveLength(9);
   });
+
+  it('does not perform date arithmetic on poisoned persisted subscriptions', () => {
+    const poisoned = { ...weekly, reviewDays: 200_000_000 };
+    expect(isUsableSubscription(poisoned)).toBe(false);
+    expect(() => occurrencesFor(poisoned, '2026-09-01', '2026-09-30')).not.toThrow();
+    expect(occurrencesFor(poisoned, '2026-09-01', '2026-09-30')).toEqual([]);
+  });
 });
 
 describe('CSV validation', () => {
@@ -45,9 +52,9 @@ describe('CSV validation', () => {
     expect(() => parseSubscriptionsCsv(csv)).toThrow('Row 2 has an invalid starts_on date');
   });
 
-  it.each(['-1', '1.5', 'soon'])('rejects invalid review_days value %s', (reviewDays) => {
+  it.each(['-1', '1.5', '366', '200000000', 'soon'])('rejects invalid review_days value %s', (reviewDays) => {
     const csv = `name,amount,frequency,starts_on,owner,review_days\nTool,10,monthly,2026-02-28,Rae,${reviewDays}`;
-    expect(() => parseSubscriptionsCsv(csv)).toThrow('Row 2 has invalid review_days');
+    expect(() => parseSubscriptionsCsv(csv)).toThrow(`Row 2 has invalid review_days. Use a whole number from 0 to ${MAX_REVIEW_DAYS}.`);
   });
 
   it('rejects an unknown decision instead of silently changing it', () => {
