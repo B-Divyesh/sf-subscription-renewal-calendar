@@ -214,11 +214,6 @@
       "degree": 10
     },
     {
-      "id": "src_main_loadworkspace",
-      "label": "loadWorkspace()",
-      "degree": 9
-    },
-    {
       "id": "src_domain_adddays",
       "label": "addDays()",
       "degree": 9
@@ -226,6 +221,11 @@
     {
       "id": "src_domain_alloccurrences",
       "label": "allOccurrences()",
+      "degree": 9
+    },
+    {
+      "id": "src_main_loadworkspace",
+      "label": "loadWorkspace()",
       "degree": 9
     }
   ],
@@ -242,30 +242,8 @@
       "why": "bridges separate communities"
     },
     {
-      "source": "samplePreview()",
-      "target": "sampleSubscriptions()",
-      "source_files": [
-        "src/main.ts",
-        "src/domain.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "bridges separate communities"
-    },
-    {
-      "source": "persist()",
-      "target": "saveSubscriptions()",
-      "source_files": [
-        "src/main.ts",
-        "src/storage.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "bridges separate communities"
-    },
-    {
-      "source": "appView()",
-      "target": "addDays()",
+      "source": "exportCsv()",
+      "target": "subscriptionsCsv()",
       "source_files": [
         "src/main.ts",
         "src/domain.ts"
@@ -277,6 +255,28 @@
     {
       "source": "exportIcs()",
       "target": "addDays()",
+      "source_files": [
+        "src/main.ts",
+        "src/domain.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "exportIcs()",
+      "target": "allOccurrences()",
+      "source_files": [
+        "src/main.ts",
+        "src/domain.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "exportIcs()",
+      "target": "icsReminders()",
       "source_files": [
         "src/main.ts",
         "src/domain.ts"
