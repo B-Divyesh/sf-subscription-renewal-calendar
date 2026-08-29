@@ -231,6 +231,13 @@ test('desktop routes have clean semantics, console output, and automated accessi
   expect(errors).toEqual([]);
 });
 
+test('404 page states the error literally and links back to the calendar', async ({ page }) => {
+  await page.goto('/404.html');
+  await expect(page).toHaveTitle('Page not found — Subscription Renewal Calendar');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Page not found');
+  await expect(page.getByRole('link', { name: 'Go to the renewal calendar' })).toHaveAttribute('href', '/');
+});
+
 test('390px mobile layout has no horizontal overflow and keeps primary controls usable', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/demo');

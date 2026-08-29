@@ -16,6 +16,16 @@ describe('static deployment policy', () => {
   });
 });
 
+describe('404 copy policy', () => {
+  const notFoundPage = readFileSync('public/404.html', 'utf8');
+
+  it('uses a literal plain-words heading and retains the recovery link', () => {
+    expect(notFoundPage).toContain('<h1>Page not found</h1>');
+    expect(notFoundPage).not.toContain('This page is not on the board.');
+    expect(notFoundPage).toContain('<a class="button" href="/">Go to the renewal calendar</a>');
+  });
+});
+
 describe('public claim registry', () => {
   const claims = JSON.parse(readFileSync('.factory/claims.json', 'utf8')) as Array<{ id: string; test: string }>;
   const endToEndTests = readFileSync('tests/product.e2e.ts', 'utf8');

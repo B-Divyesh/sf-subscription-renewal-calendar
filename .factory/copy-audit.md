@@ -19,6 +19,16 @@
 
 No banned terms appear in the landing page.
 
+## 404 page
+
+| Sentence | Words | Flag |
+| --- | ---: | --- |
+| Page not found | 3 | — |
+| Use the calendar home to see upcoming renewals. | 8 | — |
+| Go to the renewal calendar | 5 | — |
+
+The 404 heading states the error literally and gives one recovery action.
+
 ## Terminology
 
 | Concept | Product word |
