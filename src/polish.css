@@ -1,0 +1,9 @@
+.wordmark {
+  display: block;
+  min-height: 44px;
+  padding-top: 7px;
+}
+
+@media (max-width: 390px) {
+  .wordmark { padding-top: 8px; }
+}

@@ -1,107 +1,22 @@
 [
-  {
-    "id": "weekly-occurrences",
-    "claim": "Shows every weekly renewal in the same month",
-    "where": "calendar heading, README",
-    "test": "npm run test:e2e -- --grep @claim:weekly-occurrences",
-    "sandbox": "fresh /demo; derive every expected Office cleaner renewal from the visible 60-day range and assert no weekly date is missing"
-  },
-  {
-    "id": "demo-isolated",
-    "claim": "Demo sample data is not saved with your real data and is discarded when you leave",
-    "where": "demo banner, privacy page, demo documentation",
-    "test": "npm run test:e2e -- --grep @claim:demo-isolated",
-    "sandbox": "fresh browser; landing → demo → real → demo → real → demo, with a real sentinel subscription"
-  },
-  {
-    "id": "offline-reload",
-    "claim": "The demo stays available offline after the first visit",
-    "where": "demo documentation",
-    "test": "npm run test:e2e -- --grep @claim:offline-reload",
-    "sandbox": "fresh browser; visit demo, wait for service worker, set offline, reload"
-  },
-  {
-    "id": "private-data",
-    "claim": "There are no bank connections, analytics, trackers, or subscription-data requests to another origin",
-    "where": "landing privacy section, privacy page, README",
-    "test": "npm run test:e2e -- --grep @claim:private-data",
-    "sandbox": "fresh real workspace; add and export a subscription, assert every request remains same-origin, and assert there is no bank connection control"
-  },
-  {
-    "id": "ics-export",
-    "claim": "Exports calendar reminders",
-    "where": "calendar toolbar, README",
-    "test": "npm run test:e2e -- --grep @claim:ics-export",
-    "sandbox": "fresh /demo; download ICS and assert the calendar envelope and multiple events"
-  },
-  {
-    "id": "sixty-day-window",
-    "claim": "Loads a working 60-day calendar",
-    "where": "landing action helper",
-    "test": "npm run test:e2e -- --grep @claim:sixty-day-window",
-    "sandbox": "fresh /demo; assert the visible range spans exactly 60 days and contains the six sample subscriptions and renewal occurrences"
-  },
-  {
-    "id": "csv-roundtrip",
-    "claim": "Exports and imports RFC 4180 CSV without changing quoted subscription data",
-    "where": "calendar toolbar, README",
-    "test": "npm run test:e2e -- --grep @claim:csv-roundtrip",
-    "sandbox": "fresh real workspace; add commas, quotes, and a line break; export; delete; import; assert exact visible values"
-  },
-  {
-    "id": "encrypted-backup",
-    "claim": "Exports a password-protected encrypted backup",
-    "where": "calendar toolbar, landing Pro section, README, privacy page",
-    "test": "npm run test:e2e -- --grep @claim:encrypted-backup",
-    "sandbox": "fresh demo workspace; provide a passphrase; assert the download contains AES-GCM fields and no plaintext sample data"
-  },
-  {
-    "id": "pro-forecast",
-    "claim": "Pro adds a 12-month forecast grouped by currency",
-    "where": "landing Pro section, calendar forecast",
-    "test": "npm run test:e2e -- --grep @claim:pro-forecast",
-    "sandbox": "fresh /demo; mock a valid Sociobot verification and assert the visible one-year grouped forecast"
-  },
-  {
-    "id": "delete-all",
-    "claim": "You control deletion",
-    "where": "landing privacy section, privacy page",
-    "test": "npm run test:e2e -- --grep @claim:delete-all",
-    "sandbox": "fresh /demo; confirm Delete all subscriptions, reload, and assert the empty calendar"
-  },
-  {
-    "id": "device-storage",
-    "claim": "Runs on this device and keeps subscriptions in this browser between visits",
-    "where": "landing facts, landing art caption, privacy page, README",
-    "test": "npm run test:e2e -- --grep @claim:device-storage",
-    "sandbox": "fresh real workspace; add a unique subscription, reload, and assert that IndexedDB restores it"
-  },
-  {
-    "id": "pro-price",
-    "claim": "Pro costs $19 once; core tracking, exports, backups, and deletion remain free",
-    "where": "landing facts and Pro section, app purchase links, terms, README",
-    "test": "npm run test:e2e -- --grep @claim:pro-price",
-    "sandbox": "fresh browser without a license; assert the one-time price and usable free controls, then require the live Sociobot checkout to return a 303 hosted Dodo session"
-  },
-  {
-    "id": "cost-history",
-    "claim": "Records subscription cost changes",
-    "where": "subscription list, README",
-    "test": "npm run test:e2e -- --grep @claim:cost-history",
-    "sandbox": "fresh /demo; change a subscription amount, reload, and assert the previous amount and change date remain visible"
-  },
-  {
-    "id": "high-value-warning",
-    "claim": "Flags high-value charges that have fewer than seven review days",
-    "where": "calendar review rule, README",
-    "test": "npm run test:e2e -- --grep @claim:high-value-warning",
-    "sandbox": "fresh /demo; set a review threshold, create a charge above it with three review days, and assert the named warning"
-  },
-  {
-    "id": "verified-license-offline",
-    "claim": "A previously verified Pro license remains available offline",
-    "where": "README",
-    "test": "npm run test:e2e -- --grep @claim:verified-license-offline",
-    "sandbox": "fresh /demo; verify a mocked valid license once, go offline, reload through the service worker, and assert the Pro forecast remains visible without another verification request"
-  }
+  {"id":"weekly-occurrences","claim":"Shows every weekly renewal in the same month","where":"calendar heading, README","test":"npm run test:e2e -- --grep @claim:weekly-occurrences","sandbox":"fresh /demo; derive every expected Office cleaner renewal from the visible 60-day range and assert no weekly date is missing"},
+  {"id":"demo-isolated","claim":"Demo sample data is not saved with your real data and is discarded when you leave","where":"demo banner, privacy page, demo documentation","test":"npm run test:e2e -- --grep @claim:demo-isolated","sandbox":"fresh browser; landing → demo → real → demo → real with a real sentinel subscription"},
+  {"id":"offline-reload","claim":"The demo stays available offline after the first visit","where":"demo documentation","test":"npm run test:e2e -- --grep @claim:offline-reload","sandbox":"fresh browser; visit demo, wait for service worker, set offline, reload"},
+  {"id":"offline-app-reload","claim":"Works offline after your first visit","where":"landing facts","test":"npm run test:e2e -- --grep @claim:offline-app-reload","sandbox":"fresh real workspace; add a subscription, wait for service worker, set offline, reload"},
+  {"id":"private-data","claim":"There are no bank connections, analytics, trackers, or subscription-data requests to another origin","where":"landing privacy section, privacy page, README","test":"npm run test:e2e -- --grep @claim:private-data","sandbox":"fresh real workspace; add and export a subscription, assert every request remains same-origin, and assert there is no bank connection control"},
+  {"id":"ics-export","claim":"Exports calendar reminders","where":"landing facts, calendar toolbar, README","test":"npm run test:e2e -- --grep @claim:ics-export","sandbox":"fresh /demo; download ICS and assert the calendar envelope and multiple events"},
+  {"id":"sixty-day-window","claim":"Loads a working 60-day calendar","where":"landing action helper","test":"npm run test:e2e -- --grep @claim:sixty-day-window","sandbox":"fresh /demo; assert the visible range spans exactly 60 days and contains the six sample subscriptions and renewal occurrences"},
+  {"id":"csv-roundtrip","claim":"Exports and imports RFC 4180 CSV without changing quoted subscription data","where":"calendar toolbar, README","test":"npm run test:e2e -- --grep @claim:csv-roundtrip","sandbox":"fresh real workspace; add commas, quotes, and a line break; export; delete; import; assert exact visible values"},
+  {"id":"encrypted-backup","claim":"Exports a password-protected encrypted backup","where":"calendar toolbar, landing Pro section, README, privacy page","test":"npm run test:e2e -- --grep @claim:encrypted-backup","sandbox":"fresh demo workspace; provide a passphrase; assert the download contains AES-GCM fields and no plaintext sample data"},
+  {"id":"backup-restore","claim":"Restores a valid encrypted backup with its passphrase in the current workspace","where":"calendar toolbar, privacy page, README","test":"npm run test:e2e -- --grep @claim:backup-restore","sandbox":"fresh demo workspace; test wrong passphrase, corrupt file, preview, restore, and leaving demo without changing real data"},
+  {"id":"manual-add","claim":"Adds a subscription by hand and keeps it after reload","where":"landing How the renewal calendar works","test":"npm run test:e2e -- --grep @claim:manual-add","sandbox":"fresh real workspace; enter every field, reload, and assert the saved record and renewal occurrence"},
+  {"id":"owner-review-date","claim":"Saves an owner and review days before each charge","where":"landing How the renewal calendar works","test":"npm run test:e2e -- --grep @claim:owner-review-date","sandbox":"fresh real workspace; save an owner and review days, then assert the calculated review date"},
+  {"id":"decision-edit","claim":"Edits a subscription to keep, review, or cancel it","where":"landing How the renewal calendar works","test":"npm run test:e2e -- --grep @claim:decision-edit","sandbox":"fresh demo workspace; save each decision and reload after every edit"},
+  {"id":"pro-forecast","claim":"Pro adds a 12-month forecast grouped by currency","where":"landing Pro section, calendar forecast","test":"npm run test:e2e -- --grep @claim:pro-forecast","sandbox":"fresh /demo; mock a valid Sociobot verification and assert the visible one-year grouped forecast"},
+  {"id":"delete-all","claim":"You control deletion","where":"landing privacy section, privacy page","test":"npm run test:e2e -- --grep @claim:delete-all","sandbox":"fresh /demo; confirm Delete all subscriptions, reload, and assert the empty calendar"},
+  {"id":"device-storage","claim":"Keeps subscriptions in this browser between visits","where":"landing art caption, privacy page, README","test":"npm run test:e2e -- --grep @claim:device-storage","sandbox":"fresh real workspace; add a unique subscription, reload, and assert that IndexedDB restores it"},
+  {"id":"pro-price","claim":"Pro costs $19 once; core tracking, exports, backups, and deletion remain free","where":"landing facts and Pro section, app purchase links, terms, README","test":"npm run test:e2e -- --grep @claim:pro-price","sandbox":"fresh browser without a license; assert the one-time price and usable free controls, then require the live Sociobot checkout to return a 303 hosted Dodo session"},
+  {"id":"cost-history","claim":"Records subscription cost changes","where":"subscription list, README","test":"npm run test:e2e -- --grep @claim:cost-history","sandbox":"fresh /demo; change a subscription amount, reload, and assert the previous amount and change date remain visible"},
+  {"id":"high-value-warning","claim":"Flags high-value charges that have fewer than seven review days","where":"calendar review rule, README","test":"npm run test:e2e -- --grep @claim:high-value-warning","sandbox":"fresh /demo; set a review threshold, create a charge above it with three review days, and assert the named warning"},
+  {"id":"verified-license-offline","claim":"A previously verified Pro license remains available offline","where":"README","test":"npm run test:e2e -- --grep @claim:verified-license-offline","sandbox":"fresh /demo; verify a mocked valid license once, go offline, reload through the service worker, and assert the Pro forecast remains visible without another verification request"}
 ]

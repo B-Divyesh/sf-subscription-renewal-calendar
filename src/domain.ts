@@ -95,7 +95,7 @@ export function icsReminders(items: Subscription[], from: string, to: string): s
   const stamp = from.replaceAll('-', '');
   const icsText = (value: string) => value.replaceAll('\\', '\\\\').replaceAll('\r\n', '\\n').replaceAll('\n', '\\n').replaceAll('\r', '\\n').replaceAll(';', '\\;').replaceAll(',', '\\,');
   const body = allOccurrences(items, from, to).map((x, index) => `BEGIN:VEVENT\r\nUID:renewal-${x.id}-${index}@renewal-ledger.local\r\nDTSTAMP:${stamp}T120000Z\r\nDTSTART;VALUE=DATE:${x.reviewOn.replaceAll('-', '')}\r\nSUMMARY:${icsText(`Review ${x.name} before ${money(x.amount, x.currency)} renewal`)}\r\nDESCRIPTION:${icsText(`Owner: ${x.owner || 'Unassigned'}. Renewal date: ${x.dueOn}. Decision: ${x.decision}.`)}\r\nEND:VEVENT`).join('\r\n');
-  return `BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Renewal Ledger//EN\r\n${body}\r\nEND:VCALENDAR`;
+  return `BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Subscription Renewal Calendar//EN\r\n${body}\r\nEND:VCALENDAR`;
 }
 
 /** Parse RFC 4180 records, including quoted commas, quotes, and line breaks. */

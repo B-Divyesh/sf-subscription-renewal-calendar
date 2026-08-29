@@ -199,13 +199,50 @@ test('@claim:encrypted-backup downloads ciphertext without plaintext subscriptio
   await page.goto('/demo');
   page.once('dialog', (prompt) => prompt.accept('correct horse battery staple'));
   const downloadPromise = page.waitForEvent('download');
-  await page.getByRole('button', { name: 'Encrypted backup' }).click();
+  await page.getByRole('button', { name: 'Export encrypted backup' }).click();
   const download = await downloadPromise;
   const path = await download.path();
   const contents = await (await import('node:fs/promises')).readFile(path!, 'utf8');
   expect(JSON.parse(contents)).toEqual({ version: 1, salt: expect.any(String), iv: expect.any(String), data: expect.any(String) });
   expect(contents).not.toContain('Office cleaner');
   expect(contents).not.toContain('Maya');
+});
+
+test('@claim:backup-restore restores a validated encrypted backup only in the current workspace', async ({ page }) => {
+  await page.goto('/demo');
+  page.once('dialog', (prompt) => prompt.accept('correct horse battery staple'));
+  const downloaded = page.waitForEvent('download');
+  await page.getByRole('button', { name: 'Export encrypted backup' }).click();
+  const backup = Buffer.from(await (await downloaded).createReadStream().then(async (stream) => { const chunks: Buffer[] = []; for await (const chunk of stream!) chunks.push(chunk); return Buffer.concat(chunks); }));
+
+  await page.locator('#backup-input').setInputFiles({ name: 'backup.json', mimeType: 'application/json', buffer: backup });
+  let dialog = page.getByRole('dialog', { name: 'Restore encrypted backup' });
+  await dialog.getByLabel('Backup passphrase').fill('wrong passphrase');
+  await dialog.getByRole('button', { name: 'Preview backup' }).click();
+  await expect(dialog.getByRole('alert')).toContainText('passphrase is incorrect');
+  await dialog.getByRole('button', { name: 'Cancel' }).click();
+
+  await page.locator('#backup-input').setInputFiles({ name: 'broken.json', mimeType: 'application/json', buffer: Buffer.from('{}') });
+  dialog = page.getByRole('dialog', { name: 'Restore encrypted backup' });
+  await dialog.getByLabel('Backup passphrase').fill('correct horse battery staple');
+  await dialog.getByRole('button', { name: 'Preview backup' }).click();
+  await expect(dialog.getByRole('alert')).toContainText('unsupported format');
+  await dialog.getByRole('button', { name: 'Cancel' }).click();
+
+  page.once('dialog', (prompt) => prompt.accept());
+  await page.getByRole('button', { name: 'Delete all subscriptions' }).click();
+  await expect(page.getByRole('heading', { name: 'No subscriptions yet' })).toBeVisible();
+  await page.locator('#backup-input').setInputFiles({ name: 'backup.json', mimeType: 'application/json', buffer: backup });
+  dialog = page.getByRole('dialog', { name: 'Restore encrypted backup' });
+  await dialog.getByLabel('Backup passphrase').fill('correct horse battery staple');
+  await dialog.getByRole('button', { name: 'Preview backup' }).click();
+  await expect(dialog.getByText('Backup preview')).toBeVisible();
+  await dialog.getByRole('button', { name: 'Restore backup' }).click();
+  await expect(page.getByText('Office cleaner', { exact: true }).first()).toBeVisible();
+  await expect(page.getByLabel('Demo mode')).toBeVisible();
+
+  await page.getByRole('button', { name: 'Start for real' }).click();
+  await expect(page.getByText('Office cleaner', { exact: true })).toHaveCount(0);
 });
 
 test('@claim:offline-reload keeps the demo calendar available after first visit', async ({ page, context }) => {
@@ -220,6 +257,22 @@ test('@claim:offline-reload keeps the demo calendar available after first visit'
   await context.setOffline(true);
   await page.reload({ waitUntil: 'domcontentloaded' });
   await expect(page.getByRole('heading', { name: 'Your next 60 days of renewals' })).toBeVisible();
+  await context.setOffline(false);
+});
+
+test('@claim:offline-app-reload keeps the real calendar available offline after first visit', async ({ page, context }) => {
+  await page.goto('/app');
+  await page.getByRole('button', { name: 'Add subscription' }).click();
+  const dialog = page.getByRole('dialog', { name: 'Add a subscription' });
+  await dialog.getByLabel('Name').fill('Offline real renewal');
+  await dialog.getByLabel('Amount').fill('15');
+  await dialog.getByLabel('Owner').fill('Rae');
+  await dialog.getByRole('button', { name: 'Save subscription' }).click();
+  await page.evaluate(() => navigator.serviceWorker.ready);
+  await page.waitForFunction(() => Boolean(navigator.serviceWorker.controller));
+  await context.setOffline(true);
+  await page.reload({ waitUntil: 'domcontentloaded' });
+  await expect(page.locator('.subscription-list').getByRole('heading', { name: 'Offline real renewal' })).toBeVisible();
   await context.setOffline(false);
 });
 
@@ -252,18 +305,71 @@ test('@claim:device-storage keeps a real subscription in this browser between vi
   await expect(page.locator('.subscription-list').getByRole('heading', { name: 'Browser-persisted renewal' })).toBeVisible();
 });
 
+test('@claim:manual-add saves every subscription field and shows its renewal after reload', async ({ page }) => {
+  await page.goto('/app');
+  await page.getByRole('button', { name: 'Add subscription' }).click();
+  const dialog = page.getByRole('dialog', { name: 'Add a subscription' });
+  await dialog.getByLabel('Name').fill('Manual field check');
+  await dialog.getByLabel('Amount').fill('123.45');
+  await dialog.getByLabel('Currency').selectOption('EUR');
+  await dialog.getByLabel('Frequency').selectOption('weekly');
+  await dialog.getByLabel('First charge').fill(addUtcDays(new Date().toISOString().slice(0, 10), 7));
+  await dialog.getByLabel('Owner').fill('Rae');
+  await dialog.getByLabel('Review days early').fill('5');
+  await dialog.getByLabel('Decision').selectOption('keep');
+  await dialog.getByLabel('Note').fill('Checked by hand');
+  await dialog.getByRole('button', { name: 'Save subscription' }).click();
+  await expect(page.locator('.subscription-list article').filter({ hasText: 'Manual field check' })).toBeVisible();
+  await page.reload();
+  const row = page.locator('.subscription-list article').filter({ hasText: 'Manual field check' });
+  await expect(row).toContainText('€123.45 · weekly');
+  await expect(row).toContainText('Owner: Rae · review 5 days early · keep');
+  expect(await page.locator('.calendar .occurrence').filter({ hasText: 'Manual field check' }).count()).toBeGreaterThan(0);
+});
+
+test('@claim:owner-review-date saves an owner and calculates the review date', async ({ page }) => {
+  await page.goto('/app');
+  const firstCharge = addUtcDays(new Date().toISOString().slice(0, 10), 21);
+  await page.getByRole('button', { name: 'Add subscription' }).click();
+  const dialog = page.getByRole('dialog', { name: 'Add a subscription' });
+  await dialog.getByLabel('Name').fill('Owner review check');
+  await dialog.getByLabel('Amount').fill('50');
+  await dialog.getByLabel('First charge').fill(firstCharge);
+  await dialog.getByLabel('Owner').fill('Sam');
+  await dialog.getByLabel('Review days early').fill('9');
+  await dialog.getByRole('button', { name: 'Save subscription' }).click();
+  const row = page.locator('.calendar .occurrence').filter({ hasText: 'Owner review check' });
+  const expectedReview = addUtcDays(firstCharge, -9);
+  const expectedText = await page.evaluate((day) => new Intl.DateTimeFormat(undefined, { weekday: 'short', month: 'short', day: 'numeric', timeZone: 'UTC' }).format(new Date(`${day}T12:00:00Z`)), expectedReview);
+  await expect(row.first()).toContainText(`Review ${expectedText} · Owner: Sam`);
+});
+
+test('@claim:decision-edit saves each renewal decision after reload', async ({ page }) => {
+  await page.goto('/demo');
+  for (const decision of ['review', 'cancel', 'keep']) {
+    await page.getByRole('button', { name: 'Edit Linear' }).click();
+    const dialog = page.getByRole('dialog', { name: 'Edit subscription' });
+    await dialog.getByLabel('Decision').selectOption(decision);
+    await expect(dialog.getByLabel('Decision')).toHaveValue(decision);
+    await dialog.getByRole('button', { name: 'Save changes' }).click();
+    await expect(page.locator('.subscription-list article').filter({ hasText: 'Linear' })).toContainText(`· ${decision}`);
+    await page.reload();
+    await expect(page.locator('.subscription-list article').filter({ hasText: 'Linear' })).toContainText(`· ${decision}`);
+  }
+});
+
 test('@claim:pro-price keeps the $19 one-time upgrade optional and opens hosted checkout', async ({ page, request }) => {
   await page.goto('/');
   await expect(page.locator('.pro')).toContainText('Pro costs $19 once');
   await expect(page.locator('.pro')).toContainText('Core tracking, CSV, ICS, encrypted backups, and deletion stay free');
   const checkout = 'https://api.sociobot.in/api/v1/products/subscription-renewal-calendar/checkout';
-  await expect(page.locator('.pro').getByRole('link', { name: 'Buy Pro for $19' })).toHaveAttribute('href', checkout);
+  await expect(page.locator('.pro').getByRole('link', { name: /Buy Pro for \$19 at secure checkout/ })).toHaveAttribute('href', checkout);
   const checkoutResponse = await request.get(checkout, { maxRedirects: 0 });
   expect(checkoutResponse.status()).toBe(303);
   expect(checkoutResponse.headers().location).toMatch(/^https:\/\/checkout\.dodopayments\.com\/session\//);
   await page.goto('/app');
   expect(await page.evaluate(() => localStorage.getItem('sb_license:subscription-renewal-calendar'))).toBeNull();
-  for (const name of ['Add subscription', 'Import CSV', 'Export ICS reminders', 'Export CSV', 'Encrypted backup']) {
+  for (const name of ['Add subscription', 'Import CSV', 'Export ICS reminders', 'Export CSV', 'Export encrypted backup', 'Restore encrypted backup']) {
     await expect(page.getByText(name, { exact: true }).first()).toBeVisible();
   }
   await page.getByRole('button', { name: 'Add subscription' }).click();
@@ -273,7 +379,7 @@ test('@claim:pro-price keeps the $19 one-time upgrade optional and opens hosted 
   await dialog.getByLabel('Owner').fill('Rae');
   await dialog.getByRole('button', { name: 'Save subscription' }).click();
   await expect(page.getByRole('button', { name: 'Delete all subscriptions' })).toBeVisible();
-  await expect(page.locator('.license').getByRole('link', { name: 'Buy Pro for $19' })).toHaveAttribute('href', checkout);
+  await expect(page.locator('.license').getByRole('link', { name: /Buy Pro for \$19 at secure checkout/ })).toHaveAttribute('href', checkout);
   await page.goto('/terms');
   await expect(page.locator('main')).toContainText('Pro is a $19 one-time license');
 });
@@ -290,6 +396,20 @@ test('cold loads keep the skip link first and client-side routes focus their hea
   await page.goto('/');
   await page.getByRole('link', { name: 'Try it with sample data' }).click();
   await expect(page.getByRole('heading', { name: 'Your next 60 days of renewals' })).toBeFocused();
+  await expect(page.locator('#route-status')).toHaveText('Demo — Subscription Renewal Calendar');
+});
+
+test('sets distinct metadata for every real route and keeps legal links reachable', async ({ page }) => {
+  const origin = 'https://subscription-renewal-calendar.sociobot.in';
+  for (const [path, title] of [['/', 'Subscription Renewal Calendar — see renewals'], ['/demo', 'Demo — Subscription Renewal Calendar'], ['/app', 'Calendar — Subscription Renewal Calendar'], ['/privacy', 'Privacy — Subscription Renewal Calendar'], ['/terms', 'Terms — Subscription Renewal Calendar']] as const) {
+    await page.goto(path);
+    await expect(page).toHaveTitle(title);
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', `${origin}${path}`);
+    await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content', title);
+    await expect(page.locator('meta[name="twitter:title"]')).toHaveAttribute('content', title);
+    await expect(page.locator('footer').getByRole('link', { name: 'Privacy' })).toHaveAttribute('href', '/privacy');
+    await expect(page.locator('footer').getByRole('link', { name: 'Terms' })).toHaveAttribute('href', '/terms');
+  }
 });
 
 test('announces an installed app update and offers a reload action', async ({ page }) => {
@@ -322,6 +442,9 @@ test('desktop routes have clean semantics, console output, and automated accessi
 test('404 page states the error literally and links back to the calendar', async ({ page }) => {
   await page.goto('/404.html');
   await expect(page).toHaveTitle('Page not found — Subscription Renewal Calendar');
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /not found/);
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://subscription-renewal-calendar.sociobot.in/404');
+  await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content', 'Page not found — Subscription Renewal Calendar');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Page not found');
   await expect(page.getByRole('link', { name: 'Go to the renewal calendar' })).toHaveAttribute('href', '/');
 
@@ -335,7 +458,7 @@ test('390px mobile layout has no horizontal overflow and keeps primary controls 
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/demo');
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBeTruthy();
-  for (const name of ['Add subscription', 'Import CSV', 'Export ICS reminders', 'Export CSV', 'Encrypted backup']) {
+  for (const name of ['Add subscription', 'Import CSV', 'Export ICS reminders', 'Export CSV', 'Export encrypted backup', 'Restore encrypted backup']) {
     const box = await page.getByText(name, { exact: true }).first().boundingBox();
     expect(box?.height).toBeGreaterThanOrEqual(44);
   }
@@ -493,7 +616,7 @@ test('names the dialog, keeps 44px dialog controls, and shows file-input focus o
   await page.goto('/demo');
   const add = page.getByRole('button', { name: 'Add subscription' });
   const input = page.getByLabel('Import CSV');
-  const label = page.locator('.file-button');
+  const label = page.locator('.file-button').first();
   await add.focus();
   await page.keyboard.press('Tab');
   await expect(input).toBeFocused();

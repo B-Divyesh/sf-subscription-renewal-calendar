@@ -7,7 +7,7 @@ function serviceWorker(): Plugin {
     generateBundle(_, bundle) {
       const files = Object.values(bundle).map((entry) => `/${entry.fileName}`);
       const fingerprint = createHash('sha256').update(Object.values(bundle).map((entry) => entry.type === 'chunk' ? entry.code : String(entry.source)).join('')).digest('hex').slice(0, 12);
-      const shell = ['/', '/demo', '/app', '/privacy', '/terms', '/index.html', '/manifest.webmanifest', '/favicon.svg', '/icons/icon-192.svg', '/icons/icon-512.svg', ...files];
+      const shell = ['/', '/demo', '/app', '/privacy', '/terms', '/index.html', '/manifest.webmanifest', '/favicon.svg', '/renewal-board.webp', '/renewal-board-social.webp', '/icons/icon-192.svg', '/icons/icon-512.svg', '/icons/apple-touch-icon.png', ...files];
       const source = `const CACHE = 'renewal-ledger-${fingerprint}';
 const SHELL = ${JSON.stringify(shell)};
 self.addEventListener('install', event => event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(SHELL.map(url => new Request(url, { cache: 'reload' })))).then(() => self.skipWaiting())));
