@@ -1,35 +1,29 @@
 {
   "communities": {
     "0": [
+      "docref_rfc_4180",
+      "src_domain",
+      "src_domain_adddays",
+      "src_domain_alloccurrences",
+      "src_domain_csvcell",
+      "src_domain_currency",
+      "src_domain_daystring",
       "src_domain_decision",
       "src_domain_frequency",
-      "src_domain_issupportedcurrency",
-      "src_domain_samplesubscriptions",
+      "src_domain_icsreminders",
+      "src_domain_isvalidday",
+      "src_domain_monthdate",
+      "src_domain_occurrence",
+      "src_domain_occurrencesfor",
+      "src_domain_parsecsvrecords",
+      "src_domain_parseday",
+      "src_domain_parsesubscriptionscsv",
+      "src_domain_subscription",
+      "src_domain_subscriptionscsv",
       "src_domain_supportedcurrencies",
-      "src_domain_totalsbycurrency",
-      "src_main",
-      "src_main_demobanner",
-      "src_main_items",
-      "src_main_loadworkspace",
-      "src_main_readthreshold",
-      "src_main_reconcilestoredlicense",
-      "src_main_requestverification",
-      "src_main_setverdict",
-      "src_main_showupdatenotice",
-      "src_main_space",
-      "src_main_start",
-      "src_main_threshold",
-      "src_main_thresholdkey",
-      "src_main_today",
-      "src_main_transition",
-      "src_main_usable",
-      "src_main_verifylicense",
-      "src_main_writethreshold",
-      "src_storage",
-      "src_storage_clearsubscriptions",
-      "src_storage_open",
-      "src_storage_readsubscriptions",
-      "src_storage_savesubscriptions"
+      "src_main_exportics",
+      "tests_domain_test",
+      "tests_domain_test_weekly"
     ],
     "1": [
       "axe_core_playwright",
@@ -53,27 +47,6 @@
       "vitest"
     ],
     "2": [
-      "docref_rfc_4180",
-      "src_domain",
-      "src_domain_adddays",
-      "src_domain_alloccurrences",
-      "src_domain_csvcell",
-      "src_domain_currency",
-      "src_domain_daystring",
-      "src_domain_icsreminders",
-      "src_domain_isvalidday",
-      "src_domain_monthdate",
-      "src_domain_occurrence",
-      "src_domain_occurrencesfor",
-      "src_domain_parsecsvrecords",
-      "src_domain_parseday",
-      "src_domain_parsesubscriptionscsv",
-      "src_domain_subscription",
-      "src_domain_subscriptionscsv",
-      "tests_domain_test",
-      "tests_domain_test_weekly"
-    ],
-    "3": [
       "ref_dom",
       "ref_dom_iterable",
       "ref_es2022",
@@ -92,6 +65,23 @@
       "tsconfig_compileroptions_usedefineforclassfields",
       "tsconfig_compileroptions_verbatimmodulesyntax",
       "tsconfig_include"
+    ],
+    "3": [
+      "src_domain_issupportedcurrency",
+      "src_domain_money",
+      "src_domain_totalsbycurrency",
+      "src_main_appview",
+      "src_main_costchange",
+      "src_main_demobanner",
+      "src_main_emptystate",
+      "src_main_esc",
+      "src_main_fmtdate",
+      "src_main_occurrencerows",
+      "src_main_samplepreview",
+      "src_main_subscriptionrows",
+      "src_main_totallines",
+      "src_main_usable",
+      "src_main_validverdict"
     ],
     "4": [
       "package",
@@ -115,72 +105,87 @@
       "src_main_download",
       "src_main_encryptedbackup",
       "src_main_exportcsv",
-      "src_main_exportics",
       "src_main_importcsv",
       "src_main_persist",
       "src_main_render",
-      "src_main_savethreshold",
       "src_main_showsubscriptiondialog",
       "src_main_undodelete"
     ],
     "6": [
-      "src_domain_money",
-      "src_main_appview",
-      "src_main_costchange",
-      "src_main_emptystate",
-      "src_main_esc",
-      "src_main_fmtdate",
-      "src_main_occurrencerows",
+      "src_main",
+      "src_main_items",
+      "src_main_readthreshold",
       "src_main_relative",
-      "src_main_samplepreview",
-      "src_main_subscriptionrows",
-      "src_main_totallines",
-      "src_main_validverdict"
+      "src_main_savethreshold",
+      "src_main_space",
+      "src_main_threshold",
+      "src_main_thresholdkey",
+      "src_main_today",
+      "src_main_writethreshold"
     ],
     "7": [
+      "src_domain_samplesubscriptions",
+      "src_main_loadworkspace",
+      "src_main_transition",
+      "src_storage",
+      "src_storage_clearsubscriptions",
+      "src_storage_open",
+      "src_storage_readsubscriptions",
+      "src_storage_savesubscriptions"
+    ],
+    "8": [
+      "src_main_reconcilestoredlicense",
+      "src_main_requestverification",
+      "src_main_setverdict",
+      "src_main_showupdatenotice",
+      "src_main_start",
+      "src_main_verifylicense"
+    ],
+    "9": [
       "src_main_footer",
       "src_main_header",
       "src_main_landing",
       "src_main_legal",
       "src_main_notfound"
     ],
-    "8": [
-      "promises",
+    "10": [
       "tests_product_e2e",
       "tests_product_e2e_addutcdays"
     ],
-    "9": [
+    "11": [
       "vite_config",
       "vite_config_serviceworker"
     ],
-    "10": [
+    "12": [
       "eslint_config"
     ],
-    "11": [
+    "13": [
       "playwright_config"
     ],
-    "12": [
+    "14": [
       "src_vite_env_d"
     ],
-    "13": [
+    "15": [
       "tests_release_test"
     ]
   },
   "cohesion": {
-    "0": 0.12807881773399016,
+    "0": 0.17391304347826086,
     "1": 0.10526315789473684,
-    "2": 0.2222222222222222,
-    "3": 0.1111111111111111,
+    "2": 0.1111111111111111,
+    "3": 0.2571428571428571,
     "4": 0.15384615384615385,
-    "5": 0.358974358974359,
-    "6": 0.3484848484848485,
-    "7": 0.6,
-    "8": 0.6666666666666666,
-    "9": 1.0,
+    "5": 0.41818181818181815,
+    "6": 0.28888888888888886,
+    "7": 0.32142857142857145,
+    "8": 0.4666666666666667,
+    "9": 0.6,
     "10": 1.0,
     "11": 1.0,
     "12": 1.0,
-    "13": 1.0
+    "13": 1.0,
+    "14": 1.0,
+    "15": 1.0
   },
   "gods": [
     {
@@ -219,6 +224,11 @@
       "degree": 10
     },
     {
+      "id": "src_main_loadworkspace",
+      "label": "loadWorkspace()",
+      "degree": 9
+    },
+    {
       "id": "src_domain_adddays",
       "label": "addDays()",
       "degree": 9
@@ -227,14 +237,31 @@
       "id": "src_domain_alloccurrences",
       "label": "allOccurrences()",
       "degree": 9
-    },
-    {
-      "id": "src_main_loadworkspace",
-      "label": "loadWorkspace()",
-      "degree": 9
     }
   ],
   "surprises": [
+    {
+      "source": "readThreshold()",
+      "target": "isSupportedCurrency()",
+      "source_files": [
+        "src/main.ts",
+        "src/domain.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "saveThreshold()",
+      "target": "isSupportedCurrency()",
+      "source_files": [
+        "src/main.ts",
+        "src/domain.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
     {
       "source": "bind()",
       "target": "sampleSubscriptions()",
@@ -247,8 +274,8 @@
       "why": "bridges separate communities"
     },
     {
-      "source": "exportCsv()",
-      "target": "subscriptionsCsv()",
+      "source": "samplePreview()",
+      "target": "sampleSubscriptions()",
       "source_files": [
         "src/main.ts",
         "src/domain.ts"
@@ -258,33 +285,11 @@
       "why": "bridges separate communities"
     },
     {
-      "source": "exportIcs()",
-      "target": "addDays()",
+      "source": "persist()",
+      "target": "saveSubscriptions()",
       "source_files": [
         "src/main.ts",
-        "src/domain.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "bridges separate communities"
-    },
-    {
-      "source": "exportIcs()",
-      "target": "allOccurrences()",
-      "source_files": [
-        "src/main.ts",
-        "src/domain.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "bridges separate communities"
-    },
-    {
-      "source": "exportIcs()",
-      "target": "icsReminders()",
-      "source_files": [
-        "src/main.ts",
-        "src/domain.ts"
+        "src/storage.ts"
       ],
       "confidence": "EXTRACTED",
       "relation": "calls",
