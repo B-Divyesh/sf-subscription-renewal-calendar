@@ -214,23 +214,23 @@
       "degree": 10
     },
     {
-      "id": "src_main_persist",
-      "label": "persist()",
-      "degree": 10
-    },
-    {
       "id": "src_main_loadworkspace",
       "label": "loadWorkspace()",
       "degree": 10
     },
     {
-      "id": "src_domain_adddays",
-      "label": "addDays()",
+      "id": "src_main_persist",
+      "label": "persist()",
+      "degree": 10
+    },
+    {
+      "id": "src_domain_alloccurrences",
+      "label": "allOccurrences()",
       "degree": 9
     },
     {
-      "id": "src_domain_occurrencesfor",
-      "label": "occurrencesFor()",
+      "id": "src_domain_adddays",
+      "label": "addDays()",
       "degree": 9
     }
   ],
@@ -247,6 +247,28 @@
       "why": "inferred connection - not explicitly stated in source; bridges separate communities"
     },
     {
+      "source": "exportIcs()",
+      "target": "allOccurrences()",
+      "source_files": [
+        "src/main.ts",
+        "src/domain.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "exportIcs()",
+      "target": "icsReminders()",
+      "source_files": [
+        "src/main.ts",
+        "src/domain.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
       "source": "appView()",
       "target": "addDays()",
       "source_files": [
@@ -258,29 +280,7 @@
       "why": "bridges separate communities"
     },
     {
-      "source": "exportIcs()",
-      "target": "addDays()",
-      "source_files": [
-        "src/main.ts",
-        "src/domain.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "bridges separate communities"
-    },
-    {
       "source": "samplePreview()",
-      "target": "addDays()",
-      "source_files": [
-        "src/main.ts",
-        "src/domain.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "bridges separate communities"
-    },
-    {
-      "source": "subscriptionRows()",
       "target": "addDays()",
       "source_files": [
         "src/main.ts",
