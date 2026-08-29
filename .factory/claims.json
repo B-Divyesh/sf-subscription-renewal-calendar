@@ -4,7 +4,7 @@
     "claim": "Shows every weekly renewal in the same month",
     "where": "calendar heading, README",
     "test": "npm run test:e2e -- --grep @claim:weekly-occurrences",
-    "sandbox": "fresh /demo; assert all nine Office cleaner occurrences in the 60-day sample window"
+    "sandbox": "fresh /demo; derive every expected Office cleaner renewal from the visible 60-day range and assert no weekly date is missing"
   },
   {
     "id": "demo-isolated",
@@ -22,10 +22,10 @@
   },
   {
     "id": "private-data",
-    "claim": "Your entries stay on your device; there are no analytics or trackers",
-    "where": "landing art caption, privacy page, README",
+    "claim": "There are no bank connections, analytics, trackers, or subscription-data requests to another origin",
+    "where": "landing privacy section, privacy page, README",
     "test": "npm run test:e2e -- --grep @claim:private-data",
-    "sandbox": "fresh real workspace; add a subscription and export CSV while asserting every request remains same-origin"
+    "sandbox": "fresh real workspace; add and export a subscription, assert every request remains same-origin, and assert there is no bank connection control"
   },
   {
     "id": "ics-export",
@@ -39,7 +39,7 @@
     "claim": "Loads a working 60-day calendar",
     "where": "landing action helper",
     "test": "npm run test:e2e -- --grep @claim:sixty-day-window",
-    "sandbox": "fresh /demo; assert the 60-day heading and 18 sample occurrences"
+    "sandbox": "fresh /demo; assert the visible range spans exactly 60 days and contains the six sample subscriptions and renewal occurrences"
   },
   {
     "id": "csv-roundtrip",
@@ -68,5 +68,40 @@
     "where": "landing privacy section, privacy page",
     "test": "npm run test:e2e -- --grep @claim:delete-all",
     "sandbox": "fresh /demo; confirm Delete all subscriptions, reload, and assert the empty calendar"
+  },
+  {
+    "id": "device-storage",
+    "claim": "Runs on this device and keeps subscriptions in this browser between visits",
+    "where": "landing facts, landing art caption, privacy page, README",
+    "test": "npm run test:e2e -- --grep @claim:device-storage",
+    "sandbox": "fresh real workspace; add a unique subscription, reload, and assert that IndexedDB restores it"
+  },
+  {
+    "id": "pro-price",
+    "claim": "Pro costs $19 once; core tracking, exports, backups, and deletion remain free",
+    "where": "landing facts and Pro section, app purchase links, terms, README",
+    "test": "npm run test:e2e -- --grep @claim:pro-price",
+    "sandbox": "fresh browser without a license; assert the one-time price, hosted Sociobot checkout target, and usable free calendar controls"
+  },
+  {
+    "id": "cost-history",
+    "claim": "Records subscription cost changes",
+    "where": "subscription list, README",
+    "test": "npm run test:e2e -- --grep @claim:cost-history",
+    "sandbox": "fresh /demo; change a subscription amount, reload, and assert the previous amount and change date remain visible"
+  },
+  {
+    "id": "high-value-warning",
+    "claim": "Flags high-value charges that have fewer than seven review days",
+    "where": "calendar review rule, README",
+    "test": "npm run test:e2e -- --grep @claim:high-value-warning",
+    "sandbox": "fresh /demo; set a review threshold, create a charge above it with three review days, and assert the named warning"
+  },
+  {
+    "id": "verified-license-offline",
+    "claim": "A previously verified Pro license remains available offline",
+    "where": "README",
+    "test": "npm run test:e2e -- --grep @claim:verified-license-offline",
+    "sandbox": "fresh /demo; verify a mocked valid license once, go offline, reload through the service worker, and assert the Pro forecast remains visible without another verification request"
   }
 ]

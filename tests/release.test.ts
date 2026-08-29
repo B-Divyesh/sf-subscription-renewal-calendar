@@ -15,3 +15,19 @@ describe('static deployment policy', () => {
     expect(config.routes.find((route: { route: string }) => route.route === '/sw.js').headers['Cache-Control']).toBe('no-cache');
   });
 });
+
+describe('public claim registry', () => {
+  const claims = JSON.parse(readFileSync('.factory/claims.json', 'utf8')) as Array<{ id: string; test: string }>;
+  const endToEndTests = readFileSync('tests/product.e2e.ts', 'utf8');
+
+  it('keeps exactly one tagged browser regression for every declared claim', () => {
+    const declared = claims.map(({ id }) => id).sort();
+    const tagged = [...endToEndTests.matchAll(/@claim:([a-z0-9-]+)/g)].map((match) => match[1]).sort();
+    expect(tagged).toEqual(declared);
+    expect(new Set(declared).size).toBe(declared.length);
+    for (const { id, test } of claims) {
+      expect(test).toBe(`npm run test:e2e -- --grep @claim:${id}`);
+      expect(tagged.filter((tag) => tag === id)).toHaveLength(1);
+    }
+  });
+});
