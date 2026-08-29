@@ -1,0 +1,24 @@
+.factory/qa-artifacts/repair-4/live-404.headers:1:HTTP/2 404 
+.factory/qa-artifacts/repair-4/live-404.headers:4:cache-control: public, must-revalidate, max-age=30
+.factory/qa-artifacts/repair-4/live-404.headers:8:strict-transport-security: max-age=10886400; includeSubDomains; preload
+.factory/qa-artifacts/repair-4/live-404.headers:9:referrer-policy: strict-origin-when-cross-origin
+.factory/qa-artifacts/repair-4/live-404.headers:10:x-content-type-options: nosniff
+.factory/qa-artifacts/repair-4/live-404.headers:13:content-security-policy: default-src 'self'; connect-src 'self' https://api.sociobot.in; img-src 'self' blob:; style-src 'self'; script-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.sociobot.in; frame-ancestors 'none'
+.factory/qa-artifacts/repair-4/live-root.headers:1:HTTP/2 200 
+.factory/qa-artifacts/repair-4/live-root.headers:4:cache-control: public, must-revalidate, max-age=30
+.factory/qa-artifacts/repair-4/live-root.headers:8:strict-transport-security: max-age=10886400; includeSubDomains; preload
+.factory/qa-artifacts/repair-4/live-root.headers:9:referrer-policy: strict-origin-when-cross-origin
+.factory/qa-artifacts/repair-4/live-root.headers:10:x-content-type-options: nosniff
+.factory/qa-artifacts/repair-4/live-root.headers:13:content-security-policy: default-src 'self'; connect-src 'self' https://api.sociobot.in; img-src 'self' blob:; style-src 'self'; script-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.sociobot.in; frame-ancestors 'none'
+.factory/qa-artifacts/repair-4/live-asset.headers:1:HTTP/2 200 
+.factory/qa-artifacts/repair-4/live-asset.headers:4:cache-control: public, max-age=31536000, immutable
+.factory/qa-artifacts/repair-4/live-asset.headers:8:strict-transport-security: max-age=10886400; includeSubDomains; preload
+.factory/qa-artifacts/repair-4/live-asset.headers:9:referrer-policy: strict-origin-when-cross-origin
+.factory/qa-artifacts/repair-4/live-asset.headers:10:x-content-type-options: nosniff
+.factory/qa-artifacts/repair-4/live-asset.headers:13:content-security-policy: default-src 'self'; connect-src 'self' https://api.sociobot.in; img-src 'self' blob:; style-src 'self'; script-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.sociobot.in; frame-ancestors 'none'
+.factory/qa-artifacts/repair-4/live-sw.headers:1:HTTP/2 200 
+.factory/qa-artifacts/repair-4/live-sw.headers:4:cache-control: no-cache
+.factory/qa-artifacts/repair-4/live-sw.headers:8:strict-transport-security: max-age=10886400; includeSubDomains; preload
+.factory/qa-artifacts/repair-4/live-sw.headers:9:referrer-policy: strict-origin-when-cross-origin
+.factory/qa-artifacts/repair-4/live-sw.headers:10:x-content-type-options: nosniff
+.factory/qa-artifacts/repair-4/live-sw.headers:13:content-security-policy: default-src 'self'; connect-src 'self' https://api.sociobot.in; img-src 'self' blob:; style-src 'self'; script-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.sociobot.in; frame-ancestors 'none'

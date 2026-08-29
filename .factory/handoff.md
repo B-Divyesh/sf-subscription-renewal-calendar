@@ -1,165 +1,148 @@
-# Handoff — release-blocking QA repair 3
+# Handoff — release-blocking QA repair 4
 
-## Latest independent verification — candidate `5cb2153e77e97a3b07a880eeae13eb18845e9276`
+## Status
 
-**Status: FAIL.** Independent verification on 2026-08-29 found the deployed
-artifact functionally healthy and byte-identical to this candidate, with all 15
-claim tests, all repository gates, live PWA/privacy/accessibility checks, and
-rate-limit checks passing. The candidate still fails the mandatory plain-words
-contract: the 404 h1 reads **“This page is not on the board.”**, a metaphorical
-heading. Change it to literal copy such as **“Page not found”** and reverify.
-See [verification-5.md](verification-5.md) for exact commands, evidence,
-severity, bundle/Lighthouse results, live URL, and the observed license API
-allowance (30 requests, then HTTP 429 with `Retry-After: 3`).
+**Repaired, verified, pushed, and deployed.** The release blocker in verifier
+report commit `6fe06fb20a3dea5a789dc8927a5ceb48be1a4fcb` for candidate
+`5cb2153e77e97a3b07a880eeae13eb18845e9276` is resolved. The product remains
+the same static, local-first PWA. The researched brief, visual thesis, public
+claims, storage behavior, paid tier, and deployment class are unchanged.
 
-## Status: repaired, verified, pushed, and deployed
+Repair commits were pushed to `origin/main`:
 
-The release blockers in independent verifier report commit
-`7eaaf21d56582eb03ec9e82e44155b94d478f794` for candidate
-`658b53ec35487d97ba23343917b65b03c6be3ec6` are repaired. The product remains
-the same static, local-first PWA and the researched brief and visual system are
-unchanged.
+- `c5ee05e9b1caac5adda9465fd7cf36fa5ba4e184` — repair and lock the static 404 copy.
+- `e185e66c01d42de5f6594a67ee0b633133ed6037` — repair and lock the SPA fallback copy.
 
-Repair commit `bf4a7b0fa2de5a241f0b208dea518f59c33ce54e` was pushed to `main` and
-deployed to https://subscription-renewal-calendar.sociobot.in with:
+The final `dist/` was deployed with:
 
 ```sh
 /opt/fleet/lib/deploy-static.sh subscription-renewal-calendar dist
 ```
 
-Azure Static Web Apps deployment `2ace65b9-4a2f-4c10-b66f-d7cf9fce4fe0`
-succeeded in the existing `centralus` app.
+Azure Static Web Apps deployment `a2c9635a-ed67-4166-8bcf-72decc050030`
+succeeded in the existing Central US app. The live product is
+https://subscription-renewal-calendar.sociobot.in.
 
 ## What was repaired
 
-### Reliable visible focus for Import CSV
+The verifier found the metaphorical 404 h1 “This page is not on the board.”
+The static `public/404.html` and the SPA's internal not-found renderer both now
+use the literal h1 **“Page not found”**. The existing title, explanation, and
+**Go to the renewal calendar** recovery link remain intact.
 
-The transparent native file input now covers the full 44 px branded control.
-Its label receives the designed 4 px coral ring whenever the input has focus.
-The browser regression follows the real keyboard path from **Add subscription**
-with Tab, waits on computed CSS, and checks the active element, ring width,
-ring colour, and 44 px input target. This replaces the verifier's immediate,
-timing-sensitive `getComputedStyle` read.
+Exact regression coverage now proves both rendering paths:
 
-### Complete public claims inventory
+- `tests/release.test.ts` rejects the old sentence, requires the literal h1 in
+  both sources, and requires the recovery link.
+- `tests/product.e2e.ts` checks the title, exact h1, and recovery link on both
+  `/404.html` and an unknown SPA route.
+- `.factory/copy-audit.md` records the repaired 404 copy and word counts.
 
-`.factory/claims.json` now contains 15 claims. New one-test-per-claim browser
-proofs cover:
+## Final verification evidence
 
-- on-device IndexedDB persistence across reload;
-- the $19 one-time Pro price, Sociobot checkout target, and usable free core;
-- recorded cost changes that survive reload;
-- the chosen high-value threshold warning;
-- a previously verified Pro forecast after an offline reload;
-- the absence of bank controls and cross-origin subscription-data requests.
+Evidence is stored in `.factory/qa-artifacts/repair-4/`.
 
-A unit policy test now fails if a claim is missing a browser tag, duplicated,
-or declares a command other than its exact `@claim:<id>` filter.
-
-The existing weekly and 60-day claim proofs were also made date-relative. They
-now derive the expected recurrence schedule and exact 60-day span instead of
-assuming the verifier's August 28 count forever. This fixed the UTC-boundary
-failure reproduced on August 29. The installed-update check now waits for the
-asynchronous workspace render before injecting its test event.
-
-## Verification evidence
-
-### Clean repository gates
+### Clean repository and claim gates
 
 ```text
-npm ci                              PASS — 136 packages, 0 vulnerabilities
-npm audit --audit-level=moderate    PASS — 0 vulnerabilities
-npm run typecheck                   PASS
-npm run lint                        PASS
-npm test                            PASS — 2 files, 16 tests
-npm run test:e2e                    PASS — 24 browser tests
-npm run build                       PASS — dist/ produced
+npm ci --include=dev                 PASS — 136 packages, 0 vulnerabilities
+npm audit --audit-level=moderate     PASS — 0 vulnerabilities
+npm run typecheck                    PASS
+npm run lint                         PASS
+npm test                             PASS — 2 files, 17 tests
+npm run build                        PASS — dist/ produced
+npm run test:e2e                     PASS — 25 browser tests
+15 claims.json commands separately  PASS — one selected test per claim
 ```
 
-Every command in `.factory/claims.json` was run separately. All 15 commands
-selected exactly one tagged Playwright test and passed. The complete claim run
-and full suite used the pinned Playwright 1.58.2 Chromium.
-
-Production bundle sizes remain inside the PWA budgets:
+The final production sizes remain inside the PWA budgets:
 
 ```text
-JavaScript   28.62 kB / 10.24 kB gzip
+JavaScript   28.61 kB / 10.22 kB gzip
 CSS          11.45 kB /  3.18 kB gzip
 Hero WebP    71.48 kB
 ```
 
-### Browser, keyboard, accessibility, and privacy
+Package/consumer, sign-in, backend persistence, and backend concurrency checks
+do not apply to this unauthenticated static PWA.
 
-- The factory `verify-url.sh` passed locally and on live `/demo`. Live load was
-  740 ms, with the correct title and `lang=en`, one H1, one main landmark, no
-  missing image alt text, no unnamed buttons, and no console errors.
-- The full Playwright axe scan covered `/`, `/demo`, `/app`, `/privacy`,
-  `/terms`, `/404.html`, and the open dialog: zero serious or critical issues.
-- Desktop and 390×844 screenshots were inspected. The live 390 px flow had no
-  horizontal overflow. All primary and dialog targets were at least 44 px.
-- Live keyboard evidence: `csv-input` became the active element through Tab;
-  its visible label ring computed to `rgb(232, 91, 69) solid 4px`; the native
-  target measured 350×44 px.
-- The open dialog resolved the accessible name **Add a subscription**, Escape
-  closed it, and focus restoration passed.
-- Reduced-motion coverage reported `0s` occurrence transitions.
-- A live root → demo flow requested only
+### Browser, accessibility, privacy, and PWA
+
+- Factory `verify-url.sh` passed locally and live on `/demo`. The final live
+  load took 700 ms with the correct title and `lang=en`, one h1, one main,
+  no missing image alt text, no unnamed buttons, and no console errors.
+- Playwright covered desktop and 390×844 mobile. The live mobile layout has no
+  horizontal overflow and every visible link, button, and file control is at
+  least 44×44 CSS px. Final desktop and mobile screenshots are in
+  `repair-4/live-verify/`.
+- Keyboard Tab reaches the native CSV input with its designed visible focus.
+  Escape closes the named add dialog and restores focus to **Add subscription**.
+- The full local route/dialog axe sweep and a separate live demo sweep found
+  zero serious or critical violations. Reduced-motion coverage passed.
+- A fresh live browser stored a subscription in IndexedDB across reload. Its
+  request log contained only
   `https://subscription-renewal-calendar.sociobot.in`; no analytics, tracker,
-  bank, font CDN, or other data origin appeared.
+  bank, font CDN, or cross-origin subscription-data request appeared.
+- The final live service worker controlled the demo, restored the complete
+  sample calendar offline, and displayed the installed-update notice and
+  **Reload now** action.
+- A direct unknown URL returns HTTP 404 with title
+  `Page not found — Subscription Renewal Calendar`, h1 `Page not found`, and
+  the calendar recovery link. The client-side fallback renders the same h1.
+  Normal app routes had no console errors; Chromium reports the deliberately
+  requested 404 document itself as a failed resource, as expected.
 
-Lighthouse 12.6 mobile on the local production artifact:
+Local mobile Lighthouse 12.6.0 on the final production artifact:
 
 ```text
 Performance       100
 Accessibility     100
 Best practices    100
-LCP             1.10 s
-CLS                0
-TBT              3 ms
+LCP             1.1 s
+CLS                 0
+TBT              10 ms
 ```
 
-### PWA, policy, billing, and deployment identity
+### Response policy and deployed identity
 
-- The live service worker controlled `/demo`; offline reload restored the full
-  sample calendar. Update notification and old-cache cleanup tests passed.
+- Root responses include CSP with `frame-ancestors 'none'`, HSTS,
+  `X-Content-Type-Options: nosniff`, and
+  `Referrer-Policy: strict-origin-when-cross-origin`.
 - Hashed assets return `public, max-age=31536000, immutable`; `sw.js` returns
-  `no-cache`. Unknown routes return HTTP 404.
-- Live responses include CSP with `frame-ancestors 'none'`, HSTS, `nosniff`,
-  and `strict-origin-when-cross-origin`.
-- One harmless invalid live license request returned HTTP 200 with
-  `{valid:false, reason:"invalid"}`, product-origin CORS, and `no-store`.
-  The next 40 sequential policy probes returned 29×200 then 11×429; the
-  throttled response included `Retry-After: 2`.
-- Sign-in, backend health/concurrency, and package/consumer checks do not apply
-  to this unauthenticated static PWA.
+  `no-cache`; unknown routes return HTTP 404.
+- Every public file in the final `dist/` was downloaded from the custom domain
+  and matched byte for byte. `staticwebapp.config.json` correctly remains
+  deployment metadata and is not publicly served.
 
-Fresh live downloads were byte-identical to `dist/`:
+Key final SHA-256 identities:
 
 ```text
-index.html                                  faab4bd78f9f04fc3b885b134ae9b7a1d0a0a4f212419e5ab5ecebaf95b7c86d
-sw.js                                       10d419dbd9d4f17882c88dbedda6f14b71c8c265e116f76da2b7669af242923c
-manifest.webmanifest                        3d7823c36536dfb747b6f54eff4ede6efa4c2bb9d77c003dc2bc951dae8622a1
-assets/index-D1XkFH9P.js                    178daa524408526a6432491ad889ce57b604b827e93b8187d870a573b596c8ab
-assets/index-hwIoh9vf.css                   29d1b253441446049e87344a5966f397f0a4dec098298de3041a6b1c8d40a901
-assets/renewal-board-DYLupGEF.webp          d396c4ad0439fee2d13399ed25ffa1d8538ad952651a3a26e715f9648a7b4f83
+404.html                                  4617b6488e8b23f6fa2a0968e402c99ed0e026fba07255d995e39db746bddef5
+index.html                                f135a76faf2b7d284f1f243ddacb43562b33d925835ab1ec69b79d29f8ef068d
+assets/index-ny27DvmC.js                  1d2a3f4ae5362d220a1b490a91858edde21f096639129ee1ddf6bd0e42e8fc4f
+assets/index-hwIoh9vf.css                 29d1b253441446049e87344a5966f397f0a4dec098298de3041a6b1c8d40a901
+assets/renewal-board-DYLupGEF.webp        d396c4ad0439fee2d13399ed25ffa1d8538ad952651a3a26e715f9648a7b4f83
+manifest.webmanifest                      3d7823c36536dfb747b6f54eff4ede6efa4c2bb9d77c003dc2bc951dae8622a1
+sw.js                                     4039768a45558963c2af391392132199f14472ec118650faa26b825e79333109
 ```
 
 ## Run and verify
 
 ```sh
-npm ci
+npm ci --include=dev
 npm audit --audit-level=moderate
 npm run typecheck
 npm run lint
 npm test
-npm run test:e2e
 npm run build
+npm run test:e2e
 ```
 
 Run each `test` command in `.factory/claims.json` separately to repeat the
-claim contract. Serve `dist/` over HTTP to repeat service-worker checks.
+public claim contract. Serve `dist/` over HTTP for service-worker checks.
 
 ## Known gap
 
 No exchange-rate conversion is performed. Currency totals deliberately remain
-separate until the user supplies an explicit conversion source.
+separate until the user supplies an explicit conversion source. This is an
+existing documented product boundary, not a repair regression.

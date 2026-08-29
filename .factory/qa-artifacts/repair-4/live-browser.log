@@ -1,0 +1,17 @@
+{
+  "desktop": "PASS",
+  "mobile390": "PASS",
+  "keyboardAndDialogFocus": "PASS",
+  "axeSeriousCritical": 0,
+  "offlineReload": "PASS",
+  "updateNotice": "PASS",
+  "staticUnknownRoute": "HTTP 404 with literal heading",
+  "clientSideUnknownRoute": "literal heading",
+  "privacyOrigins": [
+    "https://subscription-renewal-calendar.sociobot.in"
+  ],
+  "normalRouteConsoleErrors": [],
+  "expected404DocumentConsole": [
+    "Failed to load resource: the server responded with a status of 404 ()"
+  ]
+}

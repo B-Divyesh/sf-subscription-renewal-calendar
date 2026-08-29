@@ -1,0 +1,16 @@
+
+> subscription-renewal-calendar@1.0.0 build
+> tsc -b && vite build
+
+vite v8.2.2 building client environment for production...
+transforming...
+✓ 9 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                           1.37 kB │ gzip:  0.58 kB
+dist/sw.js                                1.75 kB
+dist/assets/renewal-board-DYLupGEF.webp  71.48 kB
+dist/assets/index-hwIoh9vf.css           11.45 kB │ gzip:  3.18 kB
+dist/assets/index-ny27DvmC.js            28.61 kB │ gzip: 10.22 kB
+
+✓ built in 63ms
