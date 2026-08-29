@@ -1,49 +1,15 @@
 {
   "communities": {
     "0": [
-      "src_domain_decision",
-      "src_domain_frequency",
-      "src_domain_issupportedcurrency",
-      "src_domain_money",
-      "src_domain_samplesubscriptions",
-      "src_domain_supportedcurrencies",
-      "src_domain_totalsbycurrency",
-      "src_main",
-      "src_main_appview",
-      "src_main_costchange",
-      "src_main_demobanner",
-      "src_main_emptystate",
-      "src_main_esc",
-      "src_main_fmtdate",
-      "src_main_footer",
-      "src_main_header",
-      "src_main_items",
-      "src_main_landing",
-      "src_main_legal",
-      "src_main_notfound",
-      "src_main_occurrencerows",
-      "src_main_readthreshold",
-      "src_main_relative",
-      "src_main_samplepreview",
-      "src_main_savethreshold",
-      "src_main_space",
-      "src_main_subscriptionrows",
-      "src_main_threshold",
-      "src_main_thresholdkey",
-      "src_main_today",
-      "src_main_totallines",
-      "src_main_validverdict",
-      "src_main_writethreshold"
-    ],
-    "1": [
       "docref_rfc_4180",
       "src_domain",
       "src_domain_adddays",
-      "src_domain_alloccurrences",
       "src_domain_csvcell",
       "src_domain_currency",
       "src_domain_daystring",
-      "src_domain_icsreminders",
+      "src_domain_decision",
+      "src_domain_frequency",
+      "src_domain_issupportedcurrency",
       "src_domain_isusablesubscription",
       "src_domain_isvalidday",
       "src_domain_max_review_days",
@@ -55,10 +21,12 @@
       "src_domain_parsesubscriptionscsv",
       "src_domain_subscription",
       "src_domain_subscriptionscsv",
+      "src_domain_supportedcurrencies",
+      "src_domain_totalsbycurrency",
       "tests_domain_test",
       "tests_domain_test_weekly"
     ],
-    "2": [
+    "1": [
       "axe_core_playwright",
       "eslint",
       "eslint_js",
@@ -79,7 +47,7 @@
       "vite",
       "vitest"
     ],
-    "3": [
+    "2": [
       "ref_dom",
       "ref_dom_iterable",
       "ref_es2022",
@@ -99,27 +67,26 @@
       "tsconfig_compileroptions_verbatimmodulesyntax",
       "tsconfig_include"
     ],
-    "4": [
-      "src_main_bind",
-      "src_main_deleteall",
-      "src_main_deletesubscription",
-      "src_main_download",
-      "src_main_encryptedbackup",
-      "src_main_exportcsv",
-      "src_main_exportics",
-      "src_main_importcsv",
-      "src_main_persist",
-      "src_main_reconcilestoredlicense",
-      "src_main_render",
-      "src_main_requestverification",
-      "src_main_setverdict",
-      "src_main_showsubscriptiondialog",
-      "src_main_showupdatenotice",
-      "src_main_start",
-      "src_main_undodelete",
-      "src_main_verifylicense"
+    "3": [
+      "src_domain_alloccurrences",
+      "src_domain_icsreminders",
+      "src_domain_money",
+      "src_main_appview",
+      "src_main_costchange",
+      "src_main_demobanner",
+      "src_main_emptystate",
+      "src_main_esc",
+      "src_main_fmtdate",
+      "src_main_occurrencerows",
+      "src_main_recoverablelicensenotice",
+      "src_main_relative",
+      "src_main_samplepreview",
+      "src_main_storedlicense",
+      "src_main_subscriptionrows",
+      "src_main_totallines",
+      "src_main_validverdict"
     ],
-    "5": [
+    "4": [
       "package",
       "package_name",
       "package_private",
@@ -134,7 +101,34 @@
       "package_type",
       "package_version"
     ],
+    "5": [
+      "src_main_bind",
+      "src_main_deleteall",
+      "src_main_deletesubscription",
+      "src_main_download",
+      "src_main_encryptedbackup",
+      "src_main_exportcsv",
+      "src_main_exportics",
+      "src_main_importcsv",
+      "src_main_persist",
+      "src_main_render",
+      "src_main_showsubscriptiondialog",
+      "src_main_undodelete",
+      "src_main_verifylicense"
+    ],
     "6": [
+      "src_main",
+      "src_main_items",
+      "src_main_readthreshold",
+      "src_main_savethreshold",
+      "src_main_space",
+      "src_main_threshold",
+      "src_main_thresholdkey",
+      "src_main_today",
+      "src_main_writethreshold"
+    ],
+    "7": [
+      "src_domain_samplesubscriptions",
       "src_main_loadworkspace",
       "src_main_transition",
       "src_storage",
@@ -143,56 +137,75 @@
       "src_storage_readsubscriptions",
       "src_storage_savesubscriptions"
     ],
-    "7": [
+    "8": [
+      "src_main_reconcilestoredlicense",
+      "src_main_requestverification",
+      "src_main_setvalidverdict",
+      "src_main_showupdatenotice",
+      "src_main_start",
+      "src_main_verifyandstorelicense"
+    ],
+    "9": [
+      "src_main_footer",
+      "src_main_header",
+      "src_main_landing",
+      "src_main_legal",
+      "src_main_notfound"
+    ],
+    "10": [
+      "promises",
       "tests_product_e2e",
       "tests_product_e2e_addutcdays"
     ],
-    "8": [
+    "11": [
       "vite_config",
       "vite_config_serviceworker"
     ],
-    "9": [
+    "12": [
       "eslint_config"
     ],
-    "10": [
+    "13": [
       "playwright_config"
     ],
-    "11": [
+    "14": [
       "src_vite_env_d"
     ],
-    "12": [
+    "15": [
       "tests_release_test"
     ]
   },
   "cohesion": {
-    "0": 0.14583333333333334,
-    "1": 0.21428571428571427,
-    "2": 0.10526315789473684,
-    "3": 0.1111111111111111,
-    "4": 0.24183006535947713,
-    "5": 0.15384615384615385,
-    "6": 0.42857142857142855,
-    "7": 1.0,
-    "8": 1.0,
-    "9": 1.0,
-    "10": 1.0,
+    "0": 0.17028985507246377,
+    "1": 0.10526315789473684,
+    "2": 0.1111111111111111,
+    "3": 0.2426470588235294,
+    "4": 0.15384615384615385,
+    "5": 0.358974358974359,
+    "6": 0.3333333333333333,
+    "7": 0.35714285714285715,
+    "8": 0.4666666666666667,
+    "9": 0.6,
+    "10": 0.6666666666666666,
     "11": 1.0,
-    "12": 1.0
+    "12": 1.0,
+    "13": 1.0,
+    "14": 1.0,
+    "15": 1.0
   },
   "gods": [
     {
       "id": "src_main_render",
       "label": "render()",
-      "degree": 20
-    },
-    {
-      "id": "src_main_bind",
-      "label": "bind()",
-      "degree": 15
+      "degree": 21
     },
     {
       "id": "src_main_appview",
       "label": "appView()",
+      "degree": 17
+    },
+    {
+      "id": "src_main_bind",
+      "label": "bind()",
       "degree": 15
     },
     {
@@ -206,8 +219,8 @@
       "degree": 11
     },
     {
-      "id": "src_main_loadworkspace",
-      "label": "loadWorkspace()",
+      "id": "src_main_subscriptionrows",
+      "label": "subscriptionRows()",
       "degree": 10
     },
     {
@@ -216,8 +229,8 @@
       "degree": 10
     },
     {
-      "id": "src_main_subscriptionrows",
-      "label": "subscriptionRows()",
+      "id": "src_main_loadworkspace",
+      "label": "loadWorkspace()",
       "degree": 10
     },
     {
@@ -226,8 +239,8 @@
       "degree": 9
     },
     {
-      "id": "src_domain_occurrencesfor",
-      "label": "occurrencesFor()",
+      "id": "src_domain_alloccurrences",
+      "label": "allOccurrences()",
       "degree": 9
     }
   ],
@@ -244,8 +257,8 @@
       "why": "inferred connection - not explicitly stated in source; bridges separate communities"
     },
     {
-      "source": "appView()",
-      "target": "addDays()",
+      "source": "readThreshold()",
+      "target": "isSupportedCurrency()",
       "source_files": [
         "src/main.ts",
         "src/domain.ts"
@@ -255,8 +268,8 @@
       "why": "bridges separate communities"
     },
     {
-      "source": "exportIcs()",
-      "target": "addDays()",
+      "source": "saveThreshold()",
+      "target": "isSupportedCurrency()",
       "source_files": [
         "src/main.ts",
         "src/domain.ts"
@@ -266,8 +279,8 @@
       "why": "bridges separate communities"
     },
     {
-      "source": "samplePreview()",
-      "target": "addDays()",
+      "source": "saveThreshold()",
+      "target": "money()",
       "source_files": [
         "src/main.ts",
         "src/domain.ts"
@@ -277,8 +290,8 @@
       "why": "bridges separate communities"
     },
     {
-      "source": "subscriptionRows()",
-      "target": "addDays()",
+      "source": "bind()",
+      "target": "sampleSubscriptions()",
       "source_files": [
         "src/main.ts",
         "src/domain.ts"
