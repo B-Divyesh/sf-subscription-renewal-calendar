@@ -236,6 +236,11 @@ test('404 page states the error literally and links back to the calendar', async
   await expect(page).toHaveTitle('Page not found — Subscription Renewal Calendar');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Page not found');
   await expect(page.getByRole('link', { name: 'Go to the renewal calendar' })).toHaveAttribute('href', '/');
+
+  await page.goto('/verification-no-such-route');
+  await expect(page).toHaveTitle('Page not found — Subscription Renewal Calendar');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Page not found');
+  await expect(page.getByRole('link', { name: 'Go to the renewal calendar' })).toHaveAttribute('href', '/');
 });
 
 test('390px mobile layout has no horizontal overflow and keeps primary controls usable', async ({ page }) => {

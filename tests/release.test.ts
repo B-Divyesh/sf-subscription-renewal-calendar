@@ -18,11 +18,15 @@ describe('static deployment policy', () => {
 
 describe('404 copy policy', () => {
   const notFoundPage = readFileSync('public/404.html', 'utf8');
+  const appSource = readFileSync('src/main.ts', 'utf8');
 
-  it('uses a literal plain-words heading and retains the recovery link', () => {
+  it('uses a literal plain-words heading in both not-found renderers and retains the recovery link', () => {
     expect(notFoundPage).toContain('<h1>Page not found</h1>');
     expect(notFoundPage).not.toContain('This page is not on the board.');
     expect(notFoundPage).toContain('<a class="button" href="/">Go to the renewal calendar</a>');
+    expect(appSource).toContain('<h1>Page not found</h1>');
+    expect(appSource).not.toContain('This page is not on the board.');
+    expect(appSource).toContain('>Go to the renewal calendar</a>');
   });
 });
 
