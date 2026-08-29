@@ -1,0 +1,14 @@
+{
+  "counts": {
+    "200": 30,
+    "429": 5
+  },
+  "first429": {
+    "index": 31,
+    "status": 429,
+    "retryAfter": "4",
+    "cors": "https://subscription-renewal-calendar.sociobot.in"
+  },
+  "allExpected": true,
+  "corsOnThrottle": true
+}

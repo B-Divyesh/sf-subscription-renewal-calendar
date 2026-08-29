@@ -1,0 +1,12 @@
+
+> subscription-renewal-calendar@1.0.0 test
+> vitest run
+
+
+ RUN  v4.1.11 /work/repo
+
+
+ Test Files  2 passed (2)
+      Tests  21 passed (21)
+   Start at  13:39:47
+   Duration  295ms (transform 85ms, setup 0ms, import 134ms, tests 39ms, environment 0ms)

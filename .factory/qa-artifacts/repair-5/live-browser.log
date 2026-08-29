@@ -1,0 +1,97 @@
+{
+  "routes": [
+    {
+      "path": "/",
+      "title": "Subscription Renewal Calendar — see renewals",
+      "h1": 1,
+      "main": 1,
+      "bodyFocused": true,
+      "skipFirst": true,
+      "seriousOrCritical": 0
+    },
+    {
+      "path": "/demo",
+      "title": "Demo — Subscription Renewal Calendar",
+      "h1": 1,
+      "main": 1,
+      "bodyFocused": true,
+      "skipFirst": true,
+      "seriousOrCritical": 0
+    },
+    {
+      "path": "/app",
+      "title": "Calendar — Subscription Renewal Calendar",
+      "h1": 1,
+      "main": 1,
+      "bodyFocused": true,
+      "skipFirst": true,
+      "seriousOrCritical": 0
+    },
+    {
+      "path": "/privacy",
+      "title": "Privacy — Subscription Renewal Calendar",
+      "h1": 1,
+      "main": 1,
+      "bodyFocused": true,
+      "skipFirst": true,
+      "seriousOrCritical": 0
+    },
+    {
+      "path": "/terms",
+      "title": "Terms — Subscription Renewal Calendar",
+      "h1": 1,
+      "main": 1,
+      "bodyFocused": true,
+      "skipFirst": true,
+      "seriousOrCritical": 0
+    }
+  ],
+  "demo": {
+    "url": "https://subscription-renewal-calendar.sociobot.in/demo",
+    "banner": true,
+    "samples": 6,
+    "routeHeadingFocused": true
+  },
+  "recovery": {
+    "ready": true,
+    "notice": "An invalid saved entry was removed. Your other subscriptions are ready.",
+    "validVisible": true,
+    "poisonCount": 0,
+    "storedIds": [
+      "valid"
+    ]
+  },
+  "form": {
+    "max": "365",
+    "valid": false,
+    "rangeOverflow": true,
+    "dialogOpen": true
+  },
+  "privacy": {
+    "sameOriginOnly": true,
+    "origins": [
+      "https://subscription-renewal-calendar.sociobot.in"
+    ]
+  },
+  "mobile": {
+    "noOverflow": true,
+    "actionInFirstViewport": true,
+    "actionBox": {
+      "x": 18,
+      "y": 439.015625,
+      "width": 203.609375,
+      "height": 48
+    },
+    "seriousOrCritical": 0
+  },
+  "offline": {
+    "ready": true,
+    "samples": 6
+  },
+  "checkout": {
+    "host": "checkout.dodopayments.com",
+    "sessionPath": true,
+    "title": "Sociobot | Checkout"
+  },
+  "errors": []
+}

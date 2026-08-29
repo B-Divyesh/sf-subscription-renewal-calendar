@@ -1,0 +1,13 @@
+{
+  "notice": "An app update is ready.Reload now",
+  "reloadButton": true,
+  "staleCacheRemoved": true,
+  "cacheKeys": [
+    "renewal-ledger-600206bdf74c"
+  ],
+  "registration": {
+    "active": "https://subscription-renewal-calendar.sociobot.in/sw.js?repair-5-update-check=3",
+    "waiting": null,
+    "controller": "https://subscription-renewal-calendar.sociobot.in/sw.js?repair-5-update-check=3"
+  }
+}
