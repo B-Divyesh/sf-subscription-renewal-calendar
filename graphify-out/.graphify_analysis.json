@@ -1,14 +1,49 @@
 {
   "communities": {
     "0": [
+      "src_domain_alloccurrences",
+      "src_domain_icsreminders",
+      "src_domain_money",
+      "src_main",
+      "src_main_appview",
+      "src_main_base64bytes",
+      "src_main_costchange",
+      "src_main_decryptbackup",
+      "src_main_demobanner",
+      "src_main_emptystate",
+      "src_main_esc",
+      "src_main_fmtdate",
+      "src_main_footer",
+      "src_main_header",
+      "src_main_items",
+      "src_main_landing",
+      "src_main_legal",
+      "src_main_notfound",
+      "src_main_occurrencerows",
+      "src_main_readthreshold",
+      "src_main_recoverablelicensenotice",
+      "src_main_relative",
+      "src_main_samplepreview",
+      "src_main_setmeta",
+      "src_main_space",
+      "src_main_storedlicense",
+      "src_main_subscriptionrows",
+      "src_main_threshold",
+      "src_main_thresholdkey",
+      "src_main_today",
+      "src_main_totallines",
+      "src_main_validverdict",
+      "src_main_writethreshold"
+    ],
+    "1": [
       "docref_rfc_4180",
       "src_domain",
       "src_domain_adddays",
-      "src_domain_alloccurrences",
       "src_domain_csvcell",
       "src_domain_currency",
       "src_domain_daystring",
-      "src_domain_icsreminders",
+      "src_domain_decision",
+      "src_domain_frequency",
       "src_domain_issupportedcurrency",
       "src_domain_isusablesubscription",
       "src_domain_isvalidday",
@@ -21,12 +56,12 @@
       "src_domain_parsesubscriptionscsv",
       "src_domain_subscription",
       "src_domain_subscriptionscsv",
+      "src_domain_supportedcurrencies",
       "src_domain_totalsbycurrency",
-      "src_main_exportics",
       "tests_domain_test",
       "tests_domain_test_weekly"
     ],
-    "1": [
+    "2": [
       "axe_core_playwright",
       "eslint",
       "eslint_js",
@@ -47,7 +82,7 @@
       "vite",
       "vitest"
     ],
-    "2": [
+    "3": [
       "ref_dom",
       "ref_dom_iterable",
       "ref_es2022",
@@ -67,41 +102,22 @@
       "tsconfig_compileroptions_verbatimmodulesyntax",
       "tsconfig_include"
     ],
-    "3": [
-      "src_domain_decision",
-      "src_domain_frequency",
-      "src_domain_supportedcurrencies",
-      "src_main",
-      "src_main_base64bytes",
-      "src_main_decryptbackup",
+    "4": [
+      "src_main_bind",
+      "src_main_deleteall",
+      "src_main_deletesubscription",
       "src_main_download",
       "src_main_encryptedbackup",
       "src_main_exportcsv",
-      "src_main_items",
-      "src_main_readthreshold",
+      "src_main_exportics",
+      "src_main_importcsv",
+      "src_main_persist",
+      "src_main_render",
+      "src_main_restoreencryptedbackup",
       "src_main_savethreshold",
-      "src_main_space",
-      "src_main_threshold",
-      "src_main_thresholdkey",
-      "src_main_today",
-      "src_main_writethreshold"
-    ],
-    "4": [
-      "src_domain_money",
-      "src_main_appview",
-      "src_main_costchange",
-      "src_main_demobanner",
-      "src_main_emptystate",
-      "src_main_esc",
-      "src_main_fmtdate",
-      "src_main_occurrencerows",
-      "src_main_recoverablelicensenotice",
-      "src_main_relative",
-      "src_main_samplepreview",
-      "src_main_storedlicense",
-      "src_main_subscriptionrows",
-      "src_main_totallines",
-      "src_main_validverdict"
+      "src_main_showsubscriptiondialog",
+      "src_main_undodelete",
+      "src_main_verifylicense"
     ],
     "5": [
       "package",
@@ -119,18 +135,6 @@
       "package_version"
     ],
     "6": [
-      "src_main_bind",
-      "src_main_deleteall",
-      "src_main_deletesubscription",
-      "src_main_importcsv",
-      "src_main_persist",
-      "src_main_render",
-      "src_main_restoreencryptedbackup",
-      "src_main_showsubscriptiondialog",
-      "src_main_undodelete",
-      "src_main_verifylicense"
-    ],
-    "7": [
       "src_domain_samplesubscriptions",
       "src_main_loadworkspace",
       "src_main_transition",
@@ -140,15 +144,7 @@
       "src_storage_readsubscriptions",
       "src_storage_savesubscriptions"
     ],
-    "8": [
-      "src_main_footer",
-      "src_main_header",
-      "src_main_landing",
-      "src_main_legal",
-      "src_main_notfound",
-      "src_main_setmeta"
-    ],
-    "9": [
+    "7": [
       "src_main_reconcilestoredlicense",
       "src_main_requestverification",
       "src_main_setvalidverdict",
@@ -156,45 +152,42 @@
       "src_main_start",
       "src_main_verifyandstorelicense"
     ],
-    "10": [
-      "promises",
+    "8": [
       "tests_product_e2e",
       "tests_product_e2e_addutcdays"
     ],
-    "11": [
+    "9": [
       "vite_config",
       "vite_config_serviceworker"
     ],
-    "12": [
+    "10": [
       "eslint_config"
     ],
-    "13": [
+    "11": [
       "playwright_config"
     ],
-    "14": [
+    "12": [
       "src_vite_env_d"
     ],
-    "15": [
+    "13": [
       "tests_release_test"
     ]
   },
   "cohesion": {
-    "0": 0.19202898550724637,
-    "1": 0.10526315789473684,
-    "2": 0.1111111111111111,
-    "3": 0.16911764705882354,
-    "4": 0.26666666666666666,
+    "0": 0.1571969696969697,
+    "1": 0.17028985507246377,
+    "2": 0.10526315789473684,
+    "3": 0.1111111111111111,
+    "4": 0.3047619047619048,
     "5": 0.15384615384615385,
-    "6": 0.4888888888888889,
-    "7": 0.35714285714285715,
-    "8": 0.6,
-    "9": 0.4666666666666667,
-    "10": 0.6666666666666666,
+    "6": 0.35714285714285715,
+    "7": 0.4666666666666667,
+    "8": 1.0,
+    "9": 1.0,
+    "10": 1.0,
     "11": 1.0,
     "12": 1.0,
-    "13": 1.0,
-    "14": 1.0,
-    "15": 1.0
+    "13": 1.0
   },
   "gods": [
     {
@@ -213,11 +206,6 @@
       "degree": 15
     },
     {
-      "id": "tsconfig_compileroptions",
-      "label": "compilerOptions",
-      "degree": 11
-    },
-    {
       "id": "src_domain_money",
       "label": "money()",
       "degree": 11
@@ -225,6 +213,11 @@
     {
       "id": "src_main_persist",
       "label": "persist()",
+      "degree": 11
+    },
+    {
+      "id": "tsconfig_compileroptions",
+      "label": "compilerOptions",
       "degree": 11
     },
     {
@@ -243,8 +236,8 @@
       "degree": 9
     },
     {
-      "id": "src_domain_isusablesubscription",
-      "label": "isUsableSubscription()",
+      "id": "src_domain_alloccurrences",
+      "label": "allOccurrences()",
       "degree": 9
     }
   ],
@@ -272,19 +265,8 @@
       "why": "inferred connection - not explicitly stated in source; bridges separate communities"
     },
     {
-      "source": "persist()",
-      "target": "saveSubscriptions()",
-      "source_files": [
-        "src/main.ts",
-        "src/storage.ts"
-      ],
-      "confidence": "EXTRACTED",
-      "relation": "calls",
-      "why": "bridges separate communities"
-    },
-    {
-      "source": "readThreshold()",
-      "target": "isSupportedCurrency()",
+      "source": "appView()",
+      "target": "addDays()",
       "source_files": [
         "src/main.ts",
         "src/domain.ts"
@@ -294,8 +276,19 @@
       "why": "bridges separate communities"
     },
     {
-      "source": "saveThreshold()",
-      "target": "isSupportedCurrency()",
+      "source": "exportIcs()",
+      "target": "addDays()",
+      "source_files": [
+        "src/main.ts",
+        "src/domain.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "bridges separate communities"
+    },
+    {
+      "source": "samplePreview()",
+      "target": "addDays()",
       "source_files": [
         "src/main.ts",
         "src/domain.ts"
