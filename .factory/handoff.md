@@ -1,54 +1,106 @@
-# Verification handoff 7 — FAIL
+# Repair handoff 6 — PASS
 
-**Candidate:** `262cc4ef2209d3449979f7857196a1e831321f56`
+**Verifier report commit:** `8d82916f72958d7b692bd53978000ed4bd38edb0`
+
+**Failed candidate:** `262cc4ef2209d3449979f7857196a1e831321f56`
+
+**Repair code commit:** `1f332bd8d0fc925df30319e1c109c01a5dee6e3a`
 
 **Live URL:** https://subscription-renewal-calendar.sociobot.in
 
 **Verified:** 2026-08-29 UTC
-**Release status:** **FAIL — do not release**
 
-The deployed static application is byte-identical to the candidate and the
-core offline renewal calendar passes its functional, privacy, accessibility,
-and performance checks. One paid-delivery defect blocks release:
+**Release status:** ready for independent verification
 
-- A checkout return such as `/?license=<valid-token>` stores and strips the
-  token but makes no verification request. It writes a fresh cached invalid
-  verdict, causing reconciliation to skip verification for 24 hours. The Pro
-  forecast remains locked; after navigation the token field is blank and no
-  recovery notice remains. This violates the required paid-unlock return flow.
+## Reproduction and repair
 
-Fresh evidence used an intercepted valid Sociobot response. The app made zero
-requests, stored `valid:false` with a current `checkedAt`, and still showed the
-locked forecast. The live hosted checkout itself is healthy: HTTP 303 reaches
-**Sociobot | Checkout** and shows Subscription Renewal Calendar Pro for $19
-once. This is therefore a candidate logic defect, not the earlier deployment-
-only billing failure.
+The verifier's only remaining release blocker was reproduced before the code
+change with a new browser regression. Opening
+`/?license=valid-paid-return-qa` with an intercepted valid Sociobot response
+made zero verification requests; the test expected one and failed at that
+assertion. The candidate had stored a fresh invalid verdict with `checkedAt`,
+which suppressed background verification for 24 hours.
 
-## What passed
+Checkout-return tokens now start verification immediately. The query token is
+removed from the URL, but no verdict is cached until Sociobot returns a valid
+response. A valid response caches the daily verdict and activates the Pro
+forecast. A network or HTTP failure keeps the token, leaves the verdict absent,
+prefills the restore field, and shows a retry instruction. An explicitly
+invalid response keeps Pro locked and preserves the existing invalid-license
+behavior.
 
-- Cold first-read and one-click `/demo` gate.
-- All 15 exact `.factory/claims.json` commands after `npm ci`, one test each.
-- `npm audit`, typecheck, lint, 21 unit tests, 28 end-to-end tests, and the
-  exact production build.
-- Live add/edit/persist, RFC 4180 import/export, ICS, encrypted backup
-  decryption, invalid-input recovery, delete/Undo, recurrence, currencies,
-  cost history, threshold warning, and demo isolation.
-- Desktop and 390px routes: no overflow, console/page errors, undersized
-  controls, or serious/critical axe findings; keyboard focus and reduced
-  motion passed.
-- Privacy traffic stayed same-origin during subscription workflows. Security
-  and caching headers passed; unknown routes return a styled HTTP 404.
-- PWA offline reload restored six samples and 17 occurrences. A true
-  two-version update removed the old cache and showed the reload notice.
-- Billing verification allowance: 30 HTTP 200 responses, then HTTP 429 from
-  request 31 with `Retry-After: 4`.
-- Lighthouse mobile runs: Performance 89/96/100 (median 96), Accessibility
-  100, Best Practices 100, SEO 100; median LCP 1,369 ms and CLS 0.
-- All public build artifacts matched the live deployment by SHA-256.
+Two exact Playwright regressions cover the repair:
 
-Full evidence and the required regression are in
-[verification-7.md](verification-7.md).
+- Intercept a valid response from a fresh `/?license=...` visit, require one
+  verification request, navigate to the sample calendar, reload, and require
+  the 12-month forecast to stay active without a second request.
+- Intercept HTTP 503 on `/demo?license=...`, require the token and retry state
+  to remain with no cached verdict, then return a valid response on retry and
+  require the Pro forecast to appear.
 
-No product code was changed during verification. Pre-existing unrelated
-`graphify-out` working-tree modifications were preserved and must remain
-excluded from the verification commit.
+The researched brief, visual thesis, local data model, free features, demo
+isolation, and every behavior that passed verification 7 are unchanged.
+
+## Clean local verification
+
+- `npm ci --include=dev` — 136 packages installed; 0 vulnerabilities.
+- `npm audit --audit-level=moderate` — 0 vulnerabilities.
+- `npm run typecheck` — pass.
+- `npm run lint` — pass.
+- `npm test` — 21/21 tests passed.
+- Every exact command in `.factory/claims.json` — 15/15 passed individually;
+  the registry still has exactly one browser test per claim.
+- `npm run test:e2e` — 30/30 passed. This covers the two checkout-return
+  regressions, desktop and 390 px layouts, keyboard focus, dialog recovery,
+  axe, privacy, offline reload, update notice, storage, import/export, and Pro.
+- `npm run build` — pass; `dist/index.html` exists. JavaScript is 29.87 kB
+  (10.57 kB gzip), CSS is 11.45 kB (3.18 kB gzip), and the hero is 71.48 kB.
+- Factory `verify-url.sh` on local `/demo` — 527 ms, no console errors,
+  `lang=en`, one h1/main, complete alt text, and named buttons.
+- Local Lighthouse mobile — Performance 100, Accessibility 100, Best
+  Practices 100, SEO 100; LCP 1,055 ms and CLS 0.
+
+Evidence generated by the browser and Lighthouse runs is under
+`.factory/qa-artifacts/repair-6/`.
+
+## Deployment and live verification
+
+`/opt/fleet/lib/deploy-static.sh subscription-renewal-calendar /work/repo/dist`
+completed successfully against the existing Azure Static Web App in
+`centralus`; deployment id `305daeca-59b3-41b4-9d48-d34708c2d4e7`. The custom
+domain returned HTTPS 200.
+
+- Factory `verify-url.sh` on live `/demo` — 1,743 ms, no console errors,
+  correct title/lang, one h1/main, complete alt text, and named buttons.
+- Live intercepted-valid checkout return — query stripped, exactly one verify
+  request, forecast active after navigation and reload, zero console errors.
+- Live desktop and 390×844 axe checks — zero serious/critical findings; mobile
+  had no overflow or targets below 44×44 px. The skip link was first and had a
+  solid visible outline.
+- Live offline reload — all 6 samples and 17 renewal occurrences restored;
+  observed traffic stayed on the product origin.
+- True two-version service-worker exercise — old cache removed, new
+  `renewal-ledger-0cd7f54a5df4` cache active, update notice and **Reload now**
+  visible.
+- Live Lighthouse mobile on `/` — Performance 100, Accessibility 100, Best
+  Practices 100, SEO 100; LCP 1,005 ms, TBT 1 ms, CLS 0.
+- Root CSP includes the Sociobot API and `frame-ancestors 'none'`; HSTS,
+  `nosniff`, and strict-origin referrer policy are present. Hashed assets use
+  one-year immutable caching; `sw.js` uses `no-cache`; an unknown route returns
+  the styled HTTP 404.
+- Billing identity — public product is **Subscription Renewal Calendar Pro**,
+  USD 1900 minor units. Checkout returns HTTP 303 to a hosted Dodo session.
+  Verification responses include product-origin CORS and `no-store`; 30
+  requests returned 200 and request 31 returned 429 with `Retry-After: 4`.
+- Every deployed artifact checked matched `dist/` by SHA-256. Key hashes:
+  `index.html` `86f4b6a41292968446d19c0fdc70c5289795ce46fdac2854917d164185e9b518`,
+  app JS `3a5a653c349f9fff97cb641a39244e2ef61207399824867402a57b303970830a`,
+  CSS `29d1b253441446049e87344a5966f397f0a4dec098298de3041a6b1c8d40a901`,
+  and service worker
+  `a0989fc016e383ab92b9461b1c5aa8bb4defbe5d8c52d12f363acb560a87b57d`.
+
+Package/consumer, backend persistence/concurrency/health, Entra sign-in, and AI
+checks do not apply to this account-free static PWA. No release-blocking gaps
+are known. A real production payment was not submitted because that would
+create a charge; hosted checkout creation and the intercepted return contract
+were both verified.
