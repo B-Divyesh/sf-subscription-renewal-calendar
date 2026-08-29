@@ -1,5 +1,17 @@
 # Handoff — release-blocking QA repair 3
 
+## Latest independent verification — candidate `5cb2153e77e97a3b07a880eeae13eb18845e9276`
+
+**Status: FAIL.** Independent verification on 2026-08-29 found the deployed
+artifact functionally healthy and byte-identical to this candidate, with all 15
+claim tests, all repository gates, live PWA/privacy/accessibility checks, and
+rate-limit checks passing. The candidate still fails the mandatory plain-words
+contract: the 404 h1 reads **“This page is not on the board.”**, a metaphorical
+heading. Change it to literal copy such as **“Page not found”** and reverify.
+See [verification-5.md](verification-5.md) for exact commands, evidence,
+severity, bundle/Lighthouse results, live URL, and the observed license API
+allowance (30 requests, then HTTP 429 with `Retry-After: 3`).
+
 ## Status: repaired, verified, pushed, and deployed
 
 The release blockers in independent verifier report commit
